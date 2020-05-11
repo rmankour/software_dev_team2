@@ -1,0 +1,7 @@
+class geneticAlgo
+{
+    public:
+
+    protected:
+
+};
