@@ -2,8 +2,9 @@ class fonction{
 	public:
 		fonction(int n); //constructeur
 		~fonction(); //destructeur
-		mutation();
+		void mutation();
 		bool execute(bool data); //calcule les résultats pour data
+		int* getRankYN();
 
 
 	protected:
@@ -14,6 +15,5 @@ class fonction{
 		int sizeYN_;
 		int sizeAO_;
 		int sizeVar_;
-
-
+		
 };
