@@ -11,6 +11,9 @@ class fonction{
 		int* rankYN_;
 		int* rankAO_;
 		int* rankVar_;
+		int sizeYN_;
+		int sizeAO_;
+		int sizeVar_;
 
 
 };
