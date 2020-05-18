@@ -1,16 +1,16 @@
 class fonction{
 	public:
-		fonction() = default;
 		fonction(int n); //constructeur
+		~fonction(); //destructeur
 		mutation();
 		bool execute(bool data); //calcule les résultats pour data
 
 
 	protected:
-		int n; //number of variables in the function
-		int rankYN[n];
-		int rankAO[n-1];
-		int rankVar[n];
+		int n_; //number of variables in the function
+		int* rankYN_;
+		int* rankAO_;
+		int* rankVar_;
 
 
 };
