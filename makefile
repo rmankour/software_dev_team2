@@ -1,7 +1,5 @@
-objects = run_tests test_file_geneticAlgo.o exec.o run_test_exec.o exec_test.o
+objects = run_tests test_file_geneticAlgo.o exec.o run_test_exec.o exec_test.o fonction.o
 CXXFLAGS= -Wall
-
-
 
 
 exec_test.o: gtest_file_construction.cpp construction.cpp main.cpp
@@ -20,6 +18,9 @@ run_tests: test_file_geneticAlgo.o
 	
 test_file_geneticAlgo.o: test_file_geneticAlgo.cpp
 	g++ $(CXXFLAGS) -c test_file_geneticAlgo.cpp -o test_file_geneticAlgo.o -Igoogletest-release-1.10.0/googletest/include/ -std=c++11
+
+fonction.o: fonction.cpp
+	g++ -c fonction.cpp -o fonction.o
 
 clean:
 	rm $(objects)
