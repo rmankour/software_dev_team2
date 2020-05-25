@@ -39,3 +39,8 @@ TEST(GTestTests, fonctionConstructor_test){
 		EXPECT_TRUE(f1.getRankYN()[i] == 0 || f1.getRankYN()[i] == 1);
 	}
 }
+
+TEST(GTestTests, fonctionGetN_test){
+	EXPECT_EQ(f1.getN(), 20);
+}
+

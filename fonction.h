@@ -7,6 +7,8 @@ class fonction{
 		int* getRankYN();
 		int* getRankAO();
 		int* getRankVar();
+		int getN();
+		fonction& operator=(const fonction& fct);
 
 
 	protected:
