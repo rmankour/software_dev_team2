@@ -119,18 +119,51 @@ fonction construction::SSE(const fonction* &tab_fonctions){
 	for(int j=0; j< numChildren; j++) {
 		//Calcul de la SSE pour la formule j
 		int sse = 0;
-		for (int i=0; i<nb_coltab2D;i++) {
-			sse += (tab2d_[j][i] - tab_fonctions[j].operations[i])²;
+		for (int i=0; i<nb_ligtab2D;i++) {
+			//Calcul du resultat de ma formule
+			fonction formuleActuelle = tab_fonctions[j];
+
+			bool node_yn = formuleActuelle.getRankYN()[0];
+			bool node_vark = tab2d_[i][0];
+			int resultat_de_ma_fonction = (node_yn == 1) * (node_vark) + (node_yn == 0) * (!node_vark) 
+
+			for (int k=1;k<nb_coltab2D-1 ;k++) { //On ne prend que les (n-1) premiers points observés
+				//YES or NO
+				node_yn = formuleActuelle.getRankYN()[k];//Si 1 : YES Si 0 : OR
+				//Variable k
+				node_vark = tab2d_[i][k];
+				//AND or OR
+				bool node_ao = formuleActuelle.getRankAO()[k-1];//Si 1 : AND Si 0 : OR
+
+				//J'assemble le tout YEAH
+				if(node_yn) {
+					if(node_ao) {
+						resultat_de_ma_fonction = resultat_de_ma fonction && node_vark;
+					}
+					else {
+						resultat_de_ma_fonction = resultat_de_ma fonction || node_vark;
+					}
+				} 
+				else {
+					if(node_ao) {
+						resultat_de_ma_fonction = resultat_de_ma fonction && !node_vark;
+					}
+					else {
+						resultat_de_ma_fonction = resultat_de_ma fonction || !node_vark;
+					}
+				}
+
+			}
+			sse += (resultat_de_ma_fonction - tab2d_[i][nb_coltab2D])²;
 		}
-		sse = -sse;
 		//On obtient la SSE pour la formule j
 		//Comparaison avec la best_sse
-		if (abs(sse) <= abs(best_sse)) {
+		if (sse <= best_sse) {
 			best_sse = sse;
 			formule_ = tab_fonctions[j];
 		}
 	}
-	return 
+	return; 
 } ;
 
 // prend tous les paramètres donnés par l'utilisateur et réalise la boucle de calculs nécessaire pour aboutir à la myFormule finale
