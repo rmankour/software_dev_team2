@@ -1,4 +1,5 @@
 #include <string>
+#include "fonction.cpp"
 
 class construction
 {
@@ -6,8 +7,8 @@ class construction
     construction(const int gen, const int ind, const std::string adress);
     void dataManage();
     bool lectureCaseTab(size_t lig, size_t col);
-    char* generation();
-    char* SCE(const char* &tab); // reçoit un tableau de formule et retourne la meilleure d'entre elles (en prenant aussi en compte la myFormule actuelle)
+    fonction* generation(bool popuInitiale);
+    fonction SSE(const fonction* &tab); // reçoit un tableau de formule et retourne la meilleure d'entre elles (en prenant aussi en compte la myFormule actuelle)
     void theCycleOfLife(); // prend tous les paramètres donnés par l'utilisateur et réalise la boucle de calculs nécessaire pour aboutir à la myFormule finale
     size_t get_nblig();
     size_t get_nbcol();
@@ -20,7 +21,7 @@ class construction
     bool** tab2d_; // Contient dans un tableau en 2D les données fournies par l'utilisateur
     size_t nb_ligtab2D_;
     size_t nb_coltab2D_;
-    char* formule_; // Contient la formule en cours de construction
+    fonction formule_; // Contient la formule en cours de construction
 
 
 
