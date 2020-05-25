@@ -93,13 +93,30 @@ bool construction::lectureCaseTab(size_t lig, size_t col)
 	return tab2d_[lig][col];
 };
 
-char* construction::generation(){
+fonction* construction::generation(bool popuInitiale){
+
+	fonction* popuFonctions = new fonction[numChildren];
+	for(int i=0 ; i<numChildren ; i++) {
+		if (popuInitiale) { //Pour la population initiale de fonctions, il n'y a pas de fonction de reference
+			fonction fonctionEnfant(nb_coltab2D);
+			popuFonctions[i] = fonctionEnfant;
+		}
+		else {//Pour toutes les autres generations de fonctions, il y a une fonction de reference formule_
+			fonction fonctionEnfant(nb_coltab2D, formule_);
+			popuFonctions[i] = fonctionEnfant;
+		}
+	}
+	return popuFonctions;
 
 };
 
 // reçoit un tableau de formule et retourne la meilleure d'entre elles (en prenant aussi en compte la myFormule actuelle)
-char* construction::SCE(const char* &tab){
 
+fonction construction::SSE(const fonction* &tab){
+	
+	//int best_sse = 0;
+	//Calcul de la SSE pour chaque fonction enfant
+	
 } ;
 
 // prend tous les paramètres donnés par l'utilisateur et réalise la boucle de calculs nécessaire pour aboutir à la myFormule finale
