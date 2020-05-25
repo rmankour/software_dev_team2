@@ -79,8 +79,8 @@ TEST(GTestTests, fonctionCopyConstructor_test){
 }
 
 
-fonction f3(2);
-TEST(GTestTests, fonctionOperatorEq_test){
+fonction f3(5);
+/*TEST(GTestTests, fonctionOperatorEq_test){
 	f3 = f1;
 
 	int* f1YN = f1.getRankYN();
@@ -112,5 +112,55 @@ TEST(GTestTests, fonctionOperatorEq_test){
 	f3AO = nullptr;
 	delete []f3Var;
 	f3Var = nullptr;
+}*/
+
+
+TEST(GTestTests, fonctionMutation_test){
+	int n = f3.getN();
+	int* YN0 = new int[n];
+	int* AO0 = new int[n-1];
+	int* Var0 = new int[n];
+	for(int i=0 ; i<n; i++){ //fills rankYN
+		YN0[i] = f3.getRankYN()[i];
+	}
+
+	for(int i=0 ; i<n-1 ; i++){ //fills rankYN
+		AO0[i] = f3.getRankAO()[i];
+	}
+
+	for(int i=0 ; i<n; i++){ //fills rankVar
+		Var0[i] = f3.getRankVar()[i];
+	}
+	f3.mutation();
+	int* YN1 = f3.getRankYN();
+	int* AO1 = f3.getRankAO();
+	int* Var1 = f3.getRankVar();
+
+	bool mutTest = false;
+
+	for (int i = 0; i < n-1; ++i)
+	{
+		
+		mutTest = mutTest or YN0[i]!=YN1[i] or AO0[i]!=AO1[i] or Var0[i]!=Var1[i];
+	}
+
+	mutTest = mutTest or YN0[n-1]!=YN1[n-1] or Var0[n-1]!=Var1[n-1];
+
+	EXPECT_TRUE(mutTest);
+
+
+	delete [] YN0;
+	YN0 = nullptr;
+	delete [] AO0;
+	AO0 = nullptr;
+	delete [] Var0;
+	Var0 = nullptr;
+	delete [] YN1;
+	YN1 = nullptr;
+	delete [] AO1;
+	AO1 = nullptr;
+	delete [] Var1;
+	Var1 = nullptr;
 }
 
+int A;

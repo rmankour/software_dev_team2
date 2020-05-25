@@ -81,6 +81,7 @@ fonction::~fonction(){ //destructeur
 	delete []rankVar_;
 	rankVar_ = nullptr;
 }
+
 fonction& fonction::operator=(fonction& fct)
 {
 	rankYN_ = nullptr;
@@ -119,6 +120,10 @@ fonction& fonction::operator=(fonction& fct)
 	tempVar = nullptr;
 
 	return *this;
+
+	//fonction returnedfunc = fct;
+	//return returnedfunc;
+
 }
 
 void fonction::mutation(){
@@ -128,28 +133,36 @@ void fonction::mutation(){
 	int mutVar = -1;
 
 	switch (mutType)
-		{
-			case 0: // Mutation sur YN
-				mutRank = std::rand()%(sizeYN_+1); // quel rang concerne la mutation ?
-				rankYN_[mutRank] = std::abs(rankYN_[mutRank]-1); // inversion 0 <-> 1 
-		        break;
-		    case 1: // Mutation sur AO
-		    	mutRank = std::rand()%(sizeAO_+1); // quel rang concerne la mutation ?
-		    	rankAO_[mutRank] = std::abs(rankAO_[mutRank]-1); // inversion 0 <-> 1
-		        break;
-		    case 2: // Mutation sur Var
-		    	mutRank = std::rand()%(sizeVar_+1); // quels rang sont à échanger ?
-		    	do 
-		    	{
-		    		mutVar = std::rand()%(sizeVar_+1); // quels rang sont à échanger ?
-		    	}while(mutRank==mutVar);
+	{
+		case 0: {// Mutation sur YN
+			//std::cout << "mutYN" << std::endl;
+			mutRank = std::rand()%(sizeYN_+1); // quel rang concerne la mutation ?
+			rankYN_[mutRank] = std::abs(rankYN_[mutRank]-1); // inversion 0 <-> 1 
+       	}break;
+	    case 1: {// Mutation sur AO
+	    	//std::cout << "mutAO" << std::endl;
+	    	mutRank = std::rand()%(sizeAO_+1); // quel rang concerne la mutation ?
+	    	rankAO_[mutRank] = std::abs(rankAO_[mutRank]-1); // inversion 0 <-> 1
+       	}break;
+	    case 2:{ // Mutation sur Var
+	    	//std::cout << "mutVar" << std::endl;
+	    	mutRank = std::rand()%(sizeVar_+1); // quels rang sont à échanger ?
+	    	//std::cout << mutRank << std::endl;
+	    	do 
+	    	{
+	    		mutVar = std::rand()%(sizeVar_+1); // quels rang sont à échanger ?
+	    		//std::cout << mutVar << std::endl;
+	    	}while(mutRank==mutVar);
 
-		    	// switch the two var in rankVar_
-		    	int temp = rankVar_[mutVar];
-		    	rankVar_[mutVar] = rankVar_[mutRank];
-		    	rankVar_[mutRank] = temp;
-		        break;
-		    //default: // code to be executed if mutType doesn't match any cases
-		}
+	    	// switch the two var in rankVar_
+	    	int temp = rankVar_[mutVar];
+	    	rankVar_[mutVar] = rankVar_[mutRank];
+	    	rankVar_[mutRank] = temp;
+	    }break;
+	    default:{ // code to be executed if mutType doesn't match any cases
+	    	//std::cout << "ERROR" << std::endl;
+	    }
+	}
+
 
 }
