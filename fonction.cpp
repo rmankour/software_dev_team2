@@ -82,12 +82,41 @@ fonction::~fonction(){ //destructeur
 	rankVar_ = nullptr;
 }
 
-/*fonction& fonction::operator=(const fonction& fct)
+fonction& fonction::operator=(fonction& fct)
 {
-	
+	n_ = fct.getN();
+	rankYN_ = new int[n_]; //yes=1, no=0
+	rankAO_ = new int[n_-1]; //and=1, or=0
+	rankVar_ = new int[n_];
+	sizeYN_ = n_;
+	sizeAO_ = n_-1;
+	sizeVar_ = n_;
+
+	int* tempYN = fct.getRankYN();
+	int* tempAO = fct.getRankAO();
+	int* tempVar = fct.getRankVar();
+
+	for(int i=0 ; i<sizeYN_ ; i++){ //fills rankYN
+		rankYN_[i] = tempYN[i];
+	}
+
+	for(int i=0 ; i<sizeAO_ ; i++){ //fills rankYN
+		rankAO_[i] = tempAO[i];
+	}
+
+	for(int i=0 ; i<sizeVar_ ; i++){ //fills rankVar
+		rankVar_[i] = tempVar[i];
+	}
+
+	delete []tempYN;
+	tempYN = nullptr;
+	delete []tempAO;
+	tempAO = nullptr;
+	delete []tempVar;
+	tempVar = nullptr;
 
 	return *this;
-}*/
+}
 
 /*void fonction::mutation(){
 	// La mutation concerne YN(0), AO(1), Var(2) ?

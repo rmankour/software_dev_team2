@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "construction.cpp"
+//#include "construction.cpp"
 #include "fonction.cpp"
 #include <string>
 #include <iostream>
@@ -14,7 +14,7 @@ TEST(GTestTests, basic_test) {
     EXPECT_TRUE(true);
 }
 
-TEST(GTestTests, test_dataManage_lectureCaseTab)
+/*TEST(GTestTests, test_dataManage_lectureCaseTab)
 {
 	construction obj(0,0,"gene.csv");
 	obj.dataManage();
@@ -31,7 +31,7 @@ TEST(GTestTests, test_dataManage_lectureCaseTab)
 	}
 	EXPECT_EQ(chartest,expectedchar);
 
-}
+}*/
 
 fonction f1(20);
 TEST(GTestTests, fonctionConstructor_test){
@@ -42,5 +42,39 @@ TEST(GTestTests, fonctionConstructor_test){
 
 TEST(GTestTests, fonctionGetN_test){
 	EXPECT_EQ(f1.getN(), 20);
+}
+
+TEST(GTestTests, fonctionOperatorEq_test){
+	fonction f2 = f1;
+
+	int* f1YN = f1.getRankYN();
+	int* f1AO = f1.getRankAO();
+	int* f1Var = f1.getRankVar();
+	int* f2YN = f2.getRankYN();
+	int* f2AO = f2.getRankAO();
+	int* f2Var = f2.getRankVar();
+
+	for (int i = 0; i < f1.getN()-1; ++i)
+	{
+		EXPECT_EQ(f1YN[i], f2YN[i]);
+		EXPECT_EQ(f1AO[i], f2AO[i]);
+		EXPECT_EQ(f1Var[i], f2Var[i]);
+	}
+
+	EXPECT_EQ(f1YN[f1.getN()-1], f2YN[f1.getN()-1]);
+	EXPECT_EQ(f1Var[f1.getN()-1], f2Var[f1.getN()-1]);
+
+	delete []f1YN;
+	f1YN = nullptr;
+	delete []f1AO;
+	f1AO = nullptr;
+	delete []f1Var;
+	f1Var = nullptr;
+	delete []f2YN;
+	f2YN = nullptr;
+	delete []f2AO;
+	f2AO = nullptr;
+	delete []f2Var;
+	f2Var = nullptr;
 }
 
