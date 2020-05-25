@@ -8,7 +8,7 @@ class construction
     void dataManage();
     bool lectureCaseTab(size_t lig, size_t col);
     fonction* generation(bool popuInitiale);
-    fonction SSE(const fonction* &tab); // reçoit un tableau de formule et retourne la meilleure d'entre elles (en prenant aussi en compte la myFormule actuelle)
+    fonction SSE(const fonction* &tab_fonctions); // reçoit un tableau de formule et retourne la meilleure d'entre elles (en prenant aussi en compte la myFormule actuelle)
     void theCycleOfLife(); // prend tous les paramètres donnés par l'utilisateur et réalise la boucle de calculs nécessaire pour aboutir à la myFormule finale
     size_t get_nblig();
     size_t get_nbcol();

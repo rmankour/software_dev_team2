@@ -112,11 +112,25 @@ fonction* construction::generation(bool popuInitiale){
 
 // reçoit un tableau de formule et retourne la meilleure d'entre elles (en prenant aussi en compte la myFormule actuelle)
 
-fonction construction::SSE(const fonction* &tab){
+fonction construction::SSE(const fonction* &tab_fonctions){
 	
-	//int best_sse = 0;
+	int best_sse = 0;
 	//Calcul de la SSE pour chaque fonction enfant
-	
+	for(int j=0; j< numChildren; j++) {
+		//Calcul de la SSE pour la formule j
+		int sse = 0;
+		for (int i=0; i<nb_coltab2D;i++) {
+			sse += (tab2d_[j][i] - tab_fonctions[j].operations[i])²;
+		}
+		sse = -sse;
+		//On obtient la SSE pour la formule j
+		//Comparaison avec la best_sse
+		if (abs(sse) <= abs(best_sse)) {
+			best_sse = sse;
+			formule_ = tab_fonctions[j];
+		}
+	}
+	return 
 } ;
 
 // prend tous les paramètres donnés par l'utilisateur et réalise la boucle de calculs nécessaire pour aboutir à la myFormule finale
