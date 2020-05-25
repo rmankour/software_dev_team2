@@ -44,7 +44,7 @@ TEST(GTestTests, fonctionGetN_test){
 	EXPECT_EQ(f1.getN(), 20);
 }
 
-TEST(GTestTests, fonctionOperatorEq_test){
+TEST(GTestTests, fonctionCopyConstructor_test){
 	fonction f2 = f1;
 
 	int* f1YN = f1.getRankYN();
@@ -76,5 +76,41 @@ TEST(GTestTests, fonctionOperatorEq_test){
 	f2AO = nullptr;
 	delete []f2Var;
 	f2Var = nullptr;
+}
+
+
+fonction f3(2);
+TEST(GTestTests, fonctionOperatorEq_test){
+	f3 = f1;
+
+	int* f1YN = f1.getRankYN();
+	int* f1AO = f1.getRankAO();
+	int* f1Var = f1.getRankVar();
+	int* f3YN = f3.getRankYN();
+	int* f3AO = f3.getRankAO();
+	int* f3Var = f3.getRankVar();
+
+	for (int i = 0; i < f1.getN()-1; ++i)
+	{
+		EXPECT_EQ(f1YN[i], f3YN[i]);
+		EXPECT_EQ(f1AO[i], f3AO[i]);
+		EXPECT_EQ(f1Var[i], f3Var[i]);
+	}
+
+	EXPECT_EQ(f1YN[f1.getN()-1], f3YN[f1.getN()-1]);
+	EXPECT_EQ(f1Var[f1.getN()-1], f3Var[f1.getN()-1]);
+
+	delete []f1YN;
+	f1YN = nullptr;
+	delete []f1AO;
+	f1AO = nullptr;
+	delete []f1Var;
+	f1Var = nullptr;
+	delete []f3YN;
+	f3YN = nullptr;
+	delete []f3AO;
+	f3AO = nullptr;
+	delete []f3Var;
+	f3Var = nullptr;
 }
 

@@ -81,9 +81,12 @@ fonction::~fonction(){ //destructeur
 	delete []rankVar_;
 	rankVar_ = nullptr;
 }
-
 fonction& fonction::operator=(fonction& fct)
 {
+	rankYN_ = nullptr;
+	rankAO_ = nullptr;
+	rankVar_ = nullptr;
+
 	n_ = fct.getN();
 	rankYN_ = new int[n_]; //yes=1, no=0
 	rankAO_ = new int[n_-1]; //and=1, or=0
@@ -118,7 +121,7 @@ fonction& fonction::operator=(fonction& fct)
 	return *this;
 }
 
-/*void fonction::mutation(){
+void fonction::mutation(){
 	// La mutation concerne YN(0), AO(1), Var(2) ?
 	int mutType = std::rand()%3;
 	int mutRank = -1;
@@ -139,14 +142,14 @@ fonction& fonction::operator=(fonction& fct)
 		    	do 
 		    	{
 		    		mutVar = std::rand()%(sizeVar_+1); // quels rang sont à échanger ?
-		    	}while(mutRank==mutVar)
+		    	}while(mutRank==mutVar);
 
 		    	// switch the two var in rankVar_
 		    	int temp = rankVar_[mutVar];
 		    	rankVar_[mutVar] = rankVar_[mutRank];
 		    	rankVar_[mutRank] = temp;
 		        break;
-		    default: // code to be executed if mutType doesn't match any cases
+		    //default: // code to be executed if mutType doesn't match any cases
 		}
 
-}*/
+}
