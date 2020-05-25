@@ -1,9 +1,11 @@
 #include <stdio.h>
-#include "construction.h"
+
+// ***************** REMARQUE : les lignes qu'il y a avait dans le main.cpp ne permettaient pas de compiler donc elles sont en commentaires
+// #include "construction.h"
 
 int main(int argc, char *argv[]) {
 
-   printf("Hello, Julie!");
+   printf("Hello, this is the beginning !");
 
    // pour s'assurer que tout a bien ete pris correctement en argument
    // argv[0] holds the name of the program.
@@ -21,8 +23,8 @@ int main(int argc, char *argv[]) {
     }
 
     // debut des objets
-    construction obj(0,0,"gene.csv");
-	  obj.dataManage();
+    //construction obj(0,0,"gene.csv");
+	  //obj.dataManage();
 	
 
    return 0;
