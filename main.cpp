@@ -22,6 +22,12 @@ int main(int argc, char *argv[]) {
             printf("\nargv[%d]: %s",counter,argv[counter]); 
     }
 
+    // on met les arguments dans des variables
+    char* nb_children = argv[1];
+    char* nb_generation = argv[2];
+    char* adresse_tab = argv[3];
+
+
     // debut des objets
     //construction obj(0,0,"gene.csv");
 	  //obj.dataManage();
