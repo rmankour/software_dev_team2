@@ -55,11 +55,18 @@ fonction::fonction(int n){ //constructeur n nbr de variables
 	//std::cout << "rankVar_" << std::endl;
 
 
-
 }
 
 int* fonction::getRankYN(){
 	return rankYN_;
+}
+
+int* fonction::getRankAO(){
+	return rankAO_;
+}
+
+int* fonction::getRankVar(){
+	return rankVar_;
 }
 
 fonction::~fonction(){ //destructeur
@@ -70,3 +77,31 @@ fonction::~fonction(){ //destructeur
 	delete []rankVar_;
 	rankVar_ = nullptr;
 }
+/*
+void fonction::mutation(){
+	// La mutation concerne YN(0), AO(1), Var(2) ?
+	int mutType = std::rand()%3;
+	int mutRank = -1;
+	int mutVar = -1;
+
+	switch (mutType)
+		{
+			case 0: // Mutation sur YN
+				mutRank = std::rand()%(sizeYN_+1); // quel rang concerne la mutation ?
+				rankYN_[mutRank] = std::abs(rankYN_[mutRank]-1); // inversion 0 <-> 1 
+		        break;
+		    case 1: // Mutation sur AO
+		    	mutRank = std::rand()%(sizeAO_+1); // quel rang concerne la mutation ?
+		    	rankAO_[mutRank] = std::abs(rankAO_[mutRank]-1); // inversion 0 <-> 1
+		        break;
+		    case 2: // Mutation sur Var
+		    	mutRank = std::rand()%(sizeVar_+1); // quels rang sont à échanger ?
+		    	do 
+		    	{
+
+		    	}
+		        break;
+		    default: // code to be executed if mutType doesn't match any cases
+		}
+
+}*/

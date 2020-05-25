@@ -5,6 +5,8 @@ class fonction{
 		void mutation();
 		bool execute(bool data); //calcule les résultats pour data
 		int* getRankYN();
+		int* getRankAO();
+		int* getRankVar();
 
 
 	protected:
