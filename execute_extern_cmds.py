@@ -4,7 +4,7 @@ import os
 # par exemple pour l'affichage de differents graphes
 
 def compile():
-	command="gcc main.cpp -o main.out"
+	command="g++ main.cpp -o main.out"
 	print(command)
 	return os.system(command)
 

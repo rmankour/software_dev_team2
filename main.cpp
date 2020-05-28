@@ -1,7 +1,10 @@
+#include "construction.h"
 #include <stdio.h>
+#include <string>
+
+
 
 // ***************** REMARQUE : les lignes qu'il y a avait dans le main.cpp ne permettaient pas de compiler donc elles sont en commentaires
-// #include "construction.h"
 
 int main(int argc, char *argv[]) {
 
@@ -23,15 +26,16 @@ int main(int argc, char *argv[]) {
     }
 
     // on met les arguments dans des variables
-    char* nb_children = argv[1];
-    char* nb_generation = argv[2];
-    char* adresse_tab = argv[3];
+    int nb_children = std::atoi(argv[1]);  // converti notre char en int 
+    int nb_generation = std::atoi(argv[2]) ; // converti notre char en int
+    std::string adresse_tab = argv[3]; // constructeur de string converti directement un char en int sans soucis.
 
 
     // debut des objets
-    //construction obj(0,0,"gene.csv");
-	  //obj.dataManage();
-	
+    /*
+    construction obj(nb_children,nb_generation,adresse_tab);
+	  obj.dataManage();
+    */
 
    return 0;
 }
