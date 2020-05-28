@@ -21,6 +21,7 @@ construction::construction(const int gen, const int ind, const std::string adres
     theCycleOfLife();*/
 };
 
+
 void construction::dataManage()
 {
 	std::ifstream ip(adresse_); //ouvre un flux appellé ip avec l'adress du fichier csv
@@ -113,8 +114,9 @@ void construction::generation(){
 
 // reçoit un tableau de formule et retourne la meilleure d'entre elles (en prenant aussi en compte la formule_ actuelle)
 
-fonction construction::SSE(const fonction* &tab){
 
+fonction construction::SSE(const fonction* &tab_fonctions){
+/*
     //int best_sse = 0;
     //Calcul de la SSE pour chaque fonction enfant
     for(int j=0; j< numChildren; j++) {
@@ -164,8 +166,10 @@ fonction construction::SSE(const fonction* &tab){
             formule_ = tab_fonctions[j];
         }
     }
-    return; 
+    return; //doit retourner un objet
+    */
 } ;
+
 
 // prend tous les paramètres donnés par l'utilisateur et réalise la boucle de calculs nécessaire pour aboutir à la formule_ finale
 void construction::theCycleOfLife(){

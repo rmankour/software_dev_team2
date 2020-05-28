@@ -1,7 +1,8 @@
 #include <string>
-#include "fonction.cpp"
+#include "fonction.h"
 
-class construction
+
+class construction 
 {
     public:
     construction(const int gen, const int ind, const std::string adress);
@@ -21,11 +22,11 @@ class construction
     int compteurFormules;
     int *tab_positions; // stocke la position des mutations
     int *tab_type; // stocke le type de mutations
-    int *tab_rang // stocke le rang avec le lequel se fait un échange en cas d'interversion (-1 si pas d'interversion)
+    int *tab_rang; // stocke le rang avec le lequel se fait un échange en cas d'interversion (-1 si pas d'interversion)
     bool** tab2d_; // Contient dans un tableau en 2D les données fournies par l'utilisateur
     size_t nb_ligtab2D_;
     size_t nb_coltab2D_;
-    fonction formule_; // Contient la formule en cours de construction
+    fonction* formule_; // Contient la formule en cours de construction
 
 
 
