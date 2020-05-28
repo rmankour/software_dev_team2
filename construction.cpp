@@ -13,7 +13,7 @@ construction::construction(const int gen, const int ind, const std::string adres
     int numGenerations = gen; // Nombre de générations à réaliser, indiqué par l'utilisateur ou valeur par défaut
     /*dataManage(); // donne une valeur à tableau qui contient dans un tableau en 2D les données fournies par l'utilisateur
     fonction formule_; // Devrait générer une formule au pif si la classe marche bien
-    int compteurFormules = 0;
+    int compteurFormules = 0; // Permet d'avancer dans l'historique composé des 3 tableaux à suivre
     int tab_positions[numGenerations+1]; // stocke la position des mutations
     int tab_type[numGenerations+1]; // stocke le type de mutations
     int tab_rang[numGenerations+1]; // stocke le rang avec le lequel se fait un échange en cas d'interversion (-1 si pas d'interversion)
