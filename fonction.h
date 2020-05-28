@@ -1,5 +1,6 @@
 class fonction{
 	public:
+		fonction();
 		fonction(int n); //constructeur
 		~fonction(); //destructeur
 		void mutation();
