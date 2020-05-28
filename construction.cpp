@@ -9,9 +9,10 @@
 
 construction::construction(const int gen, const int ind, const std::string adress){
     adresse_ = adress; // Adresse du fichier .CSV fournie par l'utilisateur
-    int numChildren = ind; // Nombre de d'individus par génération, indiqué par l'utilisateur ou valeur par défaut
-    int numGenerations = gen; // Nombre de générations à réaliser, indiqué par l'utilisateur ou valeur par défaut
-    /*dataManage(); // donne une valeur à tableau qui contient dans un tableau en 2D les données fournies par l'utilisateur
+    numChildren_ = ind; // Nombre de d'individus par génération, indiqué par l'utilisateur ou valeur par défaut
+    numGenerations_ = gen; // Nombre de générations à réaliser, indiqué par l'utilisateur ou valeur par défaut
+    //dataManage(); // donne une valeur à tableau qui contient dans un tableau en 2D les données fournies par l'utilisateur
+    /*
     fonction formule_; // Devrait générer une formule au pif si la classe marche bien
     int compteurFormules = 0; // Permet d'avancer dans l'historique composé des 3 tableaux à suivre
     int tab_positions[numGenerations+1]; // stocke la position des mutations
@@ -19,7 +20,9 @@ construction::construction(const int gen, const int ind, const std::string adres
     int tab_rang[numGenerations+1]; // stocke le rang avec le lequel se fait un échange en cas d'interversion (-1 si pas d'interversion)
     // Les mutations sont stockées dans l'ordre d'occurence
     theCycleOfLife();*/
+   
 };
+
 
 
 void construction::dataManage()
@@ -98,14 +101,27 @@ bool construction::lectureCaseTab(size_t lig, size_t col)
 };
 
 void construction::generation(){
-/*
-    fonction storage[numChildren];
-    i = 0;
-    while(i<numChildren){
-        storage[i]=formule_;
+	//////
+	////// -< c'est le bordel :'( 
+	////// pour tester tu peux utiliser "python execute_extern_cmds.py" -> ca compile avec g++ main.cpp fonction.cpp et construction.cpp
+	////// dans le main directement t'as un obj.generation()
+
+
+
+	/*
+	fonction f1(528); 
+	formule_ = &f1; // -> formule est de type fonction* sans l'étoile ça serait simple mais ça marche pas :'(
+	*/
+	/*	
+	fonction storage[numChildren_]; // segmentation fault tel quel:'( -> faut il utiliser "fonction* storage[numChildren_]" ???
+    int i = 0;
+    while(i<numChildren_){
+        storage[i]=formule_;// on peut remplacer formule par f1 objet de type fonction.	
         storage[i].mutation();
-    }
-    formule_ = SSE(storage) //stocke la nouvelle meilleure formule dans l'attribut de la classe
+        i++;
+    }*/
+    //formule_ = SSE(storage) //stocke la nouvelle meilleure formule dans l'attribut de la classe
+    /*
     tab_positions[compteurFormules] = formule_.position; //stocke la mutation réalisée (position)
     tab_type[compteurFormules]= formule_.type; //stocke la mutation réalisée (type)
     tab_rang[compteurFormules]= formule_.rang; //stocke la mutation réalisée (rang, si interversion)

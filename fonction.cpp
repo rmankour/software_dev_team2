@@ -2,6 +2,10 @@
 #include <cstdlib>
 #include <iostream>
 
+fonction::fonction()
+{
+	
+}
 fonction::fonction(int n){ //constructeur n nbr de variables
 	n_ = n;
 	rankYN_ = new int[n]; //yes=1, no=0

@@ -1,6 +1,7 @@
 #include "construction.h"
 #include <stdio.h>
 #include <string>
+#include <iostream>
 
 
 
@@ -32,9 +33,11 @@ int main(int argc, char *argv[]) {
 
 
     // debut des objets
-    /*
+    
     construction obj(nb_children,nb_generation,adresse_tab);
-	  obj.dataManage();
+
+    obj.generation();
+	  //obj.dataManage();
 
     //construction obj(0,0,"gene.csv");
 	 //obj.dataManage(); //A enlever après
