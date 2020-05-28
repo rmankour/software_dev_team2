@@ -12,7 +12,7 @@ construction::construction(const int gen, const int ind, const std::string adres
     int numChildren = ind; // Nombre de d'individus par génération, indiqué par l'utilisateur ou valeur par défaut
     int numGenerations = gen; // Nombre de générations à réaliser, indiqué par l'utilisateur ou valeur par défaut
     /*dataManage(); // donne une valeur à tableau qui contient dans un tableau en 2D les données fournies par l'utilisateur
-    formule myFormule; // Devrait générer une formule au pif si la classe marche bien
+    fonction formule_; // Devrait générer une formule au pif si la classe marche bien
     int compteurFormules = 0;
     int tab_positions[numGenerations+1]; // stocke la position des mutations
     int tab_type[numGenerations+1]; // stocke le type de mutations
@@ -101,17 +101,17 @@ void construction::generation(){
     fonction storage[numChildren];
     i = 0;
     while(i<numChildren){
-        storage[i]=myFormule;
+        storage[i]=formule_;
         storage[i].mutation();
     }
-    myFormule = SSE(storage) //stocke la nouvelle meilleure formule dans l'attribut de la classe
-    tab_positions[compteurFormules] = myFormule.position; //stocke la mutation réalisée (position)
-    tab_type[compteurFormules]= myFormule.type; //stocke la mutation réalisée (type)
-    tab_rang[compteurFormules]= myFormule.rang; //stocke la mutation réalisée (rang, si interversion)
+    formule_ = SSE(storage) //stocke la nouvelle meilleure formule dans l'attribut de la classe
+    tab_positions[compteurFormules] = formule_.position; //stocke la mutation réalisée (position)
+    tab_type[compteurFormules]= formule_.type; //stocke la mutation réalisée (type)
+    tab_rang[compteurFormules]= formule_.rang; //stocke la mutation réalisée (rang, si interversion)
     compteurFormules =+ 1;*/
 };
 
-// reçoit un tableau de formule et retourne la meilleure d'entre elles (en prenant aussi en compte la myFormule actuelle)
+// reçoit un tableau de formule et retourne la meilleure d'entre elles (en prenant aussi en compte la formule_ actuelle)
 
 fonction construction::SSE(const fonction* &tab){
 
@@ -120,7 +120,7 @@ fonction construction::SSE(const fonction* &tab){
 
 } ;
 
-// prend tous les paramètres donnés par l'utilisateur et réalise la boucle de calculs nécessaire pour aboutir à la myFormule finale
+// prend tous les paramètres donnés par l'utilisateur et réalise la boucle de calculs nécessaire pour aboutir à la formule_ finale
 void construction::theCycleOfLife(){
     /*i = 0;
     while (i < numGenerations){
