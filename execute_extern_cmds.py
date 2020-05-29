@@ -4,7 +4,7 @@ import os
 # par exemple pour l'affichage de differents graphes
 
 def compile():
-	command="g++ main.cpp -o main.out"
+	command="g++ main.cpp construction.cpp fonction.cpp -o main.out"
 	print(command)
 	return os.system(command)
 
