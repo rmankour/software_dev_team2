@@ -26,7 +26,7 @@ class construction
     bool** tab2d_; // Contient dans un tableau en 2D les données fournies par l'utilisateur
     int nb_ligtab2D_;
     int nb_coltab2D_;
-    fonction* formule_; // Contient la formule en cours de construction
+    fonction formule_; // Contient la formule en cours de construction
 
 
 

@@ -179,7 +179,7 @@ void fonction::affichage(){
     {
     	std::cout << "  " << getRankYN()[i];
         std::cout << "  " << getRankVar()[i];
-        std::cout << "  " << getRankAO()[i] << "  ";
+        std::cout << "  " << getRankAO()[i] << "  \n";
 
     }
 }

@@ -11,7 +11,10 @@ construction::construction(const int gen, const int ind, const std::string adres
     adresse_ = adress; // Adresse du fichier .CSV fournie par l'utilisateur
     numChildren_ = ind; // Nombre de d'individus par génération, indiqué par l'utilisateur ou valeur par défaut
     numGenerations_ = gen; // Nombre de générations à réaliser, indiqué par l'utilisateur ou valeur par défaut
-	//dataManage(); // donne une valeur à tableau qui contient dans un tableau en 2D les données fournies par l'utilisateur
+	dataManage(); // donne une valeur à tableau qui contient dans un tableau en 2D les données fournies par l'utilisateur
+    
+    fonction f1(5);
+    formule_ = f1;
     /*
     fonction formule_; // Devrait générer une formule au pif si la classe marche bien
     int compteurFormules = 0; // Permet d'avancer dans l'historique composé des 3 tableaux à suivre
@@ -101,25 +104,25 @@ bool construction::lectureCaseTab(int lig, int col)
 };
 
 void construction::generation(){
-	//////
-	////// pour tester tu peux utiliser "python execute_extern_cmds.py" -> ca compile avec g++ main.cpp fonction.cpp et construction.cpp
-	////// dans le main directement t'as un obj.generation() qui lance ce code :
+	fonction* storage = new fonction[numChildren_];
 
+    std::cout << "avant mutation : " << std::endl;
+    for(int i =0; i< numChildren_ ;i++)
+    {
+        storage[i] = formule_;
+        storage[i].affichage();
+    }
+    
+    std::cout << "après mutation : " << std::endl;
+    for(int i =0; i< numChildren_ ;i++)
+    {
+        storage[i].mutation();
+        storage[i].affichage();
+    }
 
-	//ESSAI DE IAN :
-    fonction f0(5);
-    fonction f1(5);
-    fonction f2(5);
-    fonction* storage = new fonction[3];
-    storage[0] = f0;
-    storage[1] = f1;
-    storage[2] = f2;
     
-    storage[1].affichage();
-    std::cout << "\n after mutation \n" << std::endl;
-    storage[1].mutation();
-    storage[1].affichage();
-    
+    //formule_ = SSE(storage) //stocke la nouvelle meilleure formule dans l'attribut de la classe
+
     delete []storage;
     storage = nullptr;
 
