@@ -115,14 +115,14 @@ fonction& fonction::operator=(fonction& fct)
 	for(int i=0 ; i<sizeVar_ ; i++){ //fills rankVar
 		rankVar_[i] = tempVar[i];
 	}
-
+	/*
 	delete []tempYN;
 	tempYN = nullptr;
 	delete []tempAO;
 	tempAO = nullptr;
 	delete []tempVar;
 	tempVar = nullptr;
-
+*/
 	return *this;
 
 	//fonction returnedfunc = fct;
