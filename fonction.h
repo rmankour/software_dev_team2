@@ -10,7 +10,7 @@ class fonction{
 		int* getRankVar();
 		int getN();
 		fonction& operator=(fonction& fct);
-
+		void affichage();
 
 	protected:
 		int n_; //number of variables in the function
