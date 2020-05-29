@@ -175,11 +175,15 @@ void fonction::mutation(){
 // sur une ligne on a une formule avec dans l'ordre YN Var AO 
 void fonction::affichage(){
 
-	for (int i = 0; i < n_; ++i)
+	for (int i = 0; i < n_-1; ++i)
     {
     	std::cout << "  " << getRankYN()[i];
         std::cout << "  " << getRankVar()[i];
         std::cout << "  " << getRankAO()[i] << "  \n";
 
     }
+
+	std::cout << "  " << getRankYN()[n_-1];
+    std::cout << "  " << getRankVar()[n_-1] << "  \n";
+
 }
