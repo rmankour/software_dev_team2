@@ -107,30 +107,19 @@ void construction::generation(){
 
 
 	//ESSAI DE IAN :
-	fonction f0(3);
-    fonction f1(4);
+    fonction f0(5);
+    fonction f1(5);
     fonction f2(5);
     fonction* storage = new fonction[3];
     storage[0] = f0;
     storage[1] = f1;
     storage[2] = f2;
-    for (int i = 0; i < 6; ++i)
-    {
-        std::cout << storage[1].getRankYN()[i];
-        std::cout << storage[1].getRankAO()[i];
-        std::cout << storage[1].getRankVar()[i]<< std::endl;
-    }
-    std::cout << "\n" << std::endl;
-        
+    
+    storage[1].affichage();
+    std::cout << "\n after mutation \n" << std::endl;
     storage[1].mutation();
-
-    for (int i = 0; i < 6; ++i)
-    {
-        std::cout << storage[1].getRankYN()[i];
-        std::cout << storage[1].getRankAO()[i];
-        std::cout << storage[1].getRankVar()[i]<< std::endl;
-    }
-
+    storage[1].affichage();
+    
     delete []storage;
     storage = nullptr;
 
