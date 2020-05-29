@@ -170,3 +170,16 @@ void fonction::mutation(){
 
 
 }
+
+// affiche la formule d'une fonction
+// sur une ligne on a une formule avec dans l'ordre YN Var AO 
+void fonction::affichage(){
+
+	for (int i = 0; i < n_; ++i)
+    {
+    	std::cout << "  " << getRankYN()[i];
+        std::cout << "  " << getRankVar()[i];
+        std::cout << "  " << getRankAO()[i] << "  ";
+
+    }
+}
