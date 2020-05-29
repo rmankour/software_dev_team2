@@ -102,11 +102,62 @@ bool construction::lectureCaseTab(size_t lig, size_t col)
 
 void construction::generation(){
 	//////
-	////// -< c'est le bordel :'( 
 	////// pour tester tu peux utiliser "python execute_extern_cmds.py" -> ca compile avec g++ main.cpp fonction.cpp et construction.cpp
-	////// dans le main directement t'as un obj.generation()
+	////// dans le main directement t'as un obj.generation() qui lance ce code :
 
 
+	//ESSAI DE IAN :
+	fonction f0(3);
+    fonction f1(4);
+    fonction f2(5);
+    fonction* storage = new fonction[3];
+    storage[0] = f0;
+    storage[1] = f1;
+    storage[2] = f2;
+    for (int i = 0; i < 6; ++i)
+    {
+        std::cout << storage[1].getRankYN()[i];
+        std::cout << storage[1].getRankAO()[i];
+        std::cout << storage[1].getRankVar()[i]<< std::endl;
+    }
+    std::cout << "\n" << std::endl;
+        
+    storage[1].mutation();
+
+    for (int i = 0; i < 6; ++i)
+    {
+        std::cout << storage[1].getRankYN()[i];
+        std::cout << storage[1].getRankAO()[i];
+        std::cout << storage[1].getRankVar()[i]<< std::endl;
+    }
+
+    delete []storage;
+    storage = nullptr;
+
+    return ;
+/*
+	fonction f1(3);
+	fonction* storage = new fonction[5];
+	storage[0] = f1;
+	storage[1] = f1;
+	for(int i =0; i<3;i++)
+	{
+		//storage[i] = f1;
+		//std::cout << storage[i].getRankYN()[i];
+		//std::cout << storage[i].getRankAO()[i];
+		//std::cout << storage[i].getRankVar()[i] << std::endl;
+
+
+	}/*
+	storage[0].mutation();
+	for(int i =0; i<3;i++)
+	{
+		std::cout << storage[i].getRankYN()[i];
+		std::cout << storage[i].getRankAO()[i];
+		std::cout << storage[i].getRankVar()[i] << std::endl;
+
+
+	}
 
 	/*
 	fonction f1(528); 
