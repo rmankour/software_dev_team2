@@ -11,7 +11,7 @@ construction::construction(const int gen, const int ind, const std::string adres
     adresse_ = adress; // Adresse du fichier .CSV fournie par l'utilisateur
     numChildren_ = ind; // Nombre de d'individus par génération, indiqué par l'utilisateur ou valeur par défaut
     numGenerations_ = gen; // Nombre de générations à réaliser, indiqué par l'utilisateur ou valeur par défaut
-    //dataManage(); // donne une valeur à tableau qui contient dans un tableau en 2D les données fournies par l'utilisateur
+	//dataManage(); // donne une valeur à tableau qui contient dans un tableau en 2D les données fournies par l'utilisateur
     /*
     fonction formule_; // Devrait générer une formule au pif si la classe marche bien
     int compteurFormules = 0; // Permet d'avancer dans l'historique composé des 3 tableaux à suivre
@@ -38,13 +38,13 @@ void construction::dataManage()
 	// PRETRAITEMENT : CHERCHE NB LIGNES / COLONNES
 
 	//On cherche le nombre de colonnes
-	size_t n = std::count(charac.begin(), charac.end(), ',');
+	int n = std::count(charac.begin(), charac.end(), ',');
 	n++;
 
 	 // Donne le nombre de colonnes
 
 	//On cherche le nombre de lignes du csv
-	size_t m = 0;
+	int m = 0;
 	while (ip.peek()!=EOF)
 	{
 		getline(ip,charac,'\n');
@@ -64,7 +64,7 @@ void construction::dataManage()
 
 
 	tab2d_ = new bool*[m];
-	for(size_t i = 0; i <= m; ++i) {
+	for(int i = 0; i <= m; ++i) {
  	   tab2d_[i] = new bool[n-2];
 	}
 	nb_ligtab2D_ = m;
@@ -74,10 +74,10 @@ void construction::dataManage()
 	while (ip2.peek()!=EOF)
 	{
 
-		for (size_t i=0 ; i<=m-1 ; i++) // parcourt les lignes m (de 0 à 577)
+		for (int i=0 ; i<=m-1 ; i++) // parcourt les lignes m (de 0 à 577)
 		{
 
-			for (size_t j=0 ; j<=n-2 ; j++) // parcourt les colonnes n-2 (de 0 à 119)
+			for (int j=0 ; j<=n-2 ; j++) // parcourt les colonnes n-2 (de 0 à 119)
 			{
 				//std::cout << "\n i = " << i << "   j = " << j << std::endl;
 				getline(ip2,charac,',');//zappe la première occurence de chaque ligne (nom de l'expérience)
@@ -91,7 +91,7 @@ void construction::dataManage()
 
 };
 
-bool construction::lectureCaseTab(size_t lig, size_t col)
+bool construction::lectureCaseTab(int lig, int col)
 {
 	if (!tab2d_)
 	{
@@ -235,7 +235,7 @@ void construction::theCycleOfLife(){
     }*/
 
 };
-size_t construction::get_nblig()
+int construction::get_nblig()
 {
 	if(!nb_ligtab2D_)
 	{
@@ -243,7 +243,7 @@ size_t construction::get_nblig()
 	}
 	return nb_ligtab2D_;
 };
-size_t construction::get_nbcol()
+int construction::get_nbcol()
 {
 	if(!nb_coltab2D_)
 	{

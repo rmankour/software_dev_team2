@@ -7,12 +7,12 @@ class construction
     public:
     construction(const int gen, const int ind, const std::string adress);
     void dataManage();
-    bool lectureCaseTab(size_t lig, size_t col);
+    bool lectureCaseTab(int lig, int col);
     void generation();
     fonction SSE(const fonction* &tab_fonctions); // reçoit un tableau de formule et retourne la meilleure d'entre elles (en prenant aussi en compte la myFormule actuelle)
     void theCycleOfLife(); // prend tous les paramètres donnés par l'utilisateur et réalise la boucle de calculs nécessaire pour aboutir à la myFormule finale
-    size_t get_nblig();
-    size_t get_nbcol();
+    int get_nblig();
+    int get_nbcol();
 
 
     protected:
@@ -24,8 +24,8 @@ class construction
     int *tab_type; // stocke le type de mutations
     int *tab_rang; // stocke le rang avec le lequel se fait un échange en cas d'interversion (-1 si pas d'interversion)
     bool** tab2d_; // Contient dans un tableau en 2D les données fournies par l'utilisateur
-    size_t nb_ligtab2D_;
-    size_t nb_coltab2D_;
+    int nb_ligtab2D_;
+    int nb_coltab2D_;
     fonction* formule_; // Contient la formule en cours de construction
 
 
