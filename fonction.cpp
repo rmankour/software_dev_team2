@@ -34,15 +34,20 @@ fonction::fonction(int n){ //constructeur n nbr de variables
 
 	for(int i = 0 ; i<n ; i++){ //randomised order attribution for variables
 		used[i] = -1;
-		
+		//std::cout << "used["<<i<<"] = " << used[i] << std::endl;
 		do{
 			free = true;
-			rank = std::rand()%(n_+1);
-			//std::cout << "rank=" << rank << " ";
+			//std::cout << "free = " << free << std::endl;
+			rank = std::rand()%(n_);
+			//std::cout << "rank = " << rank << std::endl;
 			if(sizeUsed>0){
+				//std::cout << "sizeUsed>0 = true" << std::endl;
 				for(int j = 0 ; j<sizeUsed ; j++){ //checks that the rank is not already used
+
 					if(used[j] == rank){
+						//std::cout << "used["<<j<<"] == rank = true" << std::endl;
 						free = false;
+						//std::cout << "free = " << free << std::endl;
 						//std::cout << "j=" << j << " ";
 						break;
 					}
@@ -52,12 +57,26 @@ fonction::fonction(int n){ //constructeur n nbr de variables
 			}
 		}while(!free);
 		used[sizeUsed] = rank;
+		//std::cout << "used["<<sizeUsed<<"] = " << used[sizeUsed] << std::endl;
 		sizeUsed++;
+		//std::cout << "sizeUsed = " << sizeUsed << std::endl;
 		rankVar_[rank] = i;
-		//std::cout << "HIIIII=" << i << " ";
+		//std::cout << "rankVar_["<<rank<<"] = " << rankVar_[rank] << std::endl;
 	}
-	//std::cout << "rankVar_" << std::endl;
 
+	//std::cout << "rankVar_" << std::endl;
+	/*for (int i = 0; i < n_; ++i)
+	{
+		std::cout << rankVar_[i]<< "\n";
+	}*/
+	//std::cout << std::endl;
+
+	/*std::cout << "used" << std::endl;
+	for (int i = 0; i < n_; ++i)
+	{
+		std::cout << used[i]<< "\n";
+	}
+	std::cout << std::endl;*/
 
 }
 
@@ -158,10 +177,29 @@ void fonction::mutation(){
 	    		//std::cout << mutVar << std::endl;
 	    	}while(mutRank==mutVar);
 
+	    	/*for (int i = 0; i < n_; ++i)
+			{
+				std::cout << rankVar_[i]<< "\n";
+			}
+			std::cout << std::endl;
+
+	    	std::cout << "mutRank = " << mutRank << std::endl;
+	    	std::cout << "mutVar = " << mutVar << std::endl;*/
+
 	    	// switch the two var in rankVar_
 	    	int temp = rankVar_[mutVar];
+	    	//std::cout << "temp = " << temp << std::endl;
 	    	rankVar_[mutVar] = rankVar_[mutRank];
+	    	//std::cout << "rankVar_[mutVar] = " << rankVar_[mutVar] << std::endl;
 	    	rankVar_[mutRank] = temp;
+	    	//std::cout << "rankVar_[mutRank] = " << rankVar_[mutRank] << std::endl;
+
+	    	/*for (int i = 0; i < n_; ++i)
+			{
+				std::cout << rankVar_[i]<< "\n";
+			}
+			std::cout << std::endl;*/
+
 	    }break;
 	    default:{ // code to be executed if mutType doesn't match any cases
 	    	//std::cout << "ERROR" << std::endl;
