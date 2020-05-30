@@ -51,7 +51,8 @@ construction::construction(const int gen, const int ind, const std::string adres
         myfile.close();
     }
     else cout << "Unable to open file";
-}; */
+*/
+};
 
 
 
