@@ -2,14 +2,15 @@
 #include "fonction.h"
 
 
-class construction 
+class construction
 {
     public:
     construction(const int gen, const int ind, const std::string adress);
     void dataManage();
     bool lectureCaseTab(int lig, int col);
     void generation();
-    fonction SSE(const fonction* &tab_fonctions); // reçoit un tableau de formule et retourne la meilleure d'entre elles (en prenant aussi en compte la myFormule actuelle)
+    //fonction SSE(const fonction* &tab_fonctions); // reçoit un tableau de formule et retourne la meilleure d'entre elles (en prenant aussi en compte la myFormule actuelle)
+    fonction SSE(fonction* storage);
     void theCycleOfLife(); // prend tous les paramètres donnés par l'utilisateur et réalise la boucle de calculs nécessaire pour aboutir à la myFormule finale
     int get_nblig();
     int get_nbcol();
