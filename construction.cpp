@@ -210,7 +210,7 @@ void construction::generation(){
 
 fonction& construction::SSE(fonction *storage){
 
-    int best_sse = nb_ligtab2D_ + 1 ; // le pire ce serait que toutes les lignes donnent un mauvais résultat
+    int best_sse = nb_ligtab2D_*nb_coltab2D_ + 1 ; // le pire ce serait que toutes les lignes donnent un mauvais résultat
     fonction best_formule;
     std::cout << "vous etes dans SSE" <<std::endl;
     //int best_sse = 0;
@@ -220,51 +220,53 @@ fonction& construction::SSE(fonction *storage){
         int sse = 0;
         fonction formuleActuelle = storage[j];
         for (int i=0; i<nb_ligtab2D_;i++) {
-            //Calcul du resultat de ma formule
+                //Calcul du resultat de ma formule
+            if(tab2d_[i][nb_coltab2D_-1] == 1)
+                {
+
+                bool node_yn = formuleActuelle.getRankYN()[0];
+                bool node_vark = tab2d_[formuleActuelle.getRankVar()[0]][0]; /////// Problème ici ??? Qu'est-ce qu'on récup_re là ?
+                bool res_fonc = (node_yn == 1) * (node_vark) + (node_yn == 0) * (!node_vark);
 
 
-            bool node_yn = formuleActuelle.getRankYN()[0];
-            bool node_vark = tab2d_[storage[j].getRankVar()[0]][0];
-            bool res_fonc = (node_yn == 1) * (node_vark) + (node_yn == 0) * (!node_vark);
+                for (int k=1;k<nb_coltab2D_-1 ;k++) { //On ne prend que les (n-1) premiers points observés
+                    //YES or NO
+                    //std::cout << "vous etes dans tc4" <<std::endl;
+                    node_yn = formuleActuelle.getRankYN()[k];//Si 1 : YES Si 0 : OR
+                    //Variable k
+                    node_vark = tab2d_[i][k];
+                    //AND or OR
+                    bool node_ao = formuleActuelle.getRankAO()[k-1];//Si 1 : AND Si 0 : OR
 
-
-            for (int k=1;k<nb_coltab2D_-1 ;k++) { //On ne prend que les (n-1) premiers points observés
-                //YES or NO
-                //std::cout << "vous etes dans tc4" <<std::endl;
-                node_yn = formuleActuelle.getRankYN()[k];//Si 1 : YES Si 0 : OR
-                //Variable k
-                node_vark = tab2d_[i][k];
-                //AND or OR
-                bool node_ao = formuleActuelle.getRankAO()[k-1];//Si 1 : AND Si 0 : OR
-
-                //J'assemble le tout YEAH
-                if(node_yn) {
-                    if(node_ao) {
-                        res_fonc = res_fonc && node_vark;
+                    //J'assemble le tout YEAH
+                    if(node_yn) {
+                        if(node_ao) {
+                            res_fonc = res_fonc && node_vark;
+                        }
+                        else {
+                            res_fonc = res_fonc || node_vark;
+                        }
                     }
                     else {
-                        res_fonc = res_fonc || node_vark;
+                        if(node_ao) {
+                            res_fonc = res_fonc && !node_vark;
+                        }
+                        else {
+                            res_fonc = res_fonc || !node_vark;
+                        }
                     }
-                }
-                else {
-                    if(node_ao) {
-                        res_fonc = res_fonc && !node_vark;
-                    }
-                    else {
-                        res_fonc = res_fonc || !node_vark;
-                    }
-                }
 
+                }
+                std::cout << "tab2D[i] : " << lectureCaseTab(i,get_nbcol()-1) << std::endl;
+                sse += pow((res_fonc - lectureCaseTab(i,get_nbcol()-1)),2);
+                std::cout << "sse : " << sse << std::endl;
             }
-            std::cout << "tab2D[i] : " << lectureCaseTab(i,get_nbcol()-1) << std::endl;
-            sse += pow((res_fonc - lectureCaseTab(i,get_nbcol()-1)),2);
-            std::cout << "sse : " << sse << std::endl;
-        }
-        //On obtient la SSE pour la formule j
-        //Comparaison avec la best_sse
-        if (sse <= best_sse) {
-            best_sse = sse;
-            best_formule = storage[j];
+            //On obtient la SSE pour la formule j
+            //Comparaison avec la best_sse
+            if (sse <= best_sse) {
+                best_sse = sse;
+                best_formule = storage[j];
+            }
         }
     }
     std::cout << "best sse : " << best_sse << std::endl;
