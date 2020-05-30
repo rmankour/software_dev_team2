@@ -212,23 +212,25 @@ fonction& construction::SSE(fonction *storage){
 
     int best_sse = nb_ligtab2D_ + 1 ; // le pire ce serait que toutes les lignes donnent un mauvais résultat
     fonction best_formule;
-
     std::cout << "vous etes dans SSE" <<std::endl;
     //int best_sse = 0;
     //Calcul de la SSE pour chaque fonction enfant
     for(int j=0; j< numChildren_; j++) {
         //Calcul de la SSE pour la formule j
         int sse = 0;
+        fonction formuleActuelle = storage[j];
         for (int i=0; i<nb_ligtab2D_;i++) {
             //Calcul du resultat de ma formule
-            fonction formuleActuelle = storage[j];
+
 
             bool node_yn = formuleActuelle.getRankYN()[0];
             bool node_vark = tab2d_[storage[j].getRankVar()[0]][0];
             bool res_fonc = (node_yn == 1) * (node_vark) + (node_yn == 0) * (!node_vark);
 
+
             for (int k=1;k<nb_coltab2D_-1 ;k++) { //On ne prend que les (n-1) premiers points observés
                 //YES or NO
+                //std::cout << "vous etes dans tc4" <<std::endl;
                 node_yn = formuleActuelle.getRankYN()[k];//Si 1 : YES Si 0 : OR
                 //Variable k
                 node_vark = tab2d_[i][k];
@@ -255,6 +257,7 @@ fonction& construction::SSE(fonction *storage){
 
             }
             sse += pow((res_fonc - tab2d_[i][nb_coltab2D_]),2);
+            std::cout << "sse : " << best_sse << std::endl;
         }
         //On obtient la SSE pour la formule j
         //Comparaison avec la best_sse
@@ -269,7 +272,6 @@ fonction& construction::SSE(fonction *storage){
      //doit retourner un objet
 
 } ;
-
 
 // prend tous les paramètres donnés par l'utilisateur et réalise la boucle de calculs nécessaire pour aboutir à la formule_ finale
 void construction::theCycleOfLife(){
