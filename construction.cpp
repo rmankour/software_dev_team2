@@ -149,7 +149,7 @@ void construction::generation(){
     }
 
     // check si la valeur de sse n'est pas inférieure à celle de la meilleure fonctione de la generation précédente
-    formule_ = SSE(*storage); //stocke la nouvelle meilleure formule dans l'attribut de la classe
+    formule_ = SSE(storage); //stocke la nouvelle meilleure formule dans l'attribut de la classe
 
     /* tab_positions[compteurFormules] = formule_.getPosition(); //stocke la mutation réalisée (position)
     tab_type[compteurFormules]= formule_.getType(); //stocke la mutation réalisée (type)
@@ -207,12 +207,13 @@ void construction::generation(){
 // reçoit un tableau de formule et retourne la meilleure d'entre elles (en prenant aussi en compte la formule_ actuelle)
 
 
-fonction construction::SSE(fonction* storage){
+fonction& construction::SSE(fonction *storage){
 
-    int best_sse = nb_ligtab2D_ + 1 ;// le pire ce serait que toutes les lignes donnent un mauvais résultat
+    int best_sse = nb_ligtab2D_ + 1 ; // le pire ce serait que toutes les lignes donnent un mauvais résultat
     fonction best_formule;
 
     std::cout << "vous etes dans SSE" <<std::endl;
+    return best_formule;
 /*
     //int best_sse = 0;
     //Calcul de la SSE pour chaque fonction enfant
