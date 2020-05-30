@@ -257,18 +257,20 @@ fonction& construction::SSE(fonction *storage){
                     }
 
                 }
-                std::cout << "tab2D[i] : " << lectureCaseTab(i,get_nbcol()-1) << std::endl;
+                //std::cout << "tab2D[i] : " << lectureCaseTab(i,get_nbcol()-1) << std::endl;
                 sse += pow((res_fonc - tab2d_[i][get_nbcol()-1]),2); // ATTENTION : tab2D_[nb_lig][nb_col] ça fait un overflow : 
 //pour la dernière case si on a 120 élément le tableau commence à 0->119 donc il faut faire nb_lig-1 nb_col-1!!
                 sse += pow((res_fonc - lectureCaseTab(i,get_nbcol()-1)),2);
-                std::cout << "sse : " << sse << std::endl;
+                //std::cout << "sse : " << sse << std::endl;
             }
+            std::cout << "sse : " << sse << std::endl;
             //On obtient la SSE pour la formule j
             //Comparaison avec la best_sse
-            if (sse <= best_sse) {
-                best_sse = sse;
-                best_formule = storage[j];
-            }
+
+        }
+        if (sse <= best_sse) {
+            best_sse = sse;
+            best_formule = storage[j];
         }
     }
     std::cout << "best sse : " << best_sse << std::endl;
