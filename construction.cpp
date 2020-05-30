@@ -256,8 +256,8 @@ fonction& construction::SSE(fonction *storage){
                 }
 
             }
-            std::cout << "tab2D[i] : " << tab2d_[i][get_nbcol()] << std::endl;
-            sse += pow((res_fonc - tab2d_[i][get_nbcol()]),2);
+            std::cout << "tab2D[i] : " << lectureCaseTab(i,get_nbcol()-1) << std::endl;
+            sse += pow((res_fonc - lectureCaseTab(i,get_nbcol()-1)),2);
             std::cout << "sse : " << sse << std::endl;
         }
         //On obtient la SSE pour la formule j
