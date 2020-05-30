@@ -9,6 +9,9 @@ class fonction{
 		int* getRankAO();
 		int* getRankVar();
 		int getN();
+		// int getPosition();
+		// int getType();
+		// int getRang();
 		fonction& operator=(fonction& fct);
 		void affichage();
 
@@ -20,5 +23,8 @@ class fonction{
 		int sizeYN_;
 		int sizeAO_;
 		int sizeVar_;
-		
+		// int position;
+		// int type;
+		// int rang;
+
 };

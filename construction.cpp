@@ -12,7 +12,7 @@ construction::construction(const int gen, const int ind, const std::string adres
     numChildren_ = ind; // Nombre de d'individus par génération, indiqué par l'utilisateur ou valeur par défaut
     numGenerations_ = gen; // Nombre de générations à réaliser, indiqué par l'utilisateur ou valeur par défaut
 	dataManage(); // donne une valeur à tableau qui contient dans un tableau en 2D les données fournies par l'utilisateur
-    
+
     fonction f1(5);
     formule_ = f1;
     /*
@@ -23,7 +23,7 @@ construction::construction(const int gen, const int ind, const std::string adres
     int tab_rang[numGenerations+1]; // stocke le rang avec le lequel se fait un échange en cas d'interversion (-1 si pas d'interversion)
     // Les mutations sont stockées dans l'ordre d'occurence
     theCycleOfLife();*/
-   
+
 };
 
 
@@ -112,7 +112,7 @@ void construction::generation(){
         storage[i] = formule_;
         storage[i].affichage();
     }
-    
+
     std::cout << "après mutation : " << std::endl;
     for(int i =0; i< numChildren_ ;i++)
     {
@@ -120,8 +120,13 @@ void construction::generation(){
         storage[i].affichage();
     }
 
-    
-    //formule_ = SSE(storage) //stocke la nouvelle meilleure formule dans l'attribut de la classe
+    // check si la valeur de sse n'est pas inférieure à celle de la meilleure fonctione de la generation précédente
+    // formule_ = SSE(storage) //stocke la nouvelle meilleure formule dans l'attribut de la classe
+
+    /* tab_positions[compteurFormules] = formule_.getPosition(); //stocke la mutation réalisée (position)
+    tab_type[compteurFormules]= formule_.getType(); //stocke la mutation réalisée (type)
+    tab_rang[compteurFormules]= formule_.getRang(); //stocke la mutation réalisée (rang, si interversion)
+    compteurFormules =+ 1;*/
 
     delete []storage;
     storage = nullptr;
@@ -152,22 +157,22 @@ void construction::generation(){
 	}
 
 	/*
-	fonction f1(528); 
+	fonction f1(528);
 	formule_ = &f1; // -> formule est de type fonction* sans l'étoile ça serait simple mais ça marche pas :'(
 	*/
-	/*	
+	/*
 	fonction storage[numChildren_]; // segmentation fault tel quel:'( -> faut il utiliser "fonction* storage[numChildren_]" ???
     int i = 0;
     while(i<numChildren_){
-        storage[i]=formule_;// on peut remplacer formule par f1 objet de type fonction.	
+        storage[i]=formule_;// on peut remplacer formule par f1 objet de type fonction.
         storage[i].mutation();
         i++;
     }*/
     //formule_ = SSE(storage) //stocke la nouvelle meilleure formule dans l'attribut de la classe
     /*
-    tab_positions[compteurFormules] = formule_.position; //stocke la mutation réalisée (position)
-    tab_type[compteurFormules]= formule_.type; //stocke la mutation réalisée (type)
-    tab_rang[compteurFormules]= formule_.rang; //stocke la mutation réalisée (rang, si interversion)
+    tab_positions[compteurFormules] = formule_.getPosition(); //stocke la mutation réalisée (position)
+    tab_type[compteurFormules]= formule_.getType(); //stocke la mutation réalisée (type)
+    tab_rang[compteurFormules]= formule_.getRang(); //stocke la mutation réalisée (rang, si interversion)
     compteurFormules =+ 1;*/
 };
 
@@ -187,7 +192,7 @@ fonction construction::SSE(const fonction* &tab_fonctions){
 
             bool node_yn = formuleActuelle.getRankYN()[0];
             bool node_vark = tab2d_[i][0];
-            int resultat_de_ma_fonction = (node_yn == 1) * (node_vark) + (node_yn == 0) * (!node_vark) 
+            int resultat_de_ma_fonction = (node_yn == 1) * (node_vark) + (node_yn == 0) * (!node_vark)
 
             for (int k=1;k<nb_coltab2D-1 ;k++) { //On ne prend que les (n-1) premiers points observés
                 //YES or NO
@@ -205,7 +210,7 @@ fonction construction::SSE(const fonction* &tab_fonctions){
                     else {
                         resultat_de_ma_fonction = resultat_de_ma fonction || node_vark;
                     }
-                } 
+                }
                 else {
                     if(node_ao) {
                         resultat_de_ma_fonction = resultat_de_ma fonction && !node_vark;
