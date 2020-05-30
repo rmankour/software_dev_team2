@@ -24,7 +24,34 @@ construction::construction(const int gen, const int ind, const std::string adres
     // Les mutations sont stockées dans l'ordre d'occurence
     theCycleOfLife();*/
 
-};
+    //écrire les ligne de code pour extraire les tableaux (2 pour formule_ et 3 pour historique) en attribut de obj dans un fichier texte :
+
+/*  // OUTPUT == un fichier avec 3 lignes : les 3 attributs de l'objet formule_ en cours
+    ofstream myfile ("output.txt");
+    if (myfile.is_open())
+    {
+        for (i=0 ; i<numGenerations-1 ; i++)
+        {
+             myfile << formule_.getRankYN()[i]; << ",";
+        }
+        myfile << formule_.getRankYN()[numGenerations]; << "\n";
+
+        for (int i=0 ; i<numGenerations-1 ; i++)
+        {
+             myfile << formule_.getRankAO()[i]; << ",";
+        }
+        myfile << formule_.getRankAO()[numGenerations]; << "\n";
+
+        for (int i=0 ; i<numGenerations-1 ; i++)
+        {
+             myfile << formule_.getRankVar()[i]; << ",";
+        }
+        myfile << formule_.getRankAO()[numGenerations]; << "\n";
+
+        myfile.close();
+    }
+    else cout << "Unable to open file";
+}; */
 
 
 
@@ -181,8 +208,7 @@ void construction::generation(){
 
 fonction construction::SSE(const fonction* &tab_fonctions){
 /*
-    int best_sse = nb_ligtab2D + 1 ;// le pire ce serait que toutes les lignes donnent un mauvais résultat
-    fonction best_formule;
+    //int best_sse = 0;
     //Calcul de la SSE pour chaque fonction enfant
     for(int j=0; j< numChildren; j++) {
         //Calcul de la SSE pour la formule j
@@ -192,14 +218,14 @@ fonction construction::SSE(const fonction* &tab_fonctions){
             fonction formuleActuelle = tab_fonctions[j];
 
             bool node_yn = formuleActuelle.getRankYN()[0];
-            bool node_vark = tab2d_[i][formuleActuelle.getRankVar()[0]];
-            int resultat_de_ma_fonction = (node_yn == 1) * (node_vark) + (node_yn == 0) * (!node_vark) 
+            bool node_vark = tab2d_[i][0];
+            int resultat_de_ma_fonction = (node_yn == 1) * (node_vark) + (node_yn == 0) * (!node_vark)
 
             for (int k=1;k<nb_coltab2D-1 ;k++) { //On ne prend que les (n-1) premiers points observés
                 //YES or NO
                 node_yn = formuleActuelle.getRankYN()[k];//Si 1 : YES Si 0 : OR
                 //Variable k
-                node_vark = tab2d_[i][formuleActuelle.getRankVar()[k]];
+                node_vark = tab2d_[i][k];
                 //AND or OR
                 bool node_ao = formuleActuelle.getRankAO()[k-1];//Si 1 : AND Si 0 : OR
 
@@ -211,7 +237,7 @@ fonction construction::SSE(const fonction* &tab_fonctions){
                     else {
                         resultat_de_ma_fonction = resultat_de_ma fonction || node_vark;
                     }
-                } 
+                }
                 else {
                     if(node_ao) {
                         resultat_de_ma_fonction = resultat_de_ma fonction && !node_vark;
@@ -228,10 +254,10 @@ fonction construction::SSE(const fonction* &tab_fonctions){
         //Comparaison avec la best_sse
         if (sse <= best_sse) {
             best_sse = sse;
-            best_formule = tab_fonctions[j];
+            formule_ = tab_fonctions[j];
         }
     }
-    return best_formule; //doit retourner un objet
+    return; //doit retourner un objet
     */
 } ;
 
