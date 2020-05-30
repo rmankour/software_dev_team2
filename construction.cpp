@@ -248,7 +248,7 @@ fonction& construction::SSE(fonction *storage){
                 }
                 else {
                     if(node_ao) {
-                        res_fonc = res_fonc&& !node_vark;
+                        res_fonc = res_fonc && !node_vark;
                     }
                     else {
                         res_fonc = res_fonc || !node_vark;
@@ -256,8 +256,9 @@ fonction& construction::SSE(fonction *storage){
                 }
 
             }
-            sse += pow((res_fonc - tab2d_[i][nb_coltab2D_]),2);
-            std::cout << "sse : " << best_sse << std::endl;
+            std::cout << "tab2D[i] : " << tab2d_[i][get_nbcol()] << std::endl;
+            sse += pow((res_fonc - tab2d_[i][get_nbcol()]),2);
+            std::cout << "sse : " << sse << std::endl;
         }
         //On obtient la SSE pour la formule j
         //Comparaison avec la best_sse
