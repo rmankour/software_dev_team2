@@ -4,6 +4,7 @@
 #include <string>
 #include <algorithm>
 #include <sstream>
+#include <cmath>
 
 
 
@@ -149,7 +150,7 @@ void construction::generation(){
     }
 
     // check si la valeur de sse n'est pas inférieure à celle de la meilleure fonctione de la generation précédente
-    formule_ = SSE(storage); //stocke la nouvelle meilleure formule dans l'attribut de la classe
+    SSE(storage); //stocke la nouvelle meilleure formule dans l'attribut de la classe
 
     /* tab_positions[compteurFormules] = formule_.getPosition(); //stocke la mutation réalisée (position)
     tab_type[compteurFormules]= formule_.getType(); //stocke la mutation réalisée (type)
@@ -207,28 +208,26 @@ void construction::generation(){
 // reçoit un tableau de formule et retourne la meilleure d'entre elles (en prenant aussi en compte la formule_ actuelle)
 
 
-fonction& construction::SSE(fonction *storage){
+void construction::SSE(fonction *storage){
 
     int best_sse = nb_ligtab2D_ + 1 ; // le pire ce serait que toutes les lignes donnent un mauvais résultat
-    fonction best_formule;
+    
 
     std::cout << "vous etes dans SSE" <<std::endl;
-    return best_formule;
-/*
     //int best_sse = 0;
     //Calcul de la SSE pour chaque fonction enfant
-    for(int j=0; j< numChildren; j++) {
+    for(int j=0; j< numChildren_; j++) {
         //Calcul de la SSE pour la formule j
         int sse = 0;
-        for (int i=0; i<nb_ligtab2D;i++) {
+        for (int i=0; i<nb_ligtab2D_;i++) {
             //Calcul du resultat de ma formule
-            fonction formuleActuelle = tab_fonctions[j];
+            fonction formuleActuelle = storage[j];
 
             bool node_yn = formuleActuelle.getRankYN()[0];
-            bool node_vark = tab2d_[i][0];
-            int resultat_de_ma_fonction = (node_yn == 1) * (node_vark) + (node_yn == 0) * (!node_vark)
+            bool node_vark = tab2d_[storage[j].getRankVar()[0]][0];
+            bool res_fonc = (node_yn == 1) * (node_vark) + (node_yn == 0) * (!node_vark);
 
-            for (int k=1;k<nb_coltab2D-1 ;k++) { //On ne prend que les (n-1) premiers points observés
+            for (int k=1;k<nb_coltab2D_-1 ;k++) { //On ne prend que les (n-1) premiers points observés
                 //YES or NO
                 node_yn = formuleActuelle.getRankYN()[k];//Si 1 : YES Si 0 : OR
                 //Variable k
@@ -239,33 +238,35 @@ fonction& construction::SSE(fonction *storage){
                 //J'assemble le tout YEAH
                 if(node_yn) {
                     if(node_ao) {
-                        resultat_de_ma_fonction = resultat_de_ma fonction && node_vark;
+                        res_fonc = res_fonc && node_vark;
                     }
                     else {
-                        resultat_de_ma_fonction = resultat_de_ma fonction || node_vark;
+                        res_fonc = res_fonc || node_vark;
                     }
                 }
                 else {
                     if(node_ao) {
-                        resultat_de_ma_fonction = resultat_de_ma fonction && !node_vark;
+                        res_fonc = res_fonc&& !node_vark;
                     }
                     else {
-                        resultat_de_ma_fonction = resultat_de_ma fonction || !node_vark;
+                        res_fonc = res_fonc || !node_vark;
                     }
                 }
 
             }
-            sse += (resultat_de_ma_fonction - tab2d_[i][nb_coltab2D])²;
+            sse += pow((res_fonc - tab2d_[i][nb_coltab2D_]),2);
         }
         //On obtient la SSE pour la formule j
         //Comparaison avec la best_sse
         if (sse <= best_sse) {
             best_sse = sse;
-            formule_ = tab_fonctions[j];
+            formule_ = storage[j];
         }
     }
-    return; //doit retourner un objet
-    */
+    std::cout << "best sse : " << best_sse << std::endl;
+
+     //doit retourner un objet
+    
 } ;
 
 
