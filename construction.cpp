@@ -14,7 +14,7 @@ construction::construction(const int gen, const int ind, const std::string adres
     numGenerations_ = gen; // Nombre de générations à réaliser, indiqué par l'utilisateur ou valeur par défaut
 	dataManage(); // donne une valeur à tableau qui contient dans un tableau en 2D les données fournies par l'utilisateur
 
-    fonction f1(5);
+    fonction f1(nb_coltab2D_);
     formule_ = f1;
     /*
     fonction formule_; // Devrait générer une formule au pif si la classe marche bien
@@ -135,21 +135,21 @@ bool construction::lectureCaseTab(int lig, int col)
 void construction::generation(){
 	fonction* storage = new fonction[numChildren_];
 
-    std::cout << "avant mutation : " << std::endl;
+    // std::cout << "avant mutation : " << std::endl;
     for(int i =0; i< numChildren_ ;i++)
     {
         storage[i] = formule_;
-        storage[i].affichage();
+        //storage[i].affichage();
     }
 
-    std::cout << "après mutation : " << std::endl;
+    // std::cout << "après mutation : " << std::endl;
     for(int i =0; i< numChildren_ ;i++)
     {
         storage[i].mutation();
-        storage[i].affichage();
+        //storage[i].affichage();
     }
 
-    // check si la valeur de sse n'est pas inférieure à celle de la meilleure fonctione de la generation précédente
+    // check si la valeur de sse n'est pas inférieure à celle de la meilleure fonction de la generation précédente
     formule_ = SSE(storage); //stocke la nouvelle meilleure formule dans l'attribut de la classe
 
     /* tab_positions[compteurFormules] = formule_.getPosition(); //stocke la mutation réalisée (position)
@@ -161,48 +161,6 @@ void construction::generation(){
     storage = nullptr;
 
     return ;
-/*
-	fonction f1(3);
-	fonction* storage = new fonction[5];
-	storage[0] = f1;
-	storage[1] = f1;
-	for(int i =0; i<3;i++)
-	{
-		//storage[i] = f1;
-		//std::cout << storage[i].getRankYN()[i];
-		//std::cout << storage[i].getRankAO()[i];
-		//std::cout << storage[i].getRankVar()[i] << std::endl;
-
-
-	}/*
-	storage[0].mutation();
-	for(int i =0; i<3;i++)
-	{
-		std::cout << storage[i].getRankYN()[i];
-		std::cout << storage[i].getRankAO()[i];
-		std::cout << storage[i].getRankVar()[i] << std::endl;
-
-
-	}
-
-	/*
-	fonction f1(528);
-	formule_ = &f1; // -> formule est de type fonction* sans l'étoile ça serait simple mais ça marche pas :'(
-	*/
-	/*
-	fonction storage[numChildren_]; // segmentation fault tel quel:'( -> faut il utiliser "fonction* storage[numChildren_]" ???
-    int i = 0;
-    while(i<numChildren_){
-        storage[i]=formule_;// on peut remplacer formule par f1 objet de type fonction.
-        storage[i].mutation();
-        i++;
-    }*/
-    //formule_ = SSE(storage) //stocke la nouvelle meilleure formule dans l'attribut de la classe
-    /*
-    tab_positions[compteurFormules] = formule_.getPosition(); //stocke la mutation réalisée (position)
-    tab_type[compteurFormules]= formule_.getType(); //stocke la mutation réalisée (type)
-    tab_rang[compteurFormules]= formule_.getRang(); //stocke la mutation réalisée (rang, si interversion)
-    compteurFormules =+ 1;*/
 };
 
 // reçoit un tableau de formule et retourne la meilleure d'entre elles (en prenant aussi en compte la formule_ actuelle)
@@ -212,58 +170,97 @@ fonction& construction::SSE(fonction *storage){
 
     int best_sse = nb_ligtab2D_*nb_coltab2D_ + 1 ; // le pire ce serait que toutes les lignes donnent un mauvais résultat
     fonction best_formule;
-    std::cout << "vous etes dans SSE" <<std::endl;
-    //int best_sse = 0;
+    std::cout << "nb de lignes de tab   : " << nb_ligtab2D_ << std::endl;
+    std::cout << "nb de colonnes de tab : " << nb_coltab2D_ << std::endl;
+
+    
     //Calcul de la SSE pour chaque fonction enfant
-    for(int j=0; j< numChildren_; j++) {
+    for(int j=0; j< numChildren_ ; j++) {
         //Calcul de la SSE pour la formule j
         int sse = 0;
         fonction formuleActuelle = storage[j];
-        for (int i=0; i<nb_ligtab2D_;i++) {
+
+        std::cout << j << " ième enfant de la génération : " << std::endl;
+        formuleActuelle.affichage();
+
+        // ici j'ai créé un tableau de int (parce que les getters sont des int) qui contient la formule
+        // je vérifie que j'ai bien la même chose
+        int* p;
+        p = formuleActuelle.formule();
+        /*
+        int taillep = nb_coltab2D_*3-1;
+
+        for (int i = 0; i < taillep; ++i){
+            std::cout << p[i] << " ";
+        }*/
+
+        bool res_fonc;
+
+        for (int k=0; k < nb_ligtab2D_ ;k++) { // pour chaque condition (ici 3) on a 6 gènes
                 //Calcul du resultat de ma formule
-            if(tab2d_[i][nb_coltab2D_-1] == 1)
-                {
+                
+                int node_yn = p[k*3]; // Yes ou Not dans formule
+                //std::cout << "\n node_yn : " << node_yn << std::endl;
 
-                bool node_yn = formuleActuelle.getRankYN()[0];
-                bool node_vark = tab2d_[formuleActuelle.getRankVar()[0]][0]; /////// Problème ici ??? Qu'est-ce qu'on récup_re là ?
-                bool res_fonc = (node_yn == 1) * (node_vark) + (node_yn == 0) * (!node_vark);
+                int node_vark = tab2d_[0][p[k*3+1]]; // fait appel à valeur dans tableau
+                //std::cout << "node_vark : " << node_vark << std::endl;
 
+                res_fonc = (node_yn == 1) * (node_vark) + (node_yn == 0) * (!node_vark);
 
-                for (int k=1;k<nb_coltab2D_-1 ;k++) { //On ne prend que les (n-1) premiers points observés
+                //std::cout << "YN " << node_yn << " node_vark " << node_vark << " nous donne : " << res_fonc << std::endl;
+                
+
+                for (int g=1; g < nb_coltab2D_ ; g++) { //On ne prend que les (n-1) premiers points observés
                     //YES or NO
-                    //std::cout << "vous etes dans tc4" <<std::endl;
-                    node_yn = formuleActuelle.getRankYN()[k];//Si 1 : YES Si 0 : OR
-                    //Variable k
-                    node_vark = tab2d_[i][k];
-                    //AND or OR
-                    bool node_ao = formuleActuelle.getRankAO()[k-1];//Si 1 : AND Si 0 : OR
+                    
+                    int node_yn = p[g*3]; 
+                    //std::cout << "node_yn : " << node_yn << std::endl;
 
+                    int node_vark = tab2d_[0][p[g*3+1]];
+                    //std::cout << "YN sur node_vark : " << node_yn << " " << node_vark <<std::endl;
+                    //AND or OR
+                    int node_ao = p[g*3-1]; //Si 1 : AND Si 0 : OR
+                    //std::cout << "node_ao : " << node_ao << std::endl;
+
+                    
                     //J'assemble le tout YEAH
-                    if(node_yn) {
-                        if(node_ao) {
+                    if(node_yn == 1) { // si YES
+                        
+                        if(node_ao == 1) { // si AND
                             res_fonc = res_fonc && node_vark;
                         }
-                        else {
+                        else { // si OR
                             res_fonc = res_fonc || node_vark;
                         }
                     }
-                    else {
-                        if(node_ao) {
-                            res_fonc = res_fonc && !node_vark;
+                    else { // si NOT
+                        if(node_ao == 1) { // si AND
+                            res_fonc = res_fonc && !node_vark; // applique NOT et AND
                         }
-                        else {
-                            res_fonc = res_fonc || !node_vark;
+                        else { // si OR
+                            res_fonc = res_fonc || !node_vark; // applique NOT et OR
                         }
                     }
-
+                    //std::cout << "res_fonc entre deux genes : " << res_fonc << std::endl;
+                
                 }
-                //std::cout << "tab2D[i] : " << lectureCaseTab(i,get_nbcol()-1) << std::endl;
-                sse += pow((res_fonc - tab2d_[i][get_nbcol()-1]),2); // ATTENTION : tab2D_[nb_lig][nb_col] ça fait un overflow : 
-//pour la dernière case si on a 120 élément le tableau commence à 0->119 donc il faut faire nb_lig-1 nb_col-1!!
-                sse += pow((res_fonc - lectureCaseTab(i,get_nbcol()-1)),2);
-                //std::cout << "sse : " << sse << std::endl;
-            }
-            std::cout << "sse : " << sse << std::endl;
+            int lastYN = p[nb_coltab2D_*3-3];
+            //std::cout << "lastYN : " << lastYN << std::endl;
+
+            int lastvark = p[nb_coltab2D_*3-2];
+            //std::cout << "lastvark : " << lastvark << std::endl;
+
+            // on regarde à quelle valeur correspond lastvark pour cette ligne
+            int valeur = tab2d_[k][lastvark];
+            //std::cout << "valeur dans le tableau pour lastvark : " << valeur << std::endl;
+
+            // on applique lastYN à valeur :
+            int result;
+            result = (lastYN == 1) * (valeur) + (lastYN == 0) * (!valeur);
+            //std::cout << "result de lastYN applique sur valeur : " << result << std::endl;
+            sse += pow((res_fonc - result),2);
+
+            //std::cout << "sse : " << sse << std::endl;
             //On obtient la SSE pour la formule j
             //Comparaison avec la best_sse
 
@@ -272,12 +269,15 @@ fonction& construction::SSE(fonction *storage){
             best_sse = sse;
             best_formule = storage[j];
         }
+
+
+        
     }
-    std::cout << "best sse : " << best_sse << std::endl;
-    return best_formule;
+    std::cout << "\n BEST SSE : " << best_sse << std::endl;
+    return best_formule; 
 
      //doit retourner un objet
-
+    
 } ;
 
 // prend tous les paramètres donnés par l'utilisateur et réalise la boucle de calculs nécessaire pour aboutir à la formule_ finale
