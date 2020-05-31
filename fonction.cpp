@@ -217,11 +217,47 @@ void fonction::affichage(){
     {
     	std::cout << "  " << getRankYN()[i];
         std::cout << "  " << getRankVar()[i];
-        std::cout << "  " << getRankAO()[i] << "  \n";
+        std::cout << "  " << getRankAO()[i] << "    ";
 
     }
 
 	std::cout << "  " << getRankYN()[n_-1];
     std::cout << "  " << getRankVar()[n_-1] << "  \n";
 
+
 }
+
+///*
+int* fonction::formule(){
+	int* formule = new int[n_*3-1];
+
+	int i = 0;
+	formule[i] = getRankYN()[i];
+    formule[i+1] = getRankVar()[i];
+    formule[i+2] = getRankAO()[i];
+
+    formule[i+3] = getRankYN()[i+1];
+    formule[i+4] = getRankVar()[i+1];
+    formule[i+5] = getRankAO()[i+1];
+
+    formule[i+6] = getRankYN()[i+2];
+    formule[i+7] = getRankVar()[i+2];
+    formule[i+8] = getRankAO()[i+2];
+
+
+	for (int i = 0; i < n_*3-2; i++)
+    {
+    	formule[3*i] = getRankYN()[i];
+    	formule[3*i+1] = getRankVar()[i];
+    	formule[3*i+2] = getRankAO()[i];
+
+    }
+/*
+    formule[n_*3-3] = getRankYN()[n_-1];
+	formule[n_*3-2] = getRankVar()[n_-1];
+*/
+	return formule;
+
+	delete []formule;
+    formule = nullptr;
+}//*/
