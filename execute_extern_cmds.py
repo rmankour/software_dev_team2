@@ -18,5 +18,5 @@ def run_cpp_ea(nb_children, nb_generations, file_path):
 compile()
 
 # MODIFIER CETTE LIGNE EN METTANT LES ARGUMENTS DE VOTRE CHOIX
-run_cpp_ea(4,5,"gene.csv")
+run_cpp_ea(2,3,"gene_inter.csv")
 
