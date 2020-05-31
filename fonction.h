@@ -14,6 +14,7 @@ class fonction{
 		// int getRang();
 		fonction& operator=(fonction& fct);
 		void affichage();
+		int* formule();
 
 	protected:
 		int n_; //number of variables in the function
