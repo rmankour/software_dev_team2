@@ -185,14 +185,15 @@ fonction& construction::SSE(fonction *storage){
 
         // ici j'ai créé un tableau de int (parce que les getters sont des int) qui contient la formule
         // je vérifie que j'ai bien la même chose
-        int* p=NULL;
+        int *p = NULL;
+        p = new int[nb_coltab2D_*3-1];
         p = formuleActuelle.formule();
-        /*
+        
         int taillep = nb_coltab2D_*3-1;
 
         for (int i = 0; i < taillep; ++i){
             std::cout << p[i] << " ";
-        }*/
+        }
 
         bool res_fonc;
 
@@ -271,20 +272,19 @@ fonction& construction::SSE(fonction *storage){
             std::cout << "boucle if" << std::endl;
             best_sse = sse;
             std::cout << "best sse in if : " << best_sse << std::endl;
+            
             best_formule = storage[j];}
         
 
         
         std::cout << "avant delete" << std::endl;
         std::cout << "best sse avant delete : " << best_sse << std::endl;
-        delete []p;
-        p = nullptr;
+        //delete[] p;
         std::cout << "apres delete" << std::endl;
 
     }
     std::cout << "\n BEST SSE : " << best_sse << std::endl;
     return best_formule; 
-
      //doit retourner un objet
     
 } ;
