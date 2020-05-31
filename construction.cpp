@@ -175,7 +175,7 @@ fonction& construction::SSE(fonction *storage){
 
     
     //Calcul de la SSE pour chaque fonction enfant
-    for(int j=0; j< numChildren_ ; j++) {
+    for(int j=0; j < numChildren_ ; j++) {
         //Calcul de la SSE pour la formule j
         int sse = 0;
         fonction formuleActuelle = storage[j];
@@ -185,7 +185,7 @@ fonction& construction::SSE(fonction *storage){
 
         // ici j'ai créé un tableau de int (parce que les getters sont des int) qui contient la formule
         // je vérifie que j'ai bien la même chose
-        int* p;
+        int* p=NULL;
         p = formuleActuelle.formule();
         /*
         int taillep = nb_coltab2D_*3-1;
@@ -209,12 +209,12 @@ fonction& construction::SSE(fonction *storage){
 
                 //std::cout << "YN " << node_yn << " node_vark " << node_vark << " nous donne : " << res_fonc << std::endl;
                 
-
+                std::cout << "itération de la ligne : " << k << std::endl;
                 for (int g=1; g < nb_coltab2D_ ; g++) { //On ne prend que les (n-1) premiers points observés
                     //YES or NO
                     
                     int node_yn = p[g*3]; 
-                    //std::cout << "node_yn : " << node_yn << std::endl;
+                    std::cout << "itération g= : " << g << std::endl;
 
                     int node_vark = tab2d_[0][p[g*3+1]];
                     //std::cout << "YN sur node_vark : " << node_yn << " " << node_vark <<std::endl;
@@ -244,6 +244,7 @@ fonction& construction::SSE(fonction *storage){
                     //std::cout << "res_fonc entre deux genes : " << res_fonc << std::endl;
                 
                 }
+
             int lastYN = p[nb_coltab2D_*3-3];
             //std::cout << "lastYN : " << lastYN << std::endl;
 
@@ -260,18 +261,26 @@ fonction& construction::SSE(fonction *storage){
             //std::cout << "result de lastYN applique sur valeur : " << result << std::endl;
             sse += pow((res_fonc - result),2);
 
-            //std::cout << "sse : " << sse << std::endl;
+            std::cout << "sse : " << sse << std::endl;
             //On obtient la SSE pour la formule j
             //Comparaison avec la best_sse
 
         }
+        
         if (sse <= best_sse) {
+            std::cout << "boucle if" << std::endl;
             best_sse = sse;
-            best_formule = storage[j];
-        }
-
+            std::cout << "best sse in if : " << best_sse << std::endl;
+            best_formule = storage[j];}
+        
 
         
+        std::cout << "avant delete" << std::endl;
+        std::cout << "best sse avant delete : " << best_sse << std::endl;
+        delete []p;
+        p = nullptr;
+        std::cout << "apres delete" << std::endl;
+
     }
     std::cout << "\n BEST SSE : " << best_sse << std::endl;
     return best_formule; 
