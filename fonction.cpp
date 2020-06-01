@@ -230,7 +230,7 @@ void fonction::affichage(){
 ///*
 int* fonction::formule(){
 	int* formule = new int[n_*3-1];
-
+/*
 	int i = 0;
 	formule[i] = getRankYN()[i];
     formule[i+1] = getRankVar()[i];
@@ -243,19 +243,19 @@ int* fonction::formule(){
     formule[i+6] = getRankYN()[i+2];
     formule[i+7] = getRankVar()[i+2];
     formule[i+8] = getRankAO()[i+2];
+*/
 
-
-	for (int i = 0; i < n_*3-2; i++)
+	for (int i = 0; i < n_ -1; i++)
     {
     	formule[3*i] = getRankYN()[i];
     	formule[3*i+1] = getRankVar()[i];
     	formule[3*i+2] = getRankAO()[i];
 
     }
-/*
-    formule[n_*3-3] = getRankYN()[n_-1];
-	formule[n_*3-2] = getRankVar()[n_-1];
-*/
+
+    formule[3*(n_ -1)] = getRankYN()[n_ -1];
+	formule[3*(n_ -1)+1] = getRankVar()[n_ -1];
+
 	return formule;
 
 	delete []formule;
