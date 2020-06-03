@@ -15,7 +15,8 @@ construction::construction(const int gen, const int ind, const std::string adres
 	dataManage(); // donne une valeur à tableau qui contient dans un tableau en 2D les données fournies par l'utilisateur
 
     fonction f1(nb_coltab2D_);
-    formule_ = f1;
+    fonctiongen_ = f1; // objet fonction
+    formulegen_ = f1.getformule(); // contient la formule d'un individu dans un tableau
     /*
     fonction formule_; // Devrait générer une formule au pif si la classe marche bien
     int compteurFormules = 0; // Permet d'avancer dans l'historique composé des 3 tableaux à suivre
@@ -138,7 +139,7 @@ void construction::generation(){
     // std::cout << "avant mutation : " << std::endl;
     for(int i =0; i< numChildren_ ;i++)
     {
-        storage[i] = formule_;
+        storage[i] = fonctiongen_;
         //storage[i].affichage();
     }
 
@@ -150,7 +151,7 @@ void construction::generation(){
     }
 
     // check si la valeur de sse n'est pas inférieure à celle de la meilleure fonction de la generation précédente
-    formule_ = SSE(storage); //stocke la nouvelle meilleure formule dans l'attribut de la classe
+    fonctiongen_ = SSE(storage); //stocke la nouvelle meilleure formule dans l'attribut de la classe
 
     /* tab_positions[compteurFormules] = formule_.getPosition(); //stocke la mutation réalisée (position)
     tab_type[compteurFormules]= formule_.getType(); //stocke la mutation réalisée (type)
@@ -173,7 +174,7 @@ fonction& construction::SSE(fonction *storage){
     std::cout << "nb de lignes de tab   : " << nb_ligtab2D_ << std::endl;
     std::cout << "nb de colonnes de tab : " << nb_coltab2D_ << std::endl;
 
-    
+    /*
     //Calcul de la SSE pour chaque fonction enfant
     for(int j=0; j < numChildren_ ; j++) {
         //Calcul de la SSE pour la formule j
@@ -282,7 +283,7 @@ fonction& construction::SSE(fonction *storage){
         //delete[] p;
         std::cout << "apres delete" << std::endl;
 
-    }
+    }*/
     std::cout << "\n BEST SSE : " << best_sse << std::endl;
     return best_formule; 
      //doit retourner un objet
@@ -291,6 +292,7 @@ fonction& construction::SSE(fonction *storage){
 
 // prend tous les paramètres donnés par l'utilisateur et réalise la boucle de calculs nécessaire pour aboutir à la formule_ finale
 void construction::theCycleOfLife(){
+    // on pourrait initialiser ici la formule de départ, l'individu racine plutot que de le faire dans le constructeur
     /*i = 0;
     while (i < numGenerations){
         generation();
