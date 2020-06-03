@@ -6,9 +6,11 @@ class construction
 {
     public:
     construction(const int gen, const int ind, const std::string adress);
+    ~construction();
     void dataManage();
     bool lectureCaseTab(int lig, int col);
     void generation();
+    bool* prediction(fonction *storage);
     //fonction SSE(const fonction* &tab_fonctions); // reçoit un tableau de formule et retourne la meilleure d'entre elles (en prenant aussi en compte la myFormule actuelle)
     fonction& SSE(fonction *storage);
     void theCycleOfLife(); // prend tous les paramètres donnés par l'utilisateur et réalise la boucle de calculs nécessaire pour aboutir à la myFormule finale
@@ -27,6 +29,8 @@ class construction
     bool** tab2d_; // Contient dans un tableau en 2D les données fournies par l'utilisateur
     int nb_ligtab2D_;
     int nb_coltab2D_;
+    fonction* storage_;
+    bool* predict_;
     fonction fonctiongen_; // correspond à un individu
     int* formulegen_; // Contient la formule d'un individu dans un tableau
 
