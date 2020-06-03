@@ -17,6 +17,9 @@ construction::construction(const int gen, const int ind, const std::string adres
     fonction f1(nb_coltab2D_);
     fonctiongen_ = f1; // objet fonction
     formulegen_ = f1.getformule(); // contient la formule d'un individu dans un tableau
+
+    storage_ = new fonction[numChildren_];
+    predict_ = new bool[numChildren_ * nb_ligtab2D_];;
     /*
     fonction formule_; // Devrait générer une formule au pif si la classe marche bien
     int compteurFormules = 0; // Permet d'avancer dans l'historique composé des 3 tableaux à suivre
@@ -56,7 +59,12 @@ construction::construction(const int gen, const int ind, const std::string adres
 */
 };
 
-
+construction::~construction(){ //destructeur
+    delete []storage_;
+    storage_ = nullptr;
+    delete []predict_;
+    predict_ = nullptr;
+}
 
 void construction::dataManage()
 {
@@ -134,37 +142,137 @@ bool construction::lectureCaseTab(int lig, int col)
 };
 
 void construction::generation(){
-	fonction* storage = new fonction[numChildren_];
 
     // std::cout << "avant mutation : " << std::endl;
     for(int i =0; i< numChildren_ ;i++)
     {
-        storage[i] = fonctiongen_;
+        storage_[i] = fonctiongen_;
         //storage[i].affichage();
     }
 
     // std::cout << "après mutation : " << std::endl;
     for(int i =0; i< numChildren_ ;i++)
     {
-        storage[i].mutation();
+        storage_[i].mutation();
         //storage[i].affichage();
     }
 
+    bool* predict_ = prediction(storage_);
+
     // check si la valeur de sse n'est pas inférieure à celle de la meilleure fonction de la generation précédente
-    fonctiongen_ = SSE(storage); //stocke la nouvelle meilleure formule dans l'attribut de la classe
+    fonctiongen_ = SSE(storage_); //stocke la nouvelle meilleure formule dans l'attribut de la classe
 
     /* tab_positions[compteurFormules] = formule_.getPosition(); //stocke la mutation réalisée (position)
     tab_type[compteurFormules]= formule_.getType(); //stocke la mutation réalisée (type)
     tab_rang[compteurFormules]= formule_.getRang(); //stocke la mutation réalisée (rang, si interversion)
     compteurFormules =+ 1;*/
 
-    delete []storage;
-    storage = nullptr;
-
     return ;
 };
 
 // reçoit un tableau de formule et retourne la meilleure d'entre elles (en prenant aussi en compte la formule_ actuelle)
+
+
+bool* construction::prediction(fonction *storage){ // renvoie un tableau2D de bool
+   
+    std::cout << "vous etes dans prediction" << std::endl;
+
+    for(int j=0; j < numChildren_ ; j++) {
+        //Calcul de la prédiction pour la formule j
+        int sse = 0;
+        fonction formuleActuelle = storage[j];
+        int tailleActuelle = formuleActuelle.getN();
+
+        std::cout << j << " ième enfant de la génération : " << std::endl;
+        formuleActuelle.affichage();
+        
+        int* p = formuleActuelle.getformule(); // contient la formule
+        int taillep = tailleActuelle*3-1;
+
+        std::cout << "print p pour comparer à affichage : " <<std::endl;
+        std::cout << p[0] << " ";
+        for (int i = 0; i < taillep; ++i){
+                    std::cout << p[i] << " ";
+                }
+        std::cout << "apres la boucle pour print p" << std::endl;
+        bool res_fonc; // resultat pour chaque ligne que l'on stockera dans le tableau
+
+        for (int k=0; k < nb_ligtab2D_ ;k++) { // pour chaque condition (ici 3) on a 6 gènes
+                //Calcul du resultat de ma formule
+                
+                int node_yn = p[k*3]; // Yes ou Not dans formule
+                //std::cout << "\n node_yn : " << node_yn << std::endl;
+
+                int node_vark = tab2d_[0][p[k*3+1]]; // fait appel à valeur dans tableau
+                //std::cout << "node_vark : " << node_vark << std::endl;
+
+                res_fonc = (node_yn == 1) * (node_vark) + (node_yn == 0) * (!node_vark);
+
+                //std::cout << "YN " << node_yn << " node_vark " << node_vark << " nous donne : " << res_fonc << std::endl;
+                
+                //std::cout << "itération de la ligne : " << k << std::endl;
+                //std::cout << "itération de la ligne : " << k << std::endl;
+                for (int g=1; g < nb_coltab2D_ ; g++) { //On ne prend que les (n-1) premiers points observés
+                    //YES or NO
+                    
+                    int node_yn = p[g*3]; 
+                    std::cout << "itération g= : " << g << std::endl;
+
+                    int node_vark = tab2d_[0][p[g*3+1]];
+                    //std::cout << "YN sur node_vark : " << node_yn << " " << node_vark <<std::endl;
+                    //AND or OR
+                    int node_ao = p[g*3-1]; //Si 1 : AND Si 0 : OR
+                    //std::cout << "node_ao : " << node_ao << std::endl;
+
+                    //J'assemble le tout YEAH
+                    if(node_yn == 1) { // si YES
+                        
+                        if(node_ao == 1) { // si AND
+                            res_fonc = res_fonc && node_vark;
+                        }
+                        else { // si OR
+                            res_fonc = res_fonc || node_vark;
+                        }
+                    }
+                    else { // si NOT
+                        if(node_ao == 1) { // si AND
+                            res_fonc = res_fonc && !node_vark; // applique NOT et AND
+                        }
+                        else { // si OR
+                            res_fonc = res_fonc || !node_vark; // applique NOT et OR
+                        }
+                    }
+                    //std::cout << "res_fonc entre deux genes : " << res_fonc << std::endl;
+                predict_[j*nb_ligtab2D_ + k]= res_fonc;
+
+                } // boucle g
+
+        } // boucle k
+
+
+    } // boucle j
+
+    return predict_;
+
+} // fin prediction
+/*  
+            dans SSE : 
+            // predict contient la prediction pour chaque ligne (avec formule appliquée sur n-1 colonnes)
+            // la premiere valeur de predict (ligne 0, formule0) est à comparer avec dernière colonne ligne 0
+            // la deuxieme valeur de predict (ligne 1, formule0) est à comparer avec dernière colonne ligne 1
+
+            int lastYN = p[nb_coltab2D_*3-3];
+            //std::cout << "lastYN : " << lastYN << std::endl;
+
+            int lastvark = p[nb_coltab2D_*3-2];
+            //std::cout << "lastvark : " << lastvark << std::endl;
+
+            // on regarde à quelle valeur correspond lastvark pour cette ligne
+            int valeur = tab2d_[k][lastvark];
+            //std::cout << "valeur dans le tableau pour lastvark : " << valeur << std::endl;
+} */
+
+
 
 
 fonction& construction::SSE(fonction *storage){
