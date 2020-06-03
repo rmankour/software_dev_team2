@@ -180,23 +180,23 @@ bool* construction::prediction(fonction *storage){ // renvoie un tableau2D de bo
     for(int j=0; j < numChildren_ ; j++) {
         //Calcul de la prédiction pour la formule j
         int sse = 0;
-        fonction formuleActuelle = storage[j];
-        int tailleActuelle = formuleActuelle.getN();
-
-        std::cout << j << " ième enfant de la génération : " << std::endl;
-        formuleActuelle.affichage();
+        fonction p = storage[j];
+        int taillep = p.getN();
+        std::cout << "taille p : " << taillep << std::endl;
         
-        int* p = formuleActuelle.getformule(); // contient la formule
-        int taillep = tailleActuelle*3-1;
-
+        std::cout << j << " ième enfant de la génération : " << std::endl;
+        p.affichage();
+        
         std::cout << "print p pour comparer à affichage : " <<std::endl;
-        std::cout << p[0] << " ";
+        std::cout << p.getRankYN()[0] << " ";
+        std::cout << p.getformule()[0] << " ";
+        
         for (int i = 0; i < taillep; ++i){
-                    std::cout << p[i] << " ";
+                    std::cout << p.getformule()[i] << " ";
                 }
         std::cout << "apres la boucle pour print p" << std::endl;
         bool res_fonc; // resultat pour chaque ligne que l'on stockera dans le tableau
-
+/*
         for (int k=0; k < nb_ligtab2D_ ;k++) { // pour chaque condition (ici 3) on a 6 gènes
                 //Calcul du resultat de ma formule
                 
@@ -249,7 +249,7 @@ bool* construction::prediction(fonction *storage){ // renvoie un tableau2D de bo
 
         } // boucle k
 
-
+*/
     } // boucle j
 
     return predict_;
