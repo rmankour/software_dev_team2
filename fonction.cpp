@@ -14,6 +14,7 @@ fonction::fonction(int n){ //constructeur n nbr de variables
 	sizeYN_ = n;
 	sizeAO_ = n-1;
 	sizeVar_ = n;
+	formule_ = formule();
 
 	//std::cout << "init var" << std::endl;
 
@@ -96,6 +97,10 @@ int fonction::getN(){
 	return n_;
 }
 
+int* fonction::getformule(){
+	return formule_;
+}
+
 fonction::~fonction(){ //destructeur
 	delete []rankYN_;
 	rankYN_ = nullptr;
@@ -103,6 +108,8 @@ fonction::~fonction(){ //destructeur
 	rankAO_ = nullptr;
 	delete []rankVar_;
 	rankVar_ = nullptr;
+	delete []formule_;
+    formule_ = nullptr;
 }
 
 fonction& fonction::operator=(fonction& fct)
@@ -229,35 +236,92 @@ void fonction::affichage(){
 
 ///*
 int* fonction::formule(){
-	int* formule = new int[n_*3-1];
-/*
-	int i = 0;
-	formule[i] = getRankYN()[i];
-    formule[i+1] = getRankVar()[i];
-    formule[i+2] = getRankAO()[i];
-
-    formule[i+3] = getRankYN()[i+1];
-    formule[i+4] = getRankVar()[i+1];
-    formule[i+5] = getRankAO()[i+1];
-
-    formule[i+6] = getRankYN()[i+2];
-    formule[i+7] = getRankVar()[i+2];
-    formule[i+8] = getRankAO()[i+2];
-*/
+	formule_ = new int[n_*3-1];
 
 	for (int i = 0; i < n_ -1; i++)
     {
-    	formule[3*i] = getRankYN()[i];
-    	formule[3*i+1] = getRankVar()[i];
-    	formule[3*i+2] = getRankAO()[i];
+    	formule_[3*i] = getRankYN()[i];
+    	formule_[3*i+1] = getRankVar()[i];
+    	formule_[3*i+2] = getRankAO()[i];
 
     }
 
-    formule[3*(n_ -1)] = getRankYN()[n_ -1];
-	formule[3*(n_ -1)+1] = getRankVar()[n_ -1];
+    formule_[3*(n_ -1)] = getRankYN()[n_ -1];
+	formule_[3*(n_ -1)+1] = getRankVar()[n_ -1];
 
-	return formule;
-
-	delete []formule;
-    formule = nullptr;
+	return formule_;
 }//*/
+
+/*
+fonction* fonction::prediction(){
+int *p = NULL;
+        p = new int[nb_coltab2D_*3-1];
+        p = formuleActuelle.formule();
+        
+        int taillep = nb_coltab2D_*3-1;
+
+        for (int i = 0; i < taillep; ++i){
+            std::cout << p[i] << " ";
+        }
+
+        bool res_fonc;
+
+        for (int k=0; k < nb_ligtab2D_ ;k++) { // pour chaque condition (ici 3) on a 6 gènes
+                //Calcul du resultat de ma formule
+                
+                int node_yn = p[k*3]; // Yes ou Not dans formule
+                //std::cout << "\n node_yn : " << node_yn << std::endl;
+
+                int node_vark = tab2d_[0][p[k*3+1]]; // fait appel à valeur dans tableau
+                //std::cout << "node_vark : " << node_vark << std::endl;
+
+                res_fonc = (node_yn == 1) * (node_vark) + (node_yn == 0) * (!node_vark);
+
+                //std::cout << "YN " << node_yn << " node_vark " << node_vark << " nous donne : " << res_fonc << std::endl;
+                
+                std::cout << "itération de la ligne : " << k << std::endl;
+                for (int g=1; g < nb_coltab2D_ ; g++) { //On ne prend que les (n-1) premiers points observés
+                    //YES or NO
+                    
+                    int node_yn = p[g*3]; 
+                    std::cout << "itération g= : " << g << std::endl;
+
+                    int node_vark = tab2d_[0][p[g*3+1]];
+                    //std::cout << "YN sur node_vark : " << node_yn << " " << node_vark <<std::endl;
+                    //AND or OR
+                    int node_ao = p[g*3-1]; //Si 1 : AND Si 0 : OR
+                    //std::cout << "node_ao : " << node_ao << std::endl;
+
+                    
+                    //J'assemble le tout YEAH
+                    if(node_yn == 1) { // si YES
+                        
+                        if(node_ao == 1) { // si AND
+                            res_fonc = res_fonc && node_vark;
+                        }
+                        else { // si OR
+                            res_fonc = res_fonc || node_vark;
+                        }
+                    }
+                    else { // si NOT
+                        if(node_ao == 1) { // si AND
+                            res_fonc = res_fonc && !node_vark; // applique NOT et AND
+                        }
+                        else { // si OR
+                            res_fonc = res_fonc || !node_vark; // applique NOT et OR
+                        }
+                    }
+                    //std::cout << "res_fonc entre deux genes : " << res_fonc << std::endl;
+                
+                }
+
+            int lastYN = p[nb_coltab2D_*3-3];
+            //std::cout << "lastYN : " << lastYN << std::endl;
+
+            int lastvark = p[nb_coltab2D_*3-2];
+            //std::cout << "lastvark : " << lastvark << std::endl;
+
+            // on regarde à quelle valeur correspond lastvark pour cette ligne
+            int valeur = tab2d_[k][lastvark];
+            //std::cout << "valeur dans le tableau pour lastvark : " << valeur << std::endl;
+} */
