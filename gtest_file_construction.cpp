@@ -35,9 +35,13 @@ TEST(GTestTests, basic_test) {
 
 fonction f1(20);
 TEST(GTestTests, fonctionConstructor_test){
-	for(int i=0 ; i<20 ; i++){
+	for(int i=0 ; i<(f1.getSizef()-1) ; i++){
 		EXPECT_TRUE(f1.getRankYN()[i] == 0 || f1.getRankYN()[i] == 1);
+		EXPECT_TRUE(f1.getRankAO()[i] == 0 || f1.getRankAO()[i] == 1);
+		EXPECT_TRUE(f1.getRankVar()[i] >= 0 && f1.getRankYN()[i] < f1.getN());
 	}
+	EXPECT_TRUE(f1.getRankYN()[f1.getSizef()-1] == 0 || f1.getRankYN()[f1.getSizef()-1] == 1);
+	EXPECT_TRUE(f1.getRankVar()[f1.getSizef()-1] >= 0 && f1.getRankYN()[f1.getSizef()-1] < f1.getN());
 }
 
 TEST(GTestTests, fonctionGetN_test){
@@ -163,4 +167,3 @@ TEST(GTestTests, fonctionMutation_test){
 	Var1 = nullptr;
 }
 
-int A;

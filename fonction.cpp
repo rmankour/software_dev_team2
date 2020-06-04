@@ -8,12 +8,13 @@ fonction::fonction()
 }
 fonction::fonction(int n){ //constructeur n nbr de variables
 	n_ = n;
-	rankYN_ = new int[n]; //yes=1, no=0
-	rankAO_ = new int[n-1]; //and=1, or=0
-	rankVar_ = new int[n];
-	sizeYN_ = n;
-	sizeAO_ = n-1;
-	sizeVar_ = n;
+	sizef_ = std::rand()%n +1;// taille de la formule initiale
+	rankYN_ = new int[sizef_]; //yes=1, no=0
+	rankAO_ = new int[sizef_-1]; //and=1, or=0
+	rankVar_ = new int[sizef_];
+	sizeYN_ = sizef_;
+	sizeAO_ = sizef_-1;
+	sizeVar_ = sizef_;
 	formule_ = formule();
 
 	//std::cout << "init var" << std::endl;
@@ -28,18 +29,22 @@ fonction::fonction(int n){ //constructeur n nbr de variables
 	}
 	//std::cout << "rankAO_" << std::endl;
 
-	int used[n];
+	for(int i=0 ; i<sizeVar_ ; i++){ //fills rankVar w/ indexes corresponding to variables
+		rankVar_[i] = std::rand()%(n_+1);
+	}
+
+	/*int used[sizef_];
 	int sizeUsed = 0;
 	int rank;
 	bool free;
 
-	for(int i = 0 ; i<n ; i++){ //randomised order attribution for variables
+	for(int i = 0 ; i<sizef_ ; i++){ //randomised order attribution for variables
 		used[i] = -1;
 		//std::cout << "used["<<i<<"] = " << used[i] << std::endl;
 		do{
 			free = true;
 			//std::cout << "free = " << free << std::endl;
-			rank = std::rand()%(n_);
+			rank = std::rand()%(sizef_);
 			//std::cout << "rank = " << rank << std::endl;
 			if(sizeUsed>0){
 				//std::cout << "sizeUsed>0 = true" << std::endl;
@@ -63,10 +68,10 @@ fonction::fonction(int n){ //constructeur n nbr de variables
 		//std::cout << "sizeUsed = " << sizeUsed << std::endl;
 		rankVar_[rank] = i;
 		//std::cout << "rankVar_["<<rank<<"] = " << rankVar_[rank] << std::endl;
-	}
+	}*/
 
 	//std::cout << "rankVar_" << std::endl;
-	/*for (int i = 0; i < n_; ++i)
+	/*for (int i = 0; i < sizef_; ++i)
 	{
 		std::cout << rankVar_[i]<< "\n";
 	}*/
@@ -97,6 +102,10 @@ int fonction::getN(){
 	return n_;
 }
 
+int fonction::getSizef(){
+	return sizef_;
+}
+
 int* fonction::getformule(){
 	return formule_;
 }
@@ -119,12 +128,13 @@ fonction& fonction::operator=(fonction& fct)
 	rankVar_ = nullptr;
 
 	n_ = fct.getN();
-	rankYN_ = new int[n_]; //yes=1, no=0
-	rankAO_ = new int[n_-1]; //and=1, or=0
-	rankVar_ = new int[n_];
-	sizeYN_ = n_;
-	sizeAO_ = n_-1;
-	sizeVar_ = n_;
+	sizef_ = fct.getSizef();
+	rankYN_ = new int[sizef_]; //yes=1, no=0
+	rankAO_ = new int[sizef_-1]; //and=1, or=0
+	rankVar_ = new int[sizef_];
+	sizeYN_ = sizef_;
+	sizeAO_ = sizef_-1;
+	sizeVar_ = sizef_;
 
 	int* tempYN = fct.getRankYN();
 	int* tempAO = fct.getRankAO();
@@ -184,7 +194,7 @@ void fonction::mutation(){
 	    		//std::cout << mutVar << std::endl;
 	    	}while(mutRank==mutVar);
 
-	    	/*for (int i = 0; i < n_; ++i)
+	    	/*for (int i = 0; i < sizef_; ++i)
 			{
 				std::cout << rankVar_[i]<< "\n";
 			}
@@ -201,7 +211,7 @@ void fonction::mutation(){
 	    	rankVar_[mutRank] = temp;
 	    	//std::cout << "rankVar_[mutRank] = " << rankVar_[mutRank] << std::endl;
 
-	    	/*for (int i = 0; i < n_; ++i)
+	    	/*for (int i = 0; i < sizef_; ++i)
 			{
 				std::cout << rankVar_[i]<< "\n";
 			}
@@ -220,7 +230,7 @@ void fonction::mutation(){
 // sur une ligne on a une formule avec dans l'ordre YN Var AO 
 void fonction::affichage(){
 
-	for (int i = 0; i < n_-1; ++i)
+	for (int i = 0; i < sizef_-1; ++i)
     {
     	std::cout << "  " << getRankYN()[i];
         std::cout << "  " << getRankVar()[i];
@@ -228,17 +238,17 @@ void fonction::affichage(){
 
     }
 
-	std::cout << "  " << getRankYN()[n_-1];
-    std::cout << "  " << getRankVar()[n_-1] << "  \n";
+	std::cout << "  " << getRankYN()[sizef_-1];
+    std::cout << "  " << getRankVar()[sizef_-1] << "  \n";
 
 
 }
 
 ///*
 int* fonction::formule(){
-	formule_ = new int[n_*3-1];
+	formule_ = new int[sizef_*3-1];
 
-	for (int i = 0; i < n_ -1; i++)
+	for (int i = 0; i < sizef_ -1; i++)
     {
     	formule_[3*i] = getRankYN()[i];
     	formule_[3*i+1] = getRankVar()[i];
@@ -246,8 +256,8 @@ int* fonction::formule(){
 
     }
 
-    formule_[3*(n_ -1)] = getRankYN()[n_ -1];
-	formule_[3*(n_ -1)+1] = getRankVar()[n_ -1];
+    formule_[3*(sizef_ -1)] = getRankYN()[sizef_ -1];
+	formule_[3*(sizef_ -1)+1] = getRankVar()[sizef_ -1];
 
 	return formule_;
 }//*/

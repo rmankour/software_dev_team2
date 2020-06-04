@@ -10,6 +10,7 @@ class fonction{
 		int* getRankVar();
 		int* getformule();
 		int getN();
+		int getSizef();
 		// int getPosition();
 		// int getType();
 		// int getRang();
@@ -18,7 +19,8 @@ class fonction{
 		int* formule();
 
 	protected:
-		int n_; //number of variables in the function
+		int n_; //number of variables existing
+		int sizef_; //number de termes dans la formule
 		int* rankYN_;
 		int* rankAO_;
 		int* rankVar_;
