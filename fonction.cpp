@@ -106,7 +106,27 @@ int fonction::getSizef(){
 	return sizef_;
 }
 
-int* fonction::getformule(){
+/*int* fonction::getformule(){
+	return formule_;
+}*/
+
+int* fonction::getFormule(){
+	formule_ = new int[sizef_*3-1];
+
+	
+
+	node *tmp;
+    tmp = head_;
+
+    int i = 0;
+    while (tmp != NULL)
+    {
+        //std::cout << tmp->value_<< std::endl;
+        formule_[i] = tmp->value_;
+        tmp = tmp->next_;
+        i++;
+    }
+
 	return formule_;
 }
 
@@ -244,7 +264,7 @@ void fonction::affichage(){
 
 }
 
-///*
+/*
 int* fonction::formule(){
 	formule_ = new int[sizef_*3-1];
 
@@ -260,6 +280,6 @@ int* fonction::formule(){
 	formule_[3*(sizef_ -1)+1] = getRankVar()[sizef_ -1];
 
 	return formule_;
-}//*/
+}*/
 
 
