@@ -15,6 +15,7 @@ fonction::fonction(int n){ //constructeur n nbr de variables
 	sizeYN_ = sizef_;
 	sizeAO_ = sizef_-1;
 	sizeVar_ = sizef_;
+	formule_ = new int[sizef_*3-1];
 	formule_ = formule();
 
 	//std::cout << "init var" << std::endl;
@@ -258,7 +259,7 @@ void fonction::affichage(){
 
 
 int* fonction::formule(){
-	formule_ = new int[sizef_*3-1];
+	
 
 	for (int i = 0; i < sizef_-1; i++)
     {
