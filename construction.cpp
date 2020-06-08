@@ -14,10 +14,9 @@ construction::construction(const int gen, const int ind, const std::string adres
     numGenerations_ = gen; // Nombre de générations à réaliser, indiqué par l'utilisateur ou valeur par défaut
 	dataManage(); // donne une valeur à tableau qui contient dans un tableau en 2D les données fournies par l'utilisateur
 
-    fonction f1(nb_coltab2D_);
+   
     fonction fonctiongen_(nb_coltab2D_);
-    fonctiongen_ = f1; // objet fonction
-    formulegen_ = f1.getFormule(); // contient la formule d'un individu dans un tableau
+    formulegen_ = fonctiongen_.getFormule(); // contient la formule d'un individu dans un tableau
 
     storage_ = new fonction[numChildren_];
     predict_ = new bool[numChildren_ * nb_ligtab2D_];
@@ -61,12 +60,18 @@ construction::construction(const int gen, const int ind, const std::string adres
 };
 
 construction::~construction(){ //destructeur
-    delete []storage_;
+   
     for(int i = 0; i <= nb_ligtab2D_; ++i) {
        delete [] tab2d_[i];
     }
+        
     delete []tab2d_;
     delete []predict_;
+    std::cout << "avant storage" << std::endl;
+    delete []storage_;
+    
+    std::cout << "dest storage" << std::endl;
+
     //delete []tab_positions;
     //delete []tab_type;
     //delete []tab_rang;
@@ -153,8 +158,6 @@ void construction::generation(){
     // std::cout << "avant mutation : " << std::endl;
     for(int i =0; i< numChildren_ ;i++)
     {
-        
-        fonction storage_[i](2);
         storage_[i] = fonctiongen_;
         //storage[i].affichage();
     }
@@ -166,7 +169,7 @@ void construction::generation(){
         //storage[i].affichage();
     }
 
-    predict_ = prediction(storage_);
+    prediction(storage_);
 
     // check si la valeur de sse n'est pas inférieure à celle de la meilleure fonction de la generation précédente
     //fonctiongen_ = SSE(storage_); //stocke la nouvelle meilleure formule dans l'attribut de la classe
@@ -176,30 +179,30 @@ void construction::generation(){
     tab_rang[compteurFormules]= formule_.getRang(); //stocke la mutation réalisée (rang, si interversion)
     compteurFormules =+ 1;*/
 
-    return ;
+    ;
 };
 
 // reçoit un tableau de formule et retourne la meilleure d'entre elles (en prenant aussi en compte la formule_ actuelle)
 
 
-bool* construction::prediction(fonction *storage){ // renvoie un tableau2D de bool
+void construction::prediction(fonction *storage){ // renvoie un tableau2D de bool
    
     std::cout << "vous etes dans prediction" << std::endl;
 
     for(int j=0; j < numChildren_ ; j++) {
         //Calcul de la prédiction pour la formule j
         int sse = 0;
-        fonction p = storage[j];
-        int taillep = p.getN();
+        
+        int taillep = storage[j].getN();
         std::cout << "taille p : " << taillep << std::endl;
         
         std::cout << j << " ième enfant de la génération : " << std::endl;
-        p.affichage();
+        storage[j].affichage();
         
         std::cout << "print p pour comparer à affichage : " <<std::endl;
-        std::cout << p.getRankYN()[0] << " "; // ok
-        std::cout << p.getRankAO()[0] << " "; // ok
-        std::cout << p.getFormule()[0] << " "; // PAS OK DU TOUT
+        std::cout << storage[j].getRankYN()[0] << " "; // ok
+        std::cout << storage[j].getRankAO()[0] << " "; // ok
+        std::cout << storage[j].getFormule()[0] << " "; // PAS OK DU TOUT
         /*
         for (int i = 0; i < taillep; ++i){
                     std::cout << p.getformule()[i] << " ";
@@ -262,7 +265,7 @@ bool* construction::prediction(fonction *storage){ // renvoie un tableau2D de bo
 */
     } // boucle j
 
-    return predict_;
+    
 
 } // fin prediction
 /*  

@@ -4,7 +4,17 @@
 
 fonction::fonction()
 {
-	
+	n_ = 1;
+	sizef_ = std::rand()%n_ +1;// taille de la formule initiale
+	rankYN_ = new int[sizef_]; //yes=1, no=0
+	rankAO_ = new int[sizef_-1]; //and=1, or=0
+	rankVar_ = new int[sizef_];
+	sizeYN_ = sizef_;
+	sizeAO_ = sizef_-1;
+	sizeVar_ = sizef_;
+	formule_ = new int[sizef_*3-1];
+	sizeformule_ = sizef_*3-1;
+	formule_ = formule();
 }
 fonction::fonction(int n){ //constructeur n nbr de variables
 	n_ = n;
@@ -118,12 +128,13 @@ int* fonction::getFormule(){
 
 fonction::~fonction(){ //destructeur
 	delete []rankYN_;
-	rankYN_ = nullptr;
+	std::cout << "rankYN" << std::endl;
 	delete []rankAO_;
-	rankAO_ = nullptr;
+	std::cout << "rankAO_" << std::endl;
 	delete []rankVar_;
-	rankVar_ = nullptr;
+	std::cout << "rankVar_" << std::endl;
 	delete []formule_;
+	std::cout << "formule_" << std::endl;
     //formule_ = nullptr;
 }
 
