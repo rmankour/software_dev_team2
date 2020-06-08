@@ -111,22 +111,6 @@ int fonction::getSizef(){
 }*/
 
 int* fonction::getFormule(){
-	formule_ = new int[sizef_*3-1];
-
-	
-
-	node *tmp;
-    tmp = head_;
-
-    int i = 0;
-    while (tmp != NULL)
-    {
-        //std::cout << tmp->value_<< std::endl;
-        formule_[i] = tmp->value_;
-        tmp = tmp->next_;
-        i++;
-    }
-
 	return formule_;
 }
 
@@ -137,8 +121,8 @@ fonction::~fonction(){ //destructeur
 	rankAO_ = nullptr;
 	delete []rankVar_;
 	rankVar_ = nullptr;
-	delete []formule_;
-    formule_ = nullptr;
+	//delete []formule_;
+    //formule_ = nullptr;
 }
 
 fonction& fonction::operator=(fonction& fct)
@@ -264,22 +248,22 @@ void fonction::affichage(){
 
 }
 
-/*
+
 int* fonction::formule(){
 	formule_ = new int[sizef_*3-1];
 
-	for (int i = 0; i < sizef_ -1; i++)
+	for (int i = 0; i < sizef_-1; i++)
     {
-    	formule_[3*i] = getRankYN()[i];
-    	formule_[3*i+1] = getRankVar()[i];
-    	formule_[3*i+2] = getRankAO()[i];
-
+    	//std::cout << "i = " << i <<std::endl;
+    	formule_[3*i] = rankYN_[i];
+    	//std::cout << formule1[3*i] << std::endl;
+    	formule_[3*i+1] = rankVar_[i];
+    	formule_[3*i+2] = rankAO_[i];
     }
-
-    formule_[3*(sizef_ -1)] = getRankYN()[sizef_ -1];
-	formule_[3*(sizef_ -1)+1] = getRankVar()[sizef_ -1];
+    formule_[3*(sizef_ -1)] = rankYN_[sizef_-1];
+    formule_[3*(sizef_ -1)+1] = rankVar_[sizef_-1];
 
 	return formule_;
-}*/
+}
 
-
+	

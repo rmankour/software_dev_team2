@@ -8,7 +8,7 @@ class fonction{
 		int* getRankYN();
 		int* getRankAO();
 		int* getRankVar();
-		int* getformule();
+		int* getFormule();
 		int getN();
 		int getSizef();
 		// int getPosition();

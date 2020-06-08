@@ -152,7 +152,7 @@ TEST(GTestTests, fonctionMutation_test){
 
 	EXPECT_TRUE(mutTest);
 
-
+/*
 	delete [] YN0;
 	YN0 = nullptr;
 	delete [] AO0;
@@ -165,5 +165,25 @@ TEST(GTestTests, fonctionMutation_test){
 	AO1 = nullptr;
 	delete [] Var1;
 	Var1 = nullptr;
+	*/
+}
+
+
+TEST(GTestTests, fonctionGetFormule_test){
+
+	int* formule1 = f1.getFormule();
+	int size1 = f1.getSizef(); 
+	int n1 = f1.getN();
+
+	for (int i = 0; i < size1-1; i++)
+    {
+    	//std::cout << "i = " << i <<std::endl;
+    	EXPECT_TRUE(formule1[3*i] == 0 || formule1[3*i] == 1);
+    	//std::cout << formule1[3*i] << std::endl;
+    	EXPECT_TRUE(formule1[3*i+1] >= 0 && formule1[3*i+1] < n1);
+    	EXPECT_TRUE(formule1[3*i+2] == 0 || formule1[3*i+2] == 1);
+    }
+    EXPECT_TRUE(formule1[3*(size1 -1)] == 0 || formule1[3*(size1 -1)] == 1);
+    EXPECT_TRUE(formule1[3*(size1 -1)+1] >= 0 && formule1[3*(size1 -1)+1] < n1);
 }
 
