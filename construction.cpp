@@ -188,12 +188,13 @@ bool* construction::prediction(fonction *storage){ // renvoie un tableau2D de bo
         p.affichage();
         
         std::cout << "print p pour comparer à affichage : " <<std::endl;
-        std::cout << p.getRankYN()[0] << " ";
-        std::cout << p.getformule()[0] << " ";
-        
+        std::cout << p.getRankYN()[0] << " "; // ok
+        std::cout << p.getRankAO()[0] << " "; // ok
+        //std::cout << p.getformule()[0] << " "; // PAS OK DU TOUT
+        /*
         for (int i = 0; i < taillep; ++i){
                     std::cout << p.getformule()[i] << " ";
-                }
+                } */
         std::cout << "apres la boucle pour print p" << std::endl;
         bool res_fonc; // resultat pour chaque ligne que l'on stockera dans le tableau
 /*
