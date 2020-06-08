@@ -9,7 +9,7 @@ run_test_exec: exec_test.o
 	g++ $(CXXFLAGS) -o run_test_exec exec_test.o googletest-release-1.10.0/build/lib/libgtest.a googletest-release-1.10.0/build/lib/libgtest_main.a -pthread
 	./run_test_exec
 
-exec.o: fonction.o	#construction.cpp main.cpp
+exec.o: fonction.o	construction.cpp main.cpp
 	g++ $(CXXFLAGS)  construction.cpp main.cpp -o exec.o -Igoogletest-release-1.10.0/googletest/include/ -std=c++11
 	 
 run_tests: test_file_geneticAlgo.o
