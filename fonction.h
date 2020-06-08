@@ -10,7 +10,7 @@ class fonction{
 		fonction();
 		fonction(int n); //constructeur
 		~fonction(); //destructeur
-		//void mutation();
+		void mutation();
 		//bool execute(bool data); //calcule les résultats pour data
 		int* getFormule();
 		int getN();
@@ -22,7 +22,10 @@ class fonction{
 		void affichage();
 
 		void add_node(int val, int ty);
-		node* gethead();
+		void del_node_suiv(node* preced);
+		node* access_node(int index);
+		void add_after_node(node *a, int value, int type);
+		
 
 	protected:
 		int n_; //number of variables existing
@@ -32,6 +35,7 @@ class fonction{
 		// int type;
 		// int rang;
 		node *head_,*tail_;
+		node* gethead();
 
 
 };

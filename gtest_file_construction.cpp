@@ -3,6 +3,7 @@
 #include "fonction.cpp"
 #include <string>
 #include <iostream>
+#include <algorithm> 
 
 /* the makefile should directly compile then execute the program, and finaly clean the compiling intermediaries and the executable*/
 /* run make clean to get rid of intermediate files */
@@ -13,26 +14,6 @@ TEST(GTestTests, basic_test) {
 
     EXPECT_TRUE(true);
 }
-
-/*TEST(GTestTests, test_dataManage_lectureCaseTab)
-{
-	construction obj(0,0,"gene.csv");
-	obj.dataManage();
-	std::string chartest = "";
-	std::string expectedchar = "110101001011011001000011010011010100111111101011100001101001101111010111101011111011110011111001100100111111110100100011";
-
-	for(size_t j=0; j<obj.get_nbcol(); j++)
-	{
-		if ((obj.lectureCaseTab(obj.get_nblig()-1,j)==false))
-		{
-			chartest += "0";
-		}
-		else chartest+="1";
-	}
-	EXPECT_EQ(chartest,expectedchar);
-
-}*/
-
 
 fonction f1(20);
 int* formule1 = f1.getFormule();
@@ -60,9 +41,6 @@ TEST(GTestTests, fonctionGetN_test){
 fonction f3(5);
 fonction f4(30);
 TEST(GTestTests, fonctionOperatorEq_test){
-	//std::cout << "f3" << std::endl;
-	
-	//std::cout << "f3 = f1" << std::endl;
 	f3 = f1;
 	int* formule3 = f3.getFormule();
 	int size3 = f3.getSizef(); 
@@ -77,149 +55,43 @@ TEST(GTestTests, fonctionOperatorEq_test){
 	EXPECT_EQ(size1, size4);
 	EXPECT_EQ(n1, n4);
 
-	/*std::cout << "Début" << std::endl;
-	for (int i = 0; i < size3; ++i)
-	{
-		std::cout << formule3[i] << std::endl;
-	}
-	std::cout << "Fin" << std::endl;*/
-
 	for (int i = 0; i < size3*3-1; ++i)
 	{
-		//std::cout << "i = " << i << std::endl;
 		EXPECT_EQ(formule1[i], formule3[i]);
 	}
 
 	for (int i = 0; i < size4*3-1; ++i)
 	{
-		//std::cout << "i = " << i << std::endl;
 		EXPECT_EQ(formule1[i], formule4[i]);
 	}
 
 }
 
 
-/*delete []formule1;
-formule1 = nullptr;
-*/
-
-/*
-TEST(GTestTests, fonctionCopyConstructor_test){
-	fonction f2 = f1;
-
-	int* f1YN = f1.getRankYN();
-	int* f1AO = f1.getRankAO();
-	int* f1Var = f1.getRankVar();
-	int* f2YN = f2.getRankYN();
-	int* f2AO = f2.getRankAO();
-	int* f2Var = f2.getRankVar();
-
-	for (int i = 0; i < f1.getN()-1; ++i)
-	{
-		EXPECT_EQ(f1YN[i], f2YN[i]);
-		EXPECT_EQ(f1AO[i], f2AO[i]);
-		EXPECT_EQ(f1Var[i], f2Var[i]);
-	}
-
-	EXPECT_EQ(f1YN[f1.getN()-1], f2YN[f1.getN()-1]);
-	EXPECT_EQ(f1Var[f1.getN()-1], f2Var[f1.getN()-1]);
-
-	delete []f1YN;
-	f1YN = nullptr;
-	delete []f1AO;
-	f1AO = nullptr;
-	delete []f1Var;
-	f1Var = nullptr;
-	delete []f2YN;
-	f2YN = nullptr;
-	delete []f2AO;
-	f2AO = nullptr;
-	delete []f2Var;
-	f2Var = nullptr;
-}
-
-
-fonction f3(5);
-TEST(GTestTests, fonctionOperatorEq_test){
-	f3 = f1;
-
-	int* f1YN = f1.getRankYN();
-	int* f1AO = f1.getRankAO();
-	int* f1Var = f1.getRankVar();
-	int* f3YN = f3.getRankYN();
-	int* f3AO = f3.getRankAO();
-	int* f3Var = f3.getRankVar();
-
-	for (int i = 0; i < f1.getN()-1; ++i)
-	{
-		EXPECT_EQ(f1YN[i], f3YN[i]);
-		EXPECT_EQ(f1AO[i], f3AO[i]);
-		EXPECT_EQ(f1Var[i], f3Var[i]);
-	}
-
-	EXPECT_EQ(f1YN[f1.getN()-1], f3YN[f1.getN()-1]);
-	EXPECT_EQ(f1Var[f1.getN()-1], f3Var[f1.getN()-1]);
-
-	delete []f1YN;
-	f1YN = nullptr;
-	delete []f1AO;
-	f1AO = nullptr;
-	delete []f1Var;
-	f1Var = nullptr;
-	delete []f3YN;
-	f3YN = nullptr;
-	delete []f3AO;
-	f3AO = nullptr;
-	delete []f3Var;
-	f3Var = nullptr;
-}
-
 
 TEST(GTestTests, fonctionMutation_test){
-	int n = f3.getN();
-	int* YN0 = new int[n];
-	int* AO0 = new int[n-1];
-	int* Var0 = new int[n];
-	for(int i=0 ; i<n; i++){ //fills rankYN
-		YN0[i] = f3.getRankYN()[i];
-	}
-
-	for(int i=0 ; i<n-1 ; i++){ //fills rankYN
-		AO0[i] = f3.getRankAO()[i];
-	}
-
-	for(int i=0 ; i<n; i++){ //fills rankVar
-		Var0[i] = f3.getRankVar()[i];
+	int size0 = f3.getSizef(); 
+	int* formule0 = new int[size0*3-1];
+	for (int i = 0; i < size0*3-1; ++i)
+	{
+		formule0[i] = f3.getFormule()[i];
 	}
 	f3.mutation();
-	int* YN1 = f3.getRankYN();
-	int* AO1 = f3.getRankAO();
-	int* Var1 = f3.getRankVar();
+	int* formule1 = f3.getFormule();
+	int size1 = f3.getSizef(); 
 
-	bool mutTest = false;
+	bool mutTest = (size0!=size1);
 
-	for (int i = 0; i < n-1; ++i)
+	for (int i = 0; i < std::min(size0, size1)*3-1; ++i)
 	{
 		
-		mutTest = mutTest or YN0[i]!=YN1[i] or AO0[i]!=AO1[i] or Var0[i]!=Var1[i];
+		mutTest = mutTest or formule0[i]!=formule1[i];
 	}
-
-	mutTest = mutTest or YN0[n-1]!=YN1[n-1] or Var0[n-1]!=Var1[n-1];
 
 	EXPECT_TRUE(mutTest);
 
 
-	delete [] YN0;
-	YN0 = nullptr;
-	delete [] AO0;
-	AO0 = nullptr;
-	delete [] Var0;
-	Var0 = nullptr;
-	delete [] YN1;
-	YN1 = nullptr;
-	delete [] AO1;
-	AO1 = nullptr;
-	delete [] Var1;
-	Var1 = nullptr;
+	delete []formule0;
+	delete []formule1;
 }
-*/
+

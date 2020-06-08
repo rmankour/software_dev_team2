@@ -37,6 +37,36 @@ void fonction::add_node(int value, int type)
     }
 }
 
+void fonction::del_node_suiv(node* preced)
+{
+	node* temp;
+    temp = preced->next_;
+    preced->next_ = temp->next_;
+    delete temp;
+}
+
+node* fonction::access_node(int index)
+{
+	node* tmp;
+	tmp = head_;
+	for(int i = 0 ; i <= index ; i++)
+	{
+		tmp = tmp->next_;
+	}
+	return tmp;
+}
+
+void fonction::add_after_node(node *a, int value, int type)
+    {
+        node* p = new node;
+        p->value_ = value;
+        p->type_ = type;
+
+        p->next_ = a->next_;
+        a->next_ = p;
+
+    }
+
 fonction::fonction(int n){ //constructeur n nbr de variables
 	//std::cout << "ctor"<< std::endl;
 	n_ = n;
@@ -100,11 +130,14 @@ fonction::~fonction(){ //destructeur
 		tmp = tmpd->next_;
 		delete []tmpd;
 	}
+	delete []formule_;
 }
 
 
 fonction& fonction::operator=(fonction& fct)
 {
+	delete []formule_;
+
 	int tempSize = sizef_;
 	n_ = fct.getN();
 	sizef_ = fct.getSizef();
@@ -167,63 +200,98 @@ fonction& fonction::operator=(fonction& fct)
 }
 
 
-/*
+
 void fonction::mutation(){
-	// La mutation concerne YN(0), AO(1), inversion(2), deletion(3), insertion(4) ?
+	// La mutation concerne yes/no(0), and/or(1), inversion(2), deletion(3), insertion(4) ?
 	int mutType = std::rand()%5;
 	int mutRank = -1;
 	int mutVar = -1;
 
 	switch (mutType)
 	{
-		case 0: {// Mutation sur YN
+		case 0: {// Mutation sur yes/no
 			//std::cout << "mutYN" << std::endl;
-			mutRank = std::rand()%(sizeYN_+1); // quel rang concerne la mutation ?
-			rankYN_[mutRank] = std::abs(rankYN_[mutRank]-1); // inversion 0 <-> 1 
+			mutRank = std::rand()%(sizef_+1)*3; // quel rang concerne la mutation ?
+			node *tmp;
+			tmp = access_node(mutRank);
+			tmp->value_ = std::abs((tmp->value_)-1); // inversion 0 <-> 1 
        	}break;
-	    case 1: {// Mutation sur AO
+	    case 1: {// Mutation sur and/or
 	    	//std::cout << "mutAO" << std::endl;
-	    	mutRank = std::rand()%(sizeAO_+1); // quel rang concerne la mutation ?
-	    	rankAO_[mutRank] = std::abs(rankAO_[mutRank]-1); // inversion 0 <-> 1
+	    	mutRank = std::rand()%(sizef_)*3+2; // quel rang concerne la mutation ?
+	    	node *tmp;
+			tmp = access_node(mutRank);
+			tmp->value_ = std::abs((tmp->value_)-1); // inversion 0 <-> 1 
        	}break;
 	    case 2:{ // Inversion sur Var
 	    	//std::cout << "mutVar" << std::endl;
-	    	mutRank = std::rand()%(sizeVar_+1); // quels rang sont à échanger ?
+	    	mutRank = std::rand()%(sizef_+1)*3+1; // quels rang sont à échanger ?
 	    	//std::cout << mutRank << std::endl;
 	    	do 
 	    	{
-	    		mutVar = std::rand()%(sizeVar_+1); // quels rang sont à échanger ?
+	    		mutVar = std::rand()%(sizef_+1)*3+1; // quels rang sont à échanger ?
 	    		//std::cout << mutVar << std::endl;
 	    	}while(mutRank==mutVar);
 
-	    	for (int i = 0; i < sizef_; ++i)
+	    	/*for (int i = 0; i < sizef_; ++i)
 			{
 				std::cout << rankVar_[i]<< "\n";
 			}
 			std::cout << std::endl;
 
 	    	std::cout << "mutRank = " << mutRank << std::endl;
-	    	std::cout << "mutVar = " << mutVar << std::endl;
+	    	std::cout << "mutVar = " << mutVar << std::endl;*/
 
-	    	// switch the two var in rankVar_
-	    	int temp = rankVar_[mutVar];
+	    	node *tmpRank;
+			tmpRank = access_node(mutRank);
+			node* tmpVar;
+			tmpVar = access_node(mutVar);
+	    	// switch the two var 
+	    	int temp = tmpRank->value_;
 	    	//std::cout << "temp = " << temp << std::endl;
-	    	rankVar_[mutVar] = rankVar_[mutRank];
-	    	//std::cout << "rankVar_[mutVar] = " << rankVar_[mutVar] << std::endl;
-	    	rankVar_[mutRank] = temp;
-	    	//std::cout << "rankVar_[mutRank] = " << rankVar_[mutRank] << std::endl;
+	    	tmpRank->value_ = tmpVar->value_;
+	    	//std::cout << "tmpRank->value_ = " << tmpRank->value_ << std::endl;
+	    	tmpVar->value_ = temp;
+	    	//std::cout << "tmpVar->value_  = " << tmpVar->value_  << std::endl;
 
-	    	for (int i = 0; i < sizef_; ++i)
+	    	/*for (int i = 0; i < sizef_; ++i)
 			{
 				std::cout << rankVar_[i]<< "\n";
 			}
-			std::cout << std::endl;
+			std::cout << std::endl;*/
 
 	    }break;
 	    case 3:{ // délétion sur Var
-
+	    	mutRank = std::rand()%(sizef_)*3; // quelle est la variable concernée ?
+	    	node *tmp;
+			tmp = access_node(mutRank-1);
+			// supression des 3 noeuds consecutifs (yes/no, var, and/or)
+			del_node_suiv(tmp);
+			del_node_suiv(tmp);
+			if (mutRank!=sizef_)
+			{
+				del_node_suiv(tmp);
+			}
 	    }break;
 	    case 4:{ // insertion sur Var
+	    	mutVar = std::rand()%(n_+1); // quelle variable va-t-on ajouter ?
+	    	mutRank = std::rand()%(sizef_)*3; // à quel rang est elle insérée ?
+	    	if (mutRank == 0)
+	    	{
+	    		node* p = new node;
+		        p->value_ = std::rand()%2;
+		        p->type_ = 1;
+
+		        p->next_ = head_->next_;
+		        head_ = p;
+		        add_after_node(p, std::rand()%2, 3);
+		        add_after_node(p, mutVar, 2);
+	    	}
+	    	node *tmp;
+	    	tmp = access_node(mutRank);
+	    	add_after_node(tmp, std::rand()%2, 3);
+	    	add_after_node(tmp, mutVar, 2);
+	    	add_after_node(tmp, std::rand()%2, 1);
 
 	    }break;
 	    default:{ // code to be executed if mutType doesn't match any cases
@@ -233,6 +301,8 @@ void fonction::mutation(){
 
 
 }
+
+/*
 
 // affiche la formule d'une fonction
 // sur une ligne on a une formule avec dans l'ordre YN Var AO 
