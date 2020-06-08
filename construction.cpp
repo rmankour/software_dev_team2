@@ -15,11 +15,12 @@ construction::construction(const int gen, const int ind, const std::string adres
 	dataManage(); // donne une valeur à tableau qui contient dans un tableau en 2D les données fournies par l'utilisateur
 
     fonction f1(nb_coltab2D_);
+    fonction fonctiongen_(nb_coltab2D_);
     fonctiongen_ = f1; // objet fonction
     formulegen_ = f1.getFormule(); // contient la formule d'un individu dans un tableau
 
     storage_ = new fonction[numChildren_];
-    predict_ = new bool[numChildren_ * nb_ligtab2D_];;
+    predict_ = new bool[numChildren_ * nb_ligtab2D_];
     /*
     fonction formule_; // Devrait générer une formule au pif si la classe marche bien
     int compteurFormules = 0; // Permet d'avancer dans l'historique composé des 3 tableaux à suivre
@@ -61,9 +62,15 @@ construction::construction(const int gen, const int ind, const std::string adres
 
 construction::~construction(){ //destructeur
     delete []storage_;
-    storage_ = nullptr;
+    for(int i = 0; i <= nb_ligtab2D_; ++i) {
+       delete [] tab2d_[i];
+    }
+    delete []tab2d_;
     delete []predict_;
-    predict_ = nullptr;
+    //delete []tab_positions;
+    //delete []tab_type;
+    //delete []tab_rang;
+    
 }
 
 void construction::dataManage()
@@ -146,6 +153,8 @@ void construction::generation(){
     // std::cout << "avant mutation : " << std::endl;
     for(int i =0; i< numChildren_ ;i++)
     {
+        
+        fonction storage_[i](2);
         storage_[i] = fonctiongen_;
         //storage[i].affichage();
     }
@@ -157,10 +166,10 @@ void construction::generation(){
         //storage[i].affichage();
     }
 
-    bool* predict_ = prediction(storage_);
+    predict_ = prediction(storage_);
 
     // check si la valeur de sse n'est pas inférieure à celle de la meilleure fonction de la generation précédente
-    fonctiongen_ = SSE(storage_); //stocke la nouvelle meilleure formule dans l'attribut de la classe
+    //fonctiongen_ = SSE(storage_); //stocke la nouvelle meilleure formule dans l'attribut de la classe
 
     /* tab_positions[compteurFormules] = formule_.getPosition(); //stocke la mutation réalisée (position)
     tab_type[compteurFormules]= formule_.getType(); //stocke la mutation réalisée (type)

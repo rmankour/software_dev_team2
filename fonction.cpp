@@ -16,13 +16,13 @@ fonction::fonction(int n){ //constructeur n nbr de variables
 	sizeAO_ = sizef_-1;
 	sizeVar_ = sizef_;
 	formule_ = new int[sizef_*3-1];
-	
+	sizeformule_ = sizef_*3-1;
 
 	//std::cout << "init var" << std::endl;
 
 	for(int i=0 ; i<sizeYN_ ; i++){ //fills rankYN w/ 1 (yes) or 0 (no)
 		rankYN_[i] = std::rand()%2;
-		std::cout << rankYN_[i] <<" ici " << std::endl;
+		//std::cout << rankYN_[i] <<" ici " << std::endl;
 	}
 	//std::cout << "rankYN_" << std::endl;
 
@@ -123,19 +123,24 @@ fonction::~fonction(){ //destructeur
 	rankAO_ = nullptr;
 	delete []rankVar_;
 	rankVar_ = nullptr;
-	//delete []formule_;
+	delete []formule_;
     //formule_ = nullptr;
 }
 
 fonction& fonction::operator=(fonction& fct)
 {
-	rankYN_ = nullptr;
-	rankAO_ = nullptr;
-	rankVar_ = nullptr;
-	formule_ = nullptr;
+	std::cout << "ceci est un print \n";
+	delete []rankYN_;
+	std::cout << "ceci est un print aprèes YN\n";
+	delete []rankAO_;
+	std::cout << "ceci est un print après AO\n";
+	delete []rankVar_;
+	std::cout << "ceci est un print après Rankvar\n";
+	delete []formule_;
 
 	n_ = fct.getN();
 	sizef_ = fct.getSizef();
+	std::cout << sizef_ << "sizef_"<< std::endl;
 	rankYN_ = new int[sizef_]; //yes=1, no=0
 	rankAO_ = new int[sizef_-1]; //and=1, or=0
 	rankVar_ = new int[sizef_];
@@ -143,7 +148,7 @@ fonction& fonction::operator=(fonction& fct)
 	sizeYN_ = sizef_;
 	sizeAO_ = sizef_-1;
 	sizeVar_ = sizef_;
-	int sizeformule_ = sizef_*3-1;
+	sizeformule_ = sizef_*3-1;
 
 	int* tempYN = fct.getRankYN();
 	int* tempAO = fct.getRankAO();

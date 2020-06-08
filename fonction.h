@@ -28,6 +28,7 @@ class fonction{
 		int sizeAO_;
 		int sizeVar_;
 		int* formule_;
+		int sizeformule_;
 		// int position;
 		// int type;
 		// int rang;
