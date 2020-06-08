@@ -94,7 +94,7 @@ fonction::fonction(int n){ //constructeur n nbr de variables
 
     formule_ = new int[sizef_*3-1];
     Formule();
-
+    //std::cout << "ctorEnd"<< std::endl;
 
 }
 
@@ -108,8 +108,10 @@ int fonction::getSizef(){
 }
 
 void fonction::Formule(){
-//std::cout << "getFormule" << std::endl;
-	
+	//std::cout << "fonction::Formule" << std::endl;
+	//delete []formule_; // pause pb
+	//std::cout << "delete []formule_;" << std::endl;
+	formule_ = new int[sizef_*3-1];
 	node *tmp;
     tmp = head_;
 
@@ -124,8 +126,9 @@ void fonction::Formule(){
 }
 
 int* fonction::getFormule(){
-	//std::cout << "getFormule" << std::endl;
-
+	//std::cout << "fonction::getFormule" << std::endl;
+	Formule();
+	//std::cout<<"Formule()" << std::endl;
 	return formule_;
 }
 
@@ -144,7 +147,8 @@ fonction::~fonction(){ //destructeur
 
 fonction& fonction::operator=(fonction& fct)
 {
-	delete []formule_;
+	
+	//std::cout << "op=" << std::endl;
 
 	int tempSize = sizef_;
 	n_ = fct.getN();
@@ -192,6 +196,7 @@ fonction& fonction::operator=(fonction& fct)
 			//std::cout << "val " << val << std::endl;
 			//std::cout << "ty " << ty << std::endl;
 			add_node(val, ty);
+
 		}
 	}
 

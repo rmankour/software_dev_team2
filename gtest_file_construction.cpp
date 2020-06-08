@@ -41,44 +41,57 @@ TEST(GTestTests, fonctionGetN_test){
 fonction f3(5);
 fonction f4(30);
 TEST(GTestTests, fonctionOperatorEq_test){
+	//std::cout << "gtest=" << std::endl;
 	f3 = f1;
+	//std::cout<<"f3=f1" << std::endl;
 	int* formule3 = f3.getFormule();
+	//std::cout<<"f3.getFormule" << std::endl;
 	int size3 = f3.getSizef(); 
 	int n3 = f3.getN();
 	EXPECT_EQ(size1, size3);
 	EXPECT_EQ(n1, n3);
 
+	//std::cout << "f4" << std::endl;
 	f4 = f1;
+	//std::cout << "end f4=f1;"<< std::endl;
 	int* formule4 = f4.getFormule();
+	//std::cout << "end f4.getFormule();"<< std::endl;
 	int size4 = f4.getSizef(); 
 	int n4 = f4.getN();
 	EXPECT_EQ(size1, size4);
 	EXPECT_EQ(n1, n4);
 
+	//std::cout<<"for1" << std::endl;
+
 	for (int i = 0; i < size3*3-1; ++i)
-	{
+	{	
+		//std::cout << "i3 = " << i << std::endl;
 		EXPECT_EQ(formule1[i], formule3[i]);
 	}
 
 	for (int i = 0; i < size4*3-1; ++i)
 	{
+		//std::cout << "i4 = " << i << std::endl;
 		EXPECT_EQ(formule1[i], formule4[i]);
 	}
+
+	//std::cout<<"=finished" << std::endl;
 
 }
 
 
-
+fonction f5(63);
 TEST(GTestTests, fonctionMutation_test){
-	int size0 = f3.getSizef(); 
+	//std::cout<<"mut" << std::endl;
+	int size0 = f5.getSizef(); 
 	int* formule0 = new int[size0*3-1];
 	for (int i = 0; i < size0*3-1; ++i)
 	{
-		formule0[i] = f3.getFormule()[i];
+		formule0[i] = f5.getFormule()[i];
 	}
-	f3.mutation();
-	int* formule1 = f3.getFormule();
-	int size1 = f3.getSizef(); 
+	f5.mutation();
+	int* formule1 = f5.getFormule();
+	int size1 = f5.getSizef(); 
 
 	bool mutTest = (size0!=size1);
 
