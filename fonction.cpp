@@ -203,7 +203,10 @@ fonction& fonction::operator=(fonction& fct)
 
 void fonction::mutation(){
 	// La mutation concerne yes/no(0), and/or(1), inversion(2), deletion(3), insertion(4) ?
-	int mutType = std::rand()%5;
+	int mutType = -1;
+	do{
+		mutType = std::rand()%5;
+	}while(sizef_ == 1 && (mutType == 1 || mutType == 3));
 	int mutRank = -1;
 	int mutVar = -1;
 
@@ -289,7 +292,9 @@ void fonction::mutation(){
 	    	}
 	    	node *tmp;
 	    	tmp = access_node(mutRank);
-	    	add_after_node(tmp, std::rand()%2, 3);
+	    	if(mutRank != sizef_){
+	    		add_after_node(tmp, std::rand()%2, 3);
+	    	}
 	    	add_after_node(tmp, mutVar, 2);
 	    	add_after_node(tmp, std::rand()%2, 1);
 
@@ -301,6 +306,10 @@ void fonction::mutation(){
 
 
 }
+
+/*void fonction::affichage(){
+
+}*/
 
 
 
