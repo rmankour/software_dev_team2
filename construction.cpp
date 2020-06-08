@@ -279,7 +279,7 @@ bool* construction::prediction(fonction *storage){ // renvoie un tableau2D de bo
 fonction& construction::SSE(fonction *storage){
 
     int best_sse = nb_ligtab2D_*nb_coltab2D_ + 1 ; // le pire ce serait que toutes les lignes donnent un mauvais résultat
-    fonction best_formule;
+   // fonction best_formule;
     std::cout << "nb de lignes de tab   : " << nb_ligtab2D_ << std::endl;
     std::cout << "nb de colonnes de tab : " << nb_coltab2D_ << std::endl;
 
@@ -394,7 +394,7 @@ fonction& construction::SSE(fonction *storage){
 
     }*/
     std::cout << "\n BEST SSE : " << best_sse << std::endl;
-    return best_formule; 
+    //return best_formule; 
      //doit retourner un objet
     
 } ;
