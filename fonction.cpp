@@ -16,12 +16,13 @@ fonction::fonction(int n){ //constructeur n nbr de variables
 	sizeAO_ = sizef_-1;
 	sizeVar_ = sizef_;
 	formule_ = new int[sizef_*3-1];
-	formule_ = formule();
+	
 
 	//std::cout << "init var" << std::endl;
 
 	for(int i=0 ; i<sizeYN_ ; i++){ //fills rankYN w/ 1 (yes) or 0 (no)
 		rankYN_[i] = std::rand()%2;
+		std::cout << rankYN_[i] <<" ici " << std::endl;
 	}
 	//std::cout << "rankYN_" << std::endl;
 
@@ -84,7 +85,7 @@ fonction::fonction(int n){ //constructeur n nbr de variables
 		std::cout << used[i]<< "\n";
 	}
 	std::cout << std::endl;*/
-
+	formule_ = formule();
 }
 
 int* fonction::getRankYN(){
@@ -263,9 +264,9 @@ int* fonction::formule(){
 
 	for (int i = 0; i < sizef_-1; i++)
     {
-    	//std::cout << "i = " << i <<std::endl;
+    	std::cout << "i = " << i <<std::endl;
     	formule_[3*i] = rankYN_[i];
-    	//std::cout << formule1[3*i] << std::endl;
+    	std::cout << formule_[3*i] << std::endl;
     	formule_[3*i+1] = rankVar_[i];
     	formule_[3*i+2] = rankAO_[i];
     }
