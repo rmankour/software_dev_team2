@@ -307,10 +307,25 @@ void fonction::mutation(){
 
 }
 
-/*void fonction::affichage(){
 
-}*/
+void fonction::affichage(){
 
+	node* temp;
+	temp = head_;
+	int i = 0;
+	while (temp != NULL)
+    {
+        std::cout << " " << temp->value_;
+        temp = temp->next_;
+
+        if(i != 0 && i%3 == 0){
+        	std::cout << "    ";
+        }
+    }
+    std::cout << std::endl;
+
+
+}
 
 
 	

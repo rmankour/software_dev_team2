@@ -93,5 +93,7 @@ TEST(GTestTests, fonctionMutation_test){
 
 	delete []formule0;
 	delete []formule1;
+
+	//f3.affichage();
 }
 
