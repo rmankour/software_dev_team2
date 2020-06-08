@@ -130,19 +130,23 @@ fonction& fonction::operator=(fonction& fct)
 	rankYN_ = nullptr;
 	rankAO_ = nullptr;
 	rankVar_ = nullptr;
+	formule_ = nullptr;
 
 	n_ = fct.getN();
 	sizef_ = fct.getSizef();
 	rankYN_ = new int[sizef_]; //yes=1, no=0
 	rankAO_ = new int[sizef_-1]; //and=1, or=0
 	rankVar_ = new int[sizef_];
+	formule_ = new int[sizef_*3-1];
 	sizeYN_ = sizef_;
 	sizeAO_ = sizef_-1;
 	sizeVar_ = sizef_;
+	int sizeformule_ = sizef_*3-1;
 
 	int* tempYN = fct.getRankYN();
 	int* tempAO = fct.getRankAO();
 	int* tempVar = fct.getRankVar();
+	int* formule = fct.getFormule();
 
 	for(int i=0 ; i<sizeYN_ ; i++){ //fills rankYN
 		rankYN_[i] = tempYN[i];
@@ -154,6 +158,10 @@ fonction& fonction::operator=(fonction& fct)
 
 	for(int i=0 ; i<sizeVar_ ; i++){ //fills rankVar
 		rankVar_[i] = tempVar[i];
+	}
+
+	for(int i=0 ; i<sizeformule_ ; i++){ //fills formule
+		formule_[i] = formule[i];
 	}
 	/*
 	delete []tempYN;

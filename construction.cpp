@@ -16,7 +16,7 @@ construction::construction(const int gen, const int ind, const std::string adres
 
     fonction f1(nb_coltab2D_);
     fonctiongen_ = f1; // objet fonction
-    formulegen_ = f1.getformule(); // contient la formule d'un individu dans un tableau
+    formulegen_ = f1.getFormule(); // contient la formule d'un individu dans un tableau
 
     storage_ = new fonction[numChildren_];
     predict_ = new bool[numChildren_ * nb_ligtab2D_];;
@@ -190,7 +190,7 @@ bool* construction::prediction(fonction *storage){ // renvoie un tableau2D de bo
         std::cout << "print p pour comparer à affichage : " <<std::endl;
         std::cout << p.getRankYN()[0] << " "; // ok
         std::cout << p.getRankAO()[0] << " "; // ok
-        //std::cout << p.getformule()[0] << " "; // PAS OK DU TOUT
+        std::cout << p.getFormule()[0] << " "; // PAS OK DU TOUT
         /*
         for (int i = 0; i < taillep; ++i){
                     std::cout << p.getformule()[i] << " ";
