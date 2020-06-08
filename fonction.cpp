@@ -91,6 +91,11 @@ fonction::fonction(int n){ //constructeur n nbr de variables
         //std::cout << tmp->value_<< std::endl;
         tmp = tmp->next_;
     }
+
+    formule_ = new int[sizef_*3-1];
+    Formule();
+
+
 }
 
 
@@ -102,10 +107,9 @@ int fonction::getSizef(){
 	return sizef_;
 }
 
-int* fonction::getFormule(){
-	//std::cout << "getFormule" << std::endl;
-	formule_ = new int[sizef_*3-1];
-
+void fonction::Formule(){
+//std::cout << "getFormule" << std::endl;
+	
 	node *tmp;
     tmp = head_;
 
@@ -117,6 +121,10 @@ int* fonction::getFormule(){
         tmp = tmp->next_;
         i++;
     }
+}
+
+int* fonction::getFormule(){
+	//std::cout << "getFormule" << std::endl;
 
 	return formule_;
 }

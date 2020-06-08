@@ -11,6 +11,7 @@ class fonction{
 		fonction(int n); //constructeur
 		~fonction(); //destructeur
 		void mutation();
+		void Formule();
 		int* getFormule();
 		int getN();
 		int getSizef();
