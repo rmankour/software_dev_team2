@@ -33,12 +33,12 @@ TEST(GTestTests, basic_test) {
 
 }*/
 
-fonction f1(20);
-TEST(GTestTests, fonctionConstructor_test){
 
-	int* formule1 = f1.getFormule();
-	int size1 = f1.getSizef(); 
-	int n1 = f1.getN();
+fonction f1(20);
+int* formule1 = f1.getFormule();
+int size1 = f1.getSizef(); 
+int n1 = f1.getN();
+TEST(GTestTests, fonctionConstructor_test){
 
 	for (int i = 0; i < size1-1; i++)
     {
@@ -55,6 +55,53 @@ TEST(GTestTests, fonctionConstructor_test){
 TEST(GTestTests, fonctionGetN_test){
 	EXPECT_EQ(f1.getN(), 20);
 }
+
+
+fonction f3(5);
+fonction f4(30);
+TEST(GTestTests, fonctionOperatorEq_test){
+	//std::cout << "f3" << std::endl;
+	
+	//std::cout << "f3 = f1" << std::endl;
+	f3 = f1;
+	int* formule3 = f3.getFormule();
+	int size3 = f3.getSizef(); 
+	int n3 = f3.getN();
+	EXPECT_EQ(size1, size3);
+	EXPECT_EQ(n1, n3);
+
+	f4 = f1;
+	int* formule4 = f4.getFormule();
+	int size4 = f4.getSizef(); 
+	int n4 = f4.getN();
+	EXPECT_EQ(size1, size4);
+	EXPECT_EQ(n1, n4);
+
+	/*std::cout << "Début" << std::endl;
+	for (int i = 0; i < size3; ++i)
+	{
+		std::cout << formule3[i] << std::endl;
+	}
+	std::cout << "Fin" << std::endl;*/
+
+	for (int i = 0; i < size3*3-1; ++i)
+	{
+		//std::cout << "i = " << i << std::endl;
+		EXPECT_EQ(formule1[i], formule3[i]);
+	}
+
+	for (int i = 0; i < size4*3-1; ++i)
+	{
+		//std::cout << "i = " << i << std::endl;
+		EXPECT_EQ(formule1[i], formule4[i]);
+	}
+
+}
+
+
+/*delete []formule1;
+formule1 = nullptr;
+*/
 
 /*
 TEST(GTestTests, fonctionCopyConstructor_test){

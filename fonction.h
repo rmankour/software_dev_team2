@@ -18,7 +18,7 @@ class fonction{
 		// int getPosition();
 		// int getType();
 		// int getRang();
-		//fonction& operator=(fonction& fct);
+		fonction& operator=(fonction& fct);
 		void affichage();
 
 		void add_node(int val, int ty);

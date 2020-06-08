@@ -16,9 +16,14 @@ node* fonction::gethead()
 void fonction::add_node(int value, int type)
 {
     node *tmp = new node;
+    //std::cout << "value " << value << std::endl;
+	//std::cout << "type " << type << std::endl;
     tmp->value_ = value;
     tmp->type_ = type;
     tmp->next_ = NULL;
+    //std::cout << "Newvalue " << tmp->value_ << std::endl;
+	//std::cout << "Newtype " << tmp->type_ << std::endl;
+
 
     if(head_ == NULL)
     {
@@ -28,13 +33,15 @@ void fonction::add_node(int value, int type)
     else
     {
         tail_->next_ = tmp;
-        tail_ = tail_->next_;
+        tail_ = tmp;
     }
 }
 
 fonction::fonction(int n){ //constructeur n nbr de variables
+	//std::cout << "ctor"<< std::endl;
 	n_ = n;
 	sizef_ = std::rand()%n +1;// taille de la formule initiale
+	//std::cout << "size " << sizef_ << std::endl;
 
 	head_ = NULL;
     tail_ = NULL;
@@ -46,6 +53,14 @@ fonction::fonction(int n){ //constructeur n nbr de variables
 	}
 	add_node(std::rand()%2, 1); // yes=1, no=0
 	add_node(std::rand()%(n_+1), 2); // var
+
+
+	node* tmp = head_;
+	while (tmp != NULL)
+    {
+        //std::cout << tmp->value_<< std::endl;
+        tmp = tmp->next_;
+    }
 }
 
 
@@ -58,6 +73,7 @@ int fonction::getSizef(){
 }
 
 int* fonction::getFormule(){
+	//std::cout << "getFormule" << std::endl;
 	formule_ = new int[sizef_*3-1];
 
 	node *tmp;
@@ -86,52 +102,72 @@ fonction::~fonction(){ //destructeur
 	}
 }
 
-/*
+
 fonction& fonction::operator=(fonction& fct)
 {
-	rankYN_ = nullptr;
-	rankAO_ = nullptr;
-	rankVar_ = nullptr;
-
+	int tempSize = sizef_;
 	n_ = fct.getN();
 	sizef_ = fct.getSizef();
-	rankYN_ = new int[sizef_]; //yes=1, no=0
-	rankAO_ = new int[sizef_-1]; //and=1, or=0
-	rankVar_ = new int[sizef_];
-	sizeYN_ = sizef_;
-	sizeAO_ = sizef_-1;
-	sizeVar_ = sizef_;
+	node *tmp;
+	tmp = head_;
+	int* formuleFct = fct.getFormule();
 
-	int* tempYN = fct.getRankYN();
-	int* tempAO = fct.getRankAO();
-	int* tempVar = fct.getRankVar();
+	if (sizef_<=tempSize)// si la fonction actuelle est plus grande que la nouvelle
+	{
+		//std::cout << "sizef_<=tempSize" << std::endl;
+		for(int i=0 ; i<(sizef_*3-1) ; i++){// on remplace les valeurs de node jusqu'à la fin de formuleFct
+			tmp->value_ = formuleFct[i];
+    		tmp->type_ = i%3 +1;
+    		tmp = tmp->next_;
+		}
 
-	for(int i=0 ; i<sizeYN_ ; i++){ //fills rankYN
-		rankYN_[i] = tempYN[i];
+		tail_ = tmp;
+
+		node *tmpd;
+		while(tmp != NULL){// on supprime les node restant
+			tmpd = tmp;
+			tmp = tmpd->next_;
+			delete []tmpd;
+		}
+	}else{
+		//std::cout << "sizef_>tempSize" << std::endl;
+		for(int i=0 ; i<(tempSize*3-1) ; i++){// on remplace les valeurs de node jusqu'à la fin la fonction actuelle
+			tmp->value_ = formuleFct[i];
+			//std::cout << "formuleFct " << tmp->value_ << std::endl;
+    		tmp->type_ = i%3 +1;
+    		//std::cout << "type " << tmp->type_ << std::endl;
+    		tmp = tmp->next_;
+		}
+
+		int val;
+		int ty;
+		for (int i = tempSize*3-1 ; i < sizef_*3-1 ; ++i) // création de nouveau nodes pour ce qu'il reste
+		{
+			//std::cout << "i " << i << std::endl;
+			//std::cout << "formuleFct " << formuleFct[i] << std::endl;
+			//std::cout << "(i%3 +1) " << (i%3 +1) << std::endl;
+			val = formuleFct[i];
+			ty = (i%3 +1);
+			//std::cout << "val " << val << std::endl;
+			//std::cout << "ty " << ty << std::endl;
+			add_node(val, ty);
+		}
 	}
 
-	for(int i=0 ; i<sizeAO_ ; i++){ //fills rankYN
-		rankAO_[i] = tempAO[i];
-	}
-
-	for(int i=0 ; i<sizeVar_ ; i++){ //fills rankVar
-		rankVar_[i] = tempVar[i];
-	}
-	
-	delete []tempYN;
-	tempYN = nullptr;
-	delete []tempAO;
-	tempAO = nullptr;
-	delete []tempVar;
-	tempVar = nullptr;
+	//std::cout << "equal"<< std::endl;
+	tmp = head_;
+	while (tmp != NULL)
+    {
+        //std::cout << tmp->value_<< std::endl;
+        tmp = tmp->next_;
+    }
 
 	return *this;
 
-	//fonction returnedfunc = fct;
-	//return returnedfunc;
-
 }
 
+
+/*
 void fonction::mutation(){
 	// La mutation concerne YN(0), AO(1), inversion(2), deletion(3), insertion(4) ?
 	int mutType = std::rand()%5;
