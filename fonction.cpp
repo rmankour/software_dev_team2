@@ -344,7 +344,7 @@ void fonction::mutation(){
 
 	    }break;
 	    default:{ // code to be executed if mutType doesn't match any cases
-	    	//std::cout << "ERROR" << std::endl;
+	    	std::cout << "ERROR" << std::endl;
 	    }
 	}
 
@@ -356,15 +356,17 @@ void fonction::affichage(){
 
 	node* temp;
 	temp = head_;
-	int i = 0;
+	//int i = 0;
 	while (temp != NULL)
     {
         std::cout << " " << temp->value_;
         temp = temp->next_;
 
-        if(i != 0 && i%3 == 0){
+        /*if(i != 0 && i%3 == 0){
         	std::cout << "    ";
         }
+
+        i++;*/
     }
     std::cout << std::endl;
 
