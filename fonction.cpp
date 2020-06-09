@@ -7,6 +7,32 @@ fonction::fonction()
 
 	head_ = NULL;
     tail_ = NULL;
+    int n = 1;
+    n_ = n;
+	sizef_ = std::rand()%n +1;// taille de la formule initiale
+
+	//std::cout << "size " << sizef_ << std::endl;
+
+	head_ = NULL;
+    tail_ = NULL;
+
+	for(int i=0 ; i<(sizef_-1) ; i++){
+		add_node(std::rand()%2, 1); // yes=1, no=0
+		add_node(std::rand()%(n_+1), 2); // var
+		add_node(std::rand()%2, 3); //and=1, or=0
+	}
+	add_node(std::rand()%2, 1); // yes=1, no=0
+	add_node(std::rand()%(n_+1), 2); // var
+
+
+	node* tmp = head_;
+	while (tmp != NULL)
+    {
+        //std::cout << tmp->value_<< std::endl;
+        tmp = tmp->next_;
+    }
+    formule_ = new int[sizef_*3-1];
+	Formule();
 }
 
 node* fonction::gethead()
@@ -111,7 +137,7 @@ void fonction::Formule(){
 	//std::cout << "fonction::Formule" << std::endl;
 	//delete []formule_; // pause pb
 	//std::cout << "delete []formule_;" << std::endl;
-	formule_ = new int[sizef_*3-1];
+	//formule_ = new int[sizef_*3-1];
 	node *tmp;
     tmp = head_;
 
@@ -141,7 +167,10 @@ fonction::~fonction(){ //destructeur
 		tmp = tmpd->next_;
 		delete []tmpd;
 	}
-	delete []formule_;
+	if(formule_)
+	{
+		delete []formule_;
+	}
 }
 
 
@@ -207,7 +236,7 @@ fonction& fonction::operator=(fonction& fct)
         //std::cout << tmp->value_<< std::endl;
         tmp = tmp->next_;
     }
-
+	
 	return *this;
 
 }
@@ -257,12 +286,13 @@ void fonction::mutation(){
 
 	    	std::cout << "mutRank = " << mutRank << std::endl;
 	    	std::cout << "mutVar = " << mutVar << std::endl;*/
-
+/* -< ENLEVER POUR BUG APPARAISSE
 	    	node *tmpRank;
 			tmpRank = access_node(mutRank);
 			node* tmpVar;
 			tmpVar = access_node(mutVar);
 	    	// switch the two var 
+
 	    	int temp = tmpRank->value_;
 	    	//std::cout << "temp = " << temp << std::endl;
 	    	tmpRank->value_ = tmpVar->value_;
@@ -302,6 +332,7 @@ void fonction::mutation(){
 		        head_ = p;
 		        add_after_node(p, std::rand()%2, 3);
 		        add_after_node(p, mutVar, 2);
+		        
 	    	}
 	    	node *tmp;
 	    	tmp = access_node(mutRank);

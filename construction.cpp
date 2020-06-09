@@ -20,6 +20,7 @@ construction::construction(const int gen, const int ind, const std::string adres
 
     storage_ = new fonction[numChildren_];
     predict_ = new bool[numChildren_ * nb_ligtab2D_];
+    std::cout << "coucou après crea storage et predict_\n";
     /*
     fonction formule_; // Devrait générer une formule au pif si la classe marche bien
     int compteurFormules = 0; // Permet d'avancer dans l'historique composé des 3 tableaux à suivre
@@ -66,9 +67,18 @@ construction::~construction(){ //destructeur
     }
         
     delete []tab2d_;
-    delete []predict_;
+    if (predict_)
+    {
+       delete []predict_; 
+    }
+    
     std::cout << "avant storage" << std::endl;
-    delete []storage_;
+    
+    if (storage_)
+    {
+       delete []storage_; 
+    }
+    
     
     std::cout << "dest storage" << std::endl;
 
@@ -158,6 +168,7 @@ void construction::generation(){
     // std::cout << "avant mutation : " << std::endl;
     for(int i =0; i< numChildren_ ;i++)
     {
+
         storage_[i] = fonctiongen_;
         //storage[i].affichage();
     }
@@ -200,8 +211,8 @@ void construction::prediction(fonction *storage){ // renvoie un tableau2D de boo
         storage[j].affichage();
         
         std::cout << "print p pour comparer à affichage : " <<std::endl;
-        std::cout << storage[j].getRankYN()[0] << " "; // ok
-        std::cout << storage[j].getRankAO()[0] << " "; // ok
+        //std::cout << storage[j].getRankYN()[0] << " "; // ok
+        //std::cout << storage[j].getRankAO()[0] << " "; // ok
         std::cout << storage[j].getFormule()[0] << " "; // PAS OK DU TOUT
         /*
         for (int i = 0; i < taillep; ++i){
