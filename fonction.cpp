@@ -95,6 +95,7 @@ void fonction::add_after_node(node *a, int value, int type)
 
 fonction::fonction(int n){ //constructeur n nbr de variables
 	//std::cout << "ctor"<< std::endl;
+	srand(time(NULL));
 	n_ = n;
 	sizef_ = std::rand()%n +1;// taille de la formule initiale
 	//std::cout << "size " << sizef_ << std::endl;
@@ -104,7 +105,7 @@ fonction::fonction(int n){ //constructeur n nbr de variables
 
 	for(int i=0 ; i<(sizef_-1) ; i++){
 		add_node(std::rand()%2, 1); // yes=1, no=0
-		add_node(std::rand()%(n_+1), 2); // var
+		add_node(std::rand()%n_, 2); // var
 		add_node(std::rand()%2, 3); //and=1, or=0
 	}
 	add_node(std::rand()%2, 1); // yes=1, no=0
@@ -114,7 +115,7 @@ fonction::fonction(int n){ //constructeur n nbr de variables
 	node* tmp = head_;
 	while (tmp != NULL)
     {
-        //std::cout << tmp->value_<< std::endl;
+        std::cout << tmp->value_<< std::endl;
         tmp = tmp->next_;
     }
 
@@ -186,25 +187,52 @@ fonction& fonction::operator=(fonction& fct)
 	tmp = head_;
 	int* formuleFct = fct.getFormule();
 
+	std::cout << "print this" << std::endl;
+	node* tmpa = head_;
+	std::cout << tmpa << std::endl;
+	while (tmpa != NULL)
+    {	
+    	std::cout << "entered while" << std::endl;
+        std::cout << tmpa->value_<< " ";
+        tmpa = tmpa->next_;
+        std::cout << tmpa << std::endl;
+    }
+
 	if (sizef_<=tempSize)// si la fonction actuelle est plus grande que la nouvelle
 	{
-		//std::cout << "sizef_<=tempSize" << std::endl;
+		std::cout << "sizef_<=tempSize (if)" << std::endl;
+		std::cout << "sizef_" << sizef_ << std::endl;   
 		for(int i=0 ; i<(sizef_*3-1) ; i++){// on remplace les valeurs de node jusqu'à la fin de formuleFct
+			std::cout << "i" << i << std::endl;
+			std::cout << "tmp val " << tmp->value_ << std::endl;
 			tmp->value_ = formuleFct[i];
+			std::cout << "formuleFct " << tmp->value_ << std::endl;
     		tmp->type_ = i%3 +1;
+    		std::cout << "type " << tmp->type_ << std::endl;
     		tmp = tmp->next_;
+    		std::cout << "tmp = next " << tmp << std::endl;
 		}
+		std::cout << "values remplaced" << std::endl;
 
 		tail_ = tmp;
+		std::cout << "tail_ = tmp;" << std::endl;
 
-		node *tmpd;
+		node* tmpd;
+		tmpd = tmp;
+		std::cout << "tmpd init " << tmpd << std::endl;
+		std::cout << "tmp before deletion " << tmp << std::endl;
 		while(tmp != NULL){// on supprime les node restant
+			std::cout << "tmpd boucle " << tmpd << std::endl;
+			std::cout << "tmp boucle " << tmp << std::endl;
 			tmpd = tmp;
+			std::cout << "tmpd = tmp " << tmpd << std::endl;
 			tmp = tmpd->next_;
+			std::cout << "tmp = next " << tmp << std::endl;
 			delete []tmpd;
+			std::cout << "tmpd delete " << tmpd << std::endl;
 		}
 	}else{
-		//std::cout << "sizef_>tempSize" << std::endl;
+		std::cout << "sizef_>tempSize (else)" << std::endl;
 		for(int i=0 ; i<(tempSize*3-1) ; i++){// on remplace les valeurs de node jusqu'à la fin la fonction actuelle
 			tmp->value_ = formuleFct[i];
 			//std::cout << "formuleFct " << tmp->value_ << std::endl;
@@ -356,17 +384,10 @@ void fonction::affichage(){
 
 	node* temp;
 	temp = head_;
-	//int i = 0;
 	while (temp != NULL)
     {
         std::cout << " " << temp->value_;
         temp = temp->next_;
-
-        /*if(i != 0 && i%3 == 0){
-        	std::cout << "    ";
-        }
-
-        i++;*/
     }
     std::cout << std::endl;
 
