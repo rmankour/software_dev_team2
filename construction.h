@@ -12,11 +12,12 @@ class construction
     void generation();
     void prediction(fonction *storage);
     //fonction SSE(const fonction* &tab_fonctions); // reçoit un tableau de formule et retourne la meilleure d'entre elles (en prenant aussi en compte la myFormule actuelle)
-    fonction& SSE(fonction *storage);
+    void SSE(fonction *storage);
     void theCycleOfLife(); // prend tous les paramètres donnés par l'utilisateur et réalise la boucle de calculs nécessaire pour aboutir à la myFormule finale
     int get_nblig();
     int get_nbcol();
 
+    void ecritureOutput(std::string trucaecrire);
 
     protected:
     std::string adresse_; // Adresse du fichier .CSV fournie par l'utilisateur
@@ -33,6 +34,7 @@ class construction
     bool* predict_;
     fonction fonctiongen_; // correspond à un individu
     int* formulegen_; // Contient la formule d'un individu dans un tableau
+    fonction bestformule_; // contient le meilleur enfant à chaque génération
 
 
 

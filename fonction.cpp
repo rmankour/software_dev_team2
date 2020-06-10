@@ -1,5 +1,6 @@
 #include "fonction.h"
 #include <cstdlib>
+#include <string>
 #include <iostream>
 
 fonction::fonction()
@@ -7,7 +8,7 @@ fonction::fonction()
 
 	head_ = NULL;
     tail_ = NULL;
-    int n = 1;
+    int n = 2;
     n_ = n;
 	sizef_ = std::rand()%n +1;// taille de la formule initiale
 
@@ -404,11 +405,21 @@ void fonction::mutation(){
 	    case 3:{ // délétion sur Var
 	    	mutRank = std::rand()%(sizef_)*3+1; // quelle est la variable concernée ?
 	    	node *tmp;
-			tmp = access_node(mutRank-1);
+
+	    	if (mutRank == 0) // délétion en tête de liste
+	    	{
+	    		del_node_suiv(head_);
+	    		del_node_suiv(head_);
+	    		node* toDel = head_;
+	    		head_ = head_->next_;
+	    		delete toDel;
+	    	}
+
+			tmp = access_node(mutRank-2);
 			// supression des 3 noeuds consecutifs (yes/no, var, and/or)
 			del_node_suiv(tmp);
 			del_node_suiv(tmp);
-			if (mutRank!=sizef_)
+			if (mutRank!=sizef_*3-2)
 			{
 				del_node_suiv(tmp);
 			}
@@ -472,8 +483,92 @@ void fonction::affichage(){
     }
     std::cout << std::endl;
 
-
 }
 
+std::string fonction::formuleToString(){
 
+	node* temp;
+	temp = head_;
+	std::string strtempbrut ="";
 	
+	while (temp != NULL)
+    {
+        strtempbrut += std::to_string(temp->value_);
+        strtempbrut += "_";
+        temp = temp->next_;
+ 
+    }
+    //std::cout << strtempbrut << std::endl;
+    int compteur = 0;
+    int j = 0;
+    std::string output = "";
+    while(j < strtempbrut.length())
+    {
+    	if(strtempbrut[j] != '_')
+    	{
+    		//-----------------------caractères not/yes
+    		if (compteur == 0) // on est dans un truc not/yes
+    		{
+		    	if(strtempbrut[j] == '1')
+		    	{
+					output += "~";
+		    	}
+		    	else{ 
+		    		//sinon c'est yes on met rien
+		    	}
+		    	  			
+    		}
+
+	    	//---------------------caractères numéro de gene
+	    	if (compteur == 1)// on est dans un numéro de gène qui peut comporter plusieurs digits
+	    	{
+		    	output += 'x';
+		    	while(strtempbrut[j] != '_')//tant que le numéro de gène n'est pas fini (genre il a plusieurs digit)
+		    	{
+	    			output += strtempbrut[j];
+	    			j++;
+	    		}
+	    		    		
+	    	}
+
+	    	//----------------------caractère And/Or and : 0 ; or : 1
+		    if (compteur == 2)
+		    {
+		    	if(strtempbrut[j] == '1')
+		    	{
+					output += " & ";
+		    	}
+		    	else{
+		    		output += " | ";
+		    	}
+		    	compteur = 0;
+	    	}
+	    	compteur++;	
+    	}
+    	j++;
+    	//traite les trucs 3 par 3 
+    	
+
+    }/*
+    //sinon on traite les 2 :
+	if(strtempbrut[j] == '1')
+	{
+		output += "~";
+	}
+	else{ 
+		//sinon c'est yes on met rien
+	}
+	j++;
+	//---------------------caractères numéro de gene
+	output += 'x';
+	output += strtempbrut[j];
+	j++;    */
+	/*int l = 0;
+	while(output[l] != '\0')
+	{
+		std::cout << output[l];
+		l++;
+	}*/
+    return output;
+
+}
