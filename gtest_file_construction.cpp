@@ -19,27 +19,27 @@ TEST(GTestTests, basic_test) {
 
 TEST(GTestTests, fonctionConstructor_test){
 	//std::cout << "size " << size1 << std::endl;
-	std::cout << "f1(5) ";
+	//std::cout << "f1(5) ";
 	fonction f1(5);
 	int* formule1 = f1.getFormule();
 	int size1 = f1.getSizef(); 
 	int n1 = f1.getN();
 
-	std::cout << "var = ";
+	//std::cout << "var = ";
 	for (int i = 0; i < size1-1; i++)
     {
     	//std::cout << "i = " << i <<std::endl;
     	EXPECT_TRUE(formule1[3*i] == 0 || formule1[3*i] == 1);
     	//std::cout << formule1[3*i] << std::endl;
     	EXPECT_TRUE(formule1[3*i+1] >= 0 && formule1[3*i+1] < n1);
-    	std::cout << formule1[3*i+1] << " ";
+    	//std::cout << formule1[3*i+1] << " ";
     	EXPECT_TRUE(formule1[3*i+2] == 0 || formule1[3*i+2] == 1);
     	//std::cout << formule1[3*i+2] << std::endl;
     }
     EXPECT_TRUE(formule1[3*(size1 -1)] == 0 || formule1[3*(size1 -1)] == 1);
     //std::cout << formule1[3*(size1 -1)] << std::endl;
     EXPECT_TRUE(formule1[3*(size1 -1)+1] >= 0 && formule1[3*(size1 -1)+1] < n1);
-    std::cout << formule1[3*(size1 -1)+1] << std::endl;
+    //std::cout << formule1[3*(size1 -1)+1] << std::endl;
 }
 
 TEST(GTestTests, fonctionGetN_test){
@@ -50,51 +50,51 @@ TEST(GTestTests, fonctionGetN_test){
 
 
 TEST(GTestTests, fonctionOperatorInfEqSup_test){
-	std::cout << "gtestI=S" << std::endl;
+	//std::cout << "gtestI=S" << std::endl;
 
-	std::cout << "f2(20) ";
+	//std::cout << "f2(20) ";
 	fonction f2(20);
 	int size2 = f2.getSizef();
 	int n2 = f2.getN();
 	int* formule2 = f2.getFormule();
-	std::cout<<"f2.getFormule = ";
+	/*std::cout<<"f2.getFormule = ";
 	for (int i = 0; i < size2*3-1; ++i)
 	{
 		std::cout << formule2[i] << " ";
 	}
-	std::cout << "\n" << std::endl;
+	std::cout << "\n" << std::endl;*/
 
-	std::cout << "f3(2) ";
+	//std::cout << "f3(2) ";
 	fonction f3(2);
 	
 
-	std::cout << "f3=f2; ";
+	//std::cout << "f3=f2; ";
 	f3 = f2;
-	std::cout<<"end f3=f2" << std::endl;
+	//std::cout<<"end f3=f2" << std::endl;
 	int size3 = f3.getSizef(); 
 	int n3 = f3.getN();
 	int* formule3 = f3.getFormule();
-	std::cout<<"f3.getFormule = ";
+	/*std::cout<<"f3.getFormule = ";
 	for (int i = 0; i < size3*3-1; ++i)
 	{
 		std::cout << formule3[i] << " ";
 	}
-	std::cout << std::endl;
+	std::cout << std::endl;*/
 	
 	EXPECT_EQ(size2, size3);
-	std::cout << "size2=size3 ";
+	//std::cout << "size2=size3 ";
 	EXPECT_EQ(n3, n2);
-	std::cout << "n2=n3\n" << std::endl;
+	//std::cout << "n2=n3\n" << std::endl;
 
 
 	
-	std::cout<<"for1" << std::endl;
+	//std::cout<<"for1" << std::endl;
 	for (int i = 0; i < size3*3-1; ++i)
 	{	
 		//std::cout << "i3 = " << i << std::endl;
 		EXPECT_EQ(formule2[i], formule3[i]);
 	}
-	std::cout<<"=finished" << std::endl;
+	//std::cout<<"=finished" << std::endl;
 
 }
 
@@ -148,9 +148,9 @@ TEST(GTestTests, fonctionOperatorInfEqSup_test){
 }*/
 
 
-fonction f5(63);
+fonction f5(5);
 TEST(GTestTests, fonctionMutation_test){
-	std::cout<<"mut" << std::endl;
+	//std::cout<<"mut" << std::endl;
 	int size0 = f5.getSizef(); 
 	int* formule0 = new int[size0*3-1];
 	for (int i = 0; i < size0*3-1; ++i)
