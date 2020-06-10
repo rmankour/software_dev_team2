@@ -63,7 +63,7 @@ TEST(GTestTests, fonctionOperatorEq_test){
 	EXPECT_EQ(size1, size3);
 	EXPECT_EQ(n1, n3);
 
-	/*std::cout << "f4" << std::endl;
+	std::cout << "f4" << std::endl;
 	f4 = f1;
 	std::cout << "end f4=f1;"<< std::endl;
 	int* formule4 = f4.getFormule();
@@ -71,7 +71,7 @@ TEST(GTestTests, fonctionOperatorEq_test){
 	int size4 = f4.getSizef(); 
 	int n4 = f4.getN();
 	EXPECT_EQ(size1, size4);
-	EXPECT_EQ(n1, n4);*/
+	EXPECT_EQ(n1, n4);
 
 	std::cout<<"for1" << std::endl;
 
