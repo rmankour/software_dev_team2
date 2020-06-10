@@ -1,3 +1,4 @@
+#include <string>
 struct node
 {
     int value_;
@@ -22,7 +23,7 @@ class fonction{
 		void del_node_suiv(node* preced);
 		node* access_node(int index);
 		void add_after_node(node *a, int value, int type);
-		
+		std::string formuleToString();
 
 	protected:
 		int n_ = 1; //number of variables existing

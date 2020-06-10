@@ -22,9 +22,14 @@ construction::construction(const int gen, const int ind, const std::string adres
     predict_ = new bool[numChildren_ * nb_ligtab2D_];
     std::cout << "coucou après crea storage et predict_\n";
 
+    //---------------------TEST OUTPUT PYTHON--------------
+    fonction testOutput(35);
+    std::string newstring = testOutput.formuleToString();
+    //testOutput.affichage();
+    ecritureOutput(newstring);
+    //---------------------FIN TEST OUTPUT PYTHON----------
     fonction test(2);
     bestformule_ = test;
-
     /*
     fonction formule_; // Devrait générer une formule au pif si la classe marche bien
     int compteurFormules = 0; // Permet d'avancer dans l'historique composé des 3 tableaux à suivre
@@ -369,3 +374,21 @@ int construction::get_nbcol()
 	}
 	return nb_coltab2D_;
 };
+
+
+
+
+void construction::ecritureOutput(std::string trucaecrire)
+{
+    std::ofstream monFlux("output_to_python.txt");
+    if(monFlux)  //On teste si tout est OK
+    {
+        //Tout est OK, on peut utiliser le fichier
+        monFlux << trucaecrire;
+    }
+    else
+    {
+       std::cout << "ERREUR: Impossible d'ouvrir le fichier." << std::endl;
+    }
+
+}

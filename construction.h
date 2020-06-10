@@ -17,6 +17,7 @@ class construction
     int get_nblig();
     int get_nbcol();
 
+    void ecritureOutput(std::string trucaecrire);
 
     protected:
     std::string adresse_; // Adresse du fichier .CSV fournie par l'utilisateur
