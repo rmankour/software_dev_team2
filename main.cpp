@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
     construction obj(nb_generation,nb_children,adresse_tab);
 
     
-    //obj.generation();
+    obj.generation();
 	//obj.dataManage();
 
     //construction obj(0,0,"gene.csv");
