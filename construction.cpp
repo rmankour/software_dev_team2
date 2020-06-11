@@ -14,9 +14,6 @@ construction::construction(const int gen, const int ind, const std::string adres
     numGenerations_ = gen; // Nombre de générations à réaliser, indiqué par l'utilisateur
 	dataManage(); // donne une valeur à tableau qui contient dans un tableau en 2D les données fournies par l'utilisateur
 
-   
-
-    formulegen_ = fonctiongen_.getFormule(); // contient la formule d'un individu dans un tableau
 
     storage_ = new fonction[numChildren_];
     predict_ = new bool[numChildren_ * nb_ligtab2D_];
@@ -179,10 +176,10 @@ void construction::generation(fonction& argfonctiongen_){
     std::cout << "avant mutation : " << std::endl;
     for(int i =0; i< numChildren_ ;i++) // on met dans storage l'ensemble des enfants clones
     {
-        std::cout << "boucle arg: " << std::endl;
-        argfonctiongen_.affichage();
-        std::cout << "boucle storage: " << std::endl;
-        storage_[i].affichage();
+        //std::cout << "boucle arg: " << std::endl;
+        //argfonctiongen_.affichage();
+        //std::cout << "boucle storage: " << std::endl;
+        //storage_[i].affichage();
         storage_[i] = argfonctiongen_;
         storage_[i].affichage();
     }
@@ -190,9 +187,9 @@ void construction::generation(fonction& argfonctiongen_){
     // std::cout << "après mutation : " << std::endl;
     for(int i =0; i< numChildren_ ;i++) // chaque enfant subit une mutation
     {
-        storage_[i].affichage();
+        //storage_[i].affichage();
+        std::cout << "\naffiche l'enfant n° " << i << " après " << std::endl;
         storage_[i].mutation();
-        std::cout << "\naffiche l'enfant n° " << i << " après mutation " << std::endl;
         storage_[i].affichage();
         int nbgenes = storage_[i].getSizef();
         //std::cout << "\nnb de gènes = " << nbgenes << " pour enfant n° : " << i << std::endl;
@@ -349,7 +346,7 @@ void construction::theCycleOfLife(){
     fonctiongen_.affichage();
     // on pourrait initialiser ici la formule de départ, l'individu racine plutot que de le faire dans le constructeur
     
-    for(int i=0; i < numGenerations_ -1;i++) {
+    for(int i=0; i < numGenerations_;i++) {
         std::cout << "\npour la génération n°"<< i << std::endl;
         generation(fonctiongen_);
         fonctiongen_ = bestformule_;
