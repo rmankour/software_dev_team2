@@ -4,9 +4,6 @@
 #include <iostream>
 
 
-
-// ***************** REMARQUE : les lignes qu'il y a avait dans le main.cpp ne permettaient pas de compiler donc elles sont en commentaires
-
 int main(int argc, char *argv[]) {
     /*
    printf("Hello, this is the beginning !");
@@ -34,12 +31,14 @@ int main(int argc, char *argv[]) {
     
     // debut des objets
     
-    construction obj(nb_generation,nb_children,adresse_tab);
+    construction obj(nb_generation, nb_children, adresse_tab);
 
     
-    obj.generation();
+    //obj.generation(); // à enlever une fois que tout marche, on utilise cycleoflife
+    obj.theCycleOfLife();
 	//obj.dataManage();
 
+    
     //construction obj(0,0,"gene.csv");
 	 //obj.dataManage(); //A enlever après
 
