@@ -98,54 +98,58 @@ TEST(GTestTests, fonctionOperatorInfEqSup_test){
 
 }
 
-/*TEST(GTestTests, fonctionOperatorSupEqInf_test){
-	std::cout << "gtestS=I" << std::endl;
+TEST(GTestTests, fonctionOperatorSupEqInf_test){
+	//std::cout << "gtestS=I" << std::endl;
 
-	std::cout << "f4(2) ";
+	//std::cout << "f4(2) ";
 	fonction f4(2);
+	//f4.affichage();
 	int size4 = f4.getSizef();
 	int n4 = f4.getN();
 	int* formule4 = f4.getFormule();
-	std::cout<<"f4.getFormule = ";
+	/*std::cout<<"f4.getFormule = ";
 	for (int i = 0; i < size4*3-1; ++i)
 	{
 		std::cout << formule4[i] << " ";
 	}
-	std::cout << "\n" << std::endl;
+	std::cout << "\n" << std::endl;*/
 
-	std::cout << "f5(20) ";
-	fonction f5(20);	
-	
+	//std::cout << "f5(20) ";
+	fonction f5(20);
+	//f5.affichage();	
 
-	std::cout << "f5=f4; ";
+	//std::cout << "f5=f4; ";
 	f5 = f4;
-	std::cout<<"end f5=f4" << std::endl;
+	//std::cout<<"end f5=f4" << std::endl;
+	//std::cout << "f5 ";
+	//f5.affichage();
+
 	int size5 = f5.getSizef(); 
 	int n5 = f5.getN();
 	int* formule5 = f5.getFormule();
-	std::cout<<"f5.getFormule = ";
+	/*std::cout<<"f5.getFormule = ";
 	for (int i = 0; i < size5*3-1; ++i)
 	{
 		std::cout << formule5[i] << " ";
 	}
-	std::cout << std::endl;
+	std::cout << std::endl;*/
 	
 	EXPECT_EQ(size5, size4);
-	std::cout << "size5=size4 ";
+	//std::cout << "size5=size4 ";
 	EXPECT_EQ(n5, n4);
-	std::cout << "n5=n4\n" << std::endl;
+	//std::cout << "n5=n4\n" << std::endl;
 
 	
-	std::cout<<"for1" << std::endl;
+	//std::cout<<"for1" << std::endl;
 	for (int i = 0; i < size5*3-1; ++i)
 	{	
 		//std::cout << "i3 = " << i << std::endl;
 		EXPECT_EQ(formule4[i], formule5[i]);
 	}
 
-	std::cout<<"=finished" << std::endl;
+	//std::cout<<"=finished" << std::endl;
 
-}*/
+}
 
 
 fonction f5(10);

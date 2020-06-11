@@ -184,31 +184,28 @@ fonction::~fonction(){ //destructeur
 			next = current->next_;
 		}
 	    catch (...)  { 
-        	std::cout << "formule Exception1 " << i << " "; 
+        	std::cout << "Exception next = current->next_ " << i << " "; 
     	} 
 	    try{
 	    	delete current;
 	    }
 	    catch (...)  { 
-        	std::cout << "formule Exception2 " << i << " "; 
+        	std::cout << "Exception delete current" << i << " "; 
     	} 
-	    try{
 	    	current = next;
-	    }
-	    catch (...)  { 
-        	std::cout << "formule Exception3 " << i << "\n"; 
-    	} 
     	i++;
 	}
-	head_ = 0;
+	head_ = NULL;
 	//std::cout << "linked list destructed" << std::endl;
 
 	try  { 
 		delete []formule_;
     } 
 	catch (...)  { 
-        std::cout << "formule Exception\n"; 
+        std::cout << "Exception delete []formule_\n"; 
     } 
+
+    //std::cout << "delete formule ok" << std::endl;
 
 	/*if(formule_)
 	{
@@ -224,7 +221,7 @@ fonction& fonction::operator=(fonction& fct)
 	
 	//std::cout << "op=" << std::endl;
 
-	int tempSize = sizef_;
+	int SizeLeft = sizef_;
 	n_ = fct.getN();
 	sizef_ = fct.getSizef();
 	node *tmp;
@@ -244,10 +241,10 @@ fonction& fonction::operator=(fonction& fct)
         i++;
     }*/
 
-	if (sizef_<=tempSize)// si la fonction actuelle est plus grande que la nouvelle
+	if (sizef_<=SizeLeft)// si la fonction actuelle est plus grande que la nouvelle
 	{
 		
-		//std::cout << "sizef_<=tempSize (if)" << std::endl;
+		//std::cout << "sizef_<=SizeLeft (if)" << std::endl;
 
 		//std::cout << "sizef_*3-1" << sizef_*3-1 << std::endl;   
 		for(int i=0 ; i<(sizef_*3-1) ; i++){// on remplace les valeurs de node jusqu'à la fin de formuleFct
@@ -255,7 +252,7 @@ fonction& fonction::operator=(fonction& fct)
 			//std::cout << "tmp " << tmp << std::endl;
 			//std::cout << "tmp val " << tmp->value_ << std::endl;
 			tmp->value_ = formuleFct[i];
-			//std::cout << "formuleFct " << tmp->value_ << std::endl;
+			//std::cout << "new tmp val " << tmp->value_ << std::endl;
     		tmp->type_ = i%3 +1;
     		//std::cout << "type " << tmp->type_ << std::endl;
     		tmp = tmp->next_;
@@ -266,24 +263,39 @@ fonction& fonction::operator=(fonction& fct)
 		tail_ = tmp;
 		//std::cout << "tail_ = tmp;" << std::endl;
 
+		node* tmpA;
+		tmpA = tmp->next_;
+		tmp->next_ = NULL;
 		node* tmpd;
-		tmpd = tmp;
+		tmpd = tmpA;
+		int i = sizef_*3-1;
 		//std::cout << "tmpd init " << tmpd << std::endl;
 		//std::cout << "tmp before deletion " << tmp << std::endl;
-		while(tmp != NULL){// on supprime les node restant
+		while(tmpA != NULL){// on supprime les node restant
 			//std::cout << "tmpd boucle " << tmpd << std::endl;
 			//std::cout << "tmp boucle " << tmp << std::endl;
-			tmpd = tmp;
-			//std::cout << "tmpd = tmp " << tmpd << std::endl;
-			tmp = tmpd->next_;
-			//std::cout << "tmp = next " << tmp << std::endl;
-			delete []tmpd;
-			//std::cout << "tmpd delete " << tmpd << std::endl;
+			try{
+				tmpd = tmpA;
+				//std::cout << "tmpd = tmp " << tmpd << std::endl;
+				tmpA = tmpd->next_;
+				//std::cout << "tmp = next " << tmp << std::endl;
+				delete []tmpd;
+				//std::cout << "tmpd delete " << tmpd << std::endl;
+			}
+			catch(...){
+				std::cout << "Exception de délétion pour i = " << i << std::endl;
+			}
+			i++;
 		}
+
+		//std::cout << "while exited" << std::endl;
+
+
+
 	}else{
-		//std::cout << "sizef_>tempSize (else)" << std::endl;
+		//std::cout << "sizef_>SizeLeft (else)" << std::endl;
 		//std::cout << "on remplace les valeurs de node jusqu'à la fin la fonction actuelle" <<std::endl;
-		for(int i=0 ; i<(tempSize*3-1) ; i++){// on remplace les valeurs de node jusqu'à la fin la fonction actuelle
+		for(int i=0 ; i<(SizeLeft*3-1) ; i++){// on remplace les valeurs de node jusqu'à la fin la fonction actuelle
 			//std::cout << tmp << " ";
 			tmp->value_ = formuleFct[i];
 			//std::cout << "formuleFct " << tmp->value_ << std::endl;
@@ -295,7 +307,7 @@ fonction& fonction::operator=(fonction& fct)
 		int val;
 		int ty;
 		//std::cout << "création de nouveau nodes pour ce qu'il reste" <<std::endl;
-		for (int i = tempSize*3-1 ; i < sizef_*3-1 ; ++i) // création de nouveau nodes pour ce qu'il reste
+		for (int i = SizeLeft*3-1 ; i < sizef_*3-1 ; ++i) // création de nouveau nodes pour ce qu'il reste
 		{
 			//std::cout << "i " << i << std::endl;
 			//std::cout << "formuleFct " << formuleFct[i] << std::endl;
@@ -318,12 +330,16 @@ fonction& fonction::operator=(fonction& fct)
         //std::cout << tmp->value_<< std::endl;
         tmp = tmp->next_;
     }*/
+	try{
+    	delete []formule_;
+        formule_ = new int[sizef_*3-1];
+        Formule();
+    	//std::cout << "\nFormule updated\n" << std::endl;
+    }catch(...){
+    	std::cout << "Exception Formule Maj" << std::endl;
+    }
 
-    delete []formule_;
-    formule_ = new int[sizef_*3-1];
-    Formule();
-	
-	return *this;
+    return *this;
 
 }
 
@@ -404,6 +420,7 @@ void fonction::mutation(){
 	    }break;
 	    case 3:{ // délétion sur Var
 	    	mutRank = std::rand()%(sizef_)*3+1; // quelle est la variable concernée ?
+	    	//mutRank = sizef_*3-2;
 	    	node *tmp;
 
 	    	if (mutRank == 1)// délétion en tête de liste
