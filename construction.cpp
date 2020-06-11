@@ -23,13 +23,13 @@ construction::construction(const int gen, const int ind, const std::string adres
     std::cout << "coucou après crea storage et predict_\n";
 
     //---------------------TEST OUTPUT PYTHON--------------
-    fonction testOutput(35);
+    fonction testOutput(9);
     std::string newstring = testOutput.formuleToString();
     //testOutput.affichage();
     ecritureOutput(newstring);
     //---------------------FIN TEST OUTPUT PYTHON----------
 
-    fonction bestformule_(2);
+    fonction bestformule_(1);
     best_sse_ = nb_ligtab2D_*nb_coltab2D_ + 1 ; // pire des cas
     /*
     fonction formule_; // Devrait générer une formule au pif si la classe marche bien
@@ -174,7 +174,8 @@ bool construction::lectureCaseTab(int lig, int col)
 };
 
 void construction::generation(){
-
+    std::cout << "fonctiongen_ au debut de la génération avant mutation : " << std::endl;
+    fonctiongen_.affichage();
     // std::cout << "avant mutation : " << std::endl;
     for(int i =0; i< numChildren_ ;i++) // on met dans storage l'ensemble des enfants clones
     {
@@ -187,10 +188,10 @@ void construction::generation(){
     for(int i =0; i< numChildren_ ;i++) // chaque enfant subit une mutation
     {
         storage_[i].mutation();
-        std::cout << "\naffiche l'enfant n° " << i << " après mutation " << std::endl;
-        storage_[i].affichage();
+        //std::cout << "\naffiche l'enfant n° " << i << " après mutation " << std::endl;
+        //storage_[i].affichage();
         int nbgenes = storage_[i].getSizef();
-        std::cout << "\nnb de gènes = " << nbgenes << " pour enfant n° : " << i << std::endl;
+        //std::cout << "\nnb de gènes = " << nbgenes << " pour enfant n° : " << i << std::endl;
     }
 
     prediction(storage_); // calcule pour chaque enfant une prédiction (pour chaque ligne du tab2d)
@@ -206,7 +207,7 @@ void construction::generation(){
 
 void construction::prediction(fonction *storage){ 
    
-    //std::cout << "\n VOUS ETES DANS PREDICTION " << std::endl;
+    std::cout << "\n VOUS ETES DANS PREDICTION " << std::endl;
     //std::cout << "nb de lignes de tab   : " << nb_ligtab2D_ << std::endl;
     //std::cout << "nb de colonnes de tab : " << nb_coltab2D_ << std::endl;
 
@@ -219,15 +220,15 @@ void construction::prediction(fonction *storage){
         int taillep = storage[j].getSizef()*3-1;
         //std::cout << "\ntaille p (nb de cases) : " << taillep << std::endl;
         
-        //std::cout << j << "  ième enfant de la génération : " << std::endl;
+        std::cout << "\n" << j << "  ième enfant de la génération : " << std::endl;
         storage[j].affichage();
         
         //std::cout << "\nprint enfant pour comparer à affichage : " <<std::endl;
         
         // à enlever une fois le code fonctionnel
-        for (int i = 0; i < taillep; ++i){
+    /*    for (int i = 0; i < taillep; ++i){
                     std::cout << storage[j].getFormule()[i] << " ";
-                } 
+                } */
 
         bool res_fonc; // resultat pour chaque ligne que l'on stockera dans le tableau
 
@@ -298,8 +299,6 @@ void construction::prediction(fonction *storage){
 // modifie l'attribut bestformule_
 void construction::SSE(fonction *storage){
 
-    std::cout << "nb de lignes de tab   : " << nb_ligtab2D_ << std::endl;
-    std::cout << "nb de colonnes de tab : " << nb_coltab2D_ << std::endl;
 
     for(int j=0; j < numChildren_ ; j++) {
 
@@ -318,18 +317,19 @@ void construction::SSE(fonction *storage){
             sse += pow((predict_[j*nb_ligtab2D_+k] - valeur), 2);
 
         } // boucle k
-        std::cout << "sse = " << sse << "pour l'enfant n°" << j << std::endl;
+        std::cout << "sse = " << sse << " pour l'enfant n°" << j << std::endl;
 
         // pour chaque enfant, on a le calcul de sse qui est la somme (des différences entre predit et valeur)
         if (sse <= best_sse_) { // la meilleure sse est la plus basse
             best_sse_ = sse;
-            std::cout << "best sse in if : " << best_sse_ << std::endl;
+            //std::cout << "best sse in if : " << best_sse_ << std::endl;
             
             bestformule_ = storage_[j];} // on actualise bestformule_ qui correspond à la sse la plus faible
 
     } // boucle j
 
     std::cout << "\n BEST SSE : " << best_sse_ << std::endl;
+    bestformule_.affichage();
     
 } ;
 
@@ -338,12 +338,16 @@ void construction::SSE(fonction *storage){
 void construction::theCycleOfLife(){
 
     std::cout << "\n DANS CYCLE_OF_LIFE " << std::endl;
+    std::cout << "\nnb de lignes de tab   : " << nb_ligtab2D_ << std::endl;
+    std::cout << "\nnb de colonnes de tab : " << nb_coltab2D_ << std::endl;
 
     // on pourrait initialiser ici la formule de départ, l'individu racine plutot que de le faire dans le constructeur
-    /*i = 0;
-    while (i < numGenerations_){
+    
+    for(int i=0; i < numGenerations_ ;i++) {
+        std::cout << "\npour la génération n°"<< i << std::endl;
         generation();
-    }*/
+        fonctiongen_ = bestformule_;
+    }
 
     // check si la valeur de sse n'est pas inférieure à celle de la meilleure fonction de la generation précédente
     //fonctiongen_ = SSE(storage_); //stocke la nouvelle meilleure formule dans l'attribut de la classe   
