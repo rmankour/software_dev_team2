@@ -151,6 +151,7 @@ TEST(GTestTests, fonctionOperatorInfEqSup_test){
 fonction f5(5);
 TEST(GTestTests, fonctionMutation_test){
 	//std::cout<<"mut" << std::endl;
+	//f5.affichage();
 	int size0 = f5.getSizef(); 
 	int* formule0 = new int[size0*3-1];
 	for (int i = 0; i < size0*3-1; ++i)
@@ -160,6 +161,8 @@ TEST(GTestTests, fonctionMutation_test){
 	f5.mutation();
 	int* formule1 = f5.getFormule();
 	int size1 = f5.getSizef(); 
+
+	//f5.affichage();
 
 	bool mutTest = (size0!=size1);
 

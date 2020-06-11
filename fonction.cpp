@@ -342,7 +342,7 @@ void fonction::mutation(){
 	//mutType = 1; // OK
 	//mutType = 2; // OK
 	//mutType = 3; // OK
-	//mutType = 4; // OK
+	mutType = 4; // OK
 	//std::cout << "size " << sizef_ << std::endl;
 	//std::cout << "Mutation de type " << mutType << std::endl;
 
@@ -430,28 +430,55 @@ void fonction::mutation(){
 		    Formule();
 	    }break;
 	    case 4:{ // insertion sur Var
-	    	mutRankB = std::rand()%(n_); // quelle variable va-t-on ajouter ?
+	    	int addVar = std::rand()%(n_); // quelle variable va-t-on ajouter ?
+	    	//std::cout << "addVar = " << addVar << std::endl;
 	    	mutRank = std::rand()%(sizef_)*3; // à quel rang est elle insérée ?
+	    	//mutRank = sizef_*3;
 	    	//std::cout << "mutRank = " << mutRank << std::endl;
 	    	if (mutRank == 0)
 	    	{
+	    		/*node* tmp1 = head_;
+			    std::cout << tmp1 << " ";
+				while (tmp1 != NULL)
+			    {
+			        std::cout << tmp1->next_<< " ";
+			        tmp1 = tmp1->next_;
+			    }
+			    std::cout << std::endl;*/
+
 	    		node* p = new node;
 		        p->value_ = std::rand()%2;
+		        //std::cout << "pvalYN = " << p->value_ << std::endl;
 		        p->type_ = 1;
 
-		        p->next_ = head_->next_;
+		        p->next_ = head_;
 		        head_ = p;
 		        add_after_node(p, std::rand()%2, 3);
-		        add_after_node(p, mutRankB, 2);
+		        add_after_node(p, addVar, 2);
+
+		        /*node* tmp2 = head_;
+			    std::cout << tmp1 << " ";
+				while (tmp2 != NULL)
+			    {
+			        std::cout << tmp2->next_<< " ";
+			        tmp2 = tmp2->next_;
+			    }
+			    std::cout << std::endl;*/
 		        
-	    	}else{
+	    	}else if (mutRank == sizef_*3)
+	    	{
+	    		node *tmp;
+		    	tmp = access_node(mutRank-2);
+		    	add_after_node(tmp, addVar, 2);
+		    	add_after_node(tmp, std::rand()%2, 1);
+		    	add_after_node(tmp, std::rand()%2, 3);
+	    	}else
+	    	{
 
 	    		node *tmp;
-		    	tmp = access_node(mutRank);
-		    	if(mutRank != sizef_){
-		    		add_after_node(tmp, std::rand()%2, 3);
-		    	}
-		    	add_after_node(tmp, mutRankB, 2);
+		    	tmp = access_node(mutRank-1);
+		    	add_after_node(tmp, std::rand()%2, 3);
+		    	add_after_node(tmp, addVar, 2);
 		    	add_after_node(tmp, std::rand()%2, 1);
 
 	    	}
