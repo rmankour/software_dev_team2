@@ -8,9 +8,9 @@ fonction::fonction()
 
 	head_ = NULL;
     tail_ = NULL;
-    int n = 2;
+    int n = 9;
     n_ = n;
-	sizef_ = std::rand()%n +1;// taille de la formule initiale
+	sizef_ = 2;// taille de la formule initiale
 
 	//std::cout << "size " << sizef_ << std::endl;
 
@@ -100,8 +100,8 @@ void fonction::add_after_node(node *a, int value, int type)
 fonction::fonction(int n){ //constructeur n nbr de variables
 	//std::cout << "ctor"<< std::endl;
 	srand(time(NULL));
-	n_ = n;
-	sizef_ = std::rand()%(n) +1;// taille de la formule initiale
+	n_ = 9; // on veut choisir parmi 9 genes
+	sizef_ = n;// nombre de genes de la formule initiale
 	//std::cout << "size " << sizef_ << std::endl;
 
 	head_ = NULL;
