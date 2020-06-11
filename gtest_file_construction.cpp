@@ -44,7 +44,7 @@ TEST(GTestTests, fonctionConstructor_test){
 
 TEST(GTestTests, fonctionGetN_test){
 	fonction f1b(30);
-	EXPECT_EQ(f1b.getN(), 30);
+	EXPECT_EQ(f1b.getN(), 30-1);
 }
 
 
