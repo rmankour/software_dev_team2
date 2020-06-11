@@ -28,6 +28,7 @@ construction::construction(const int gen, const int ind, const std::string adres
     //testOutput.affichage();
     ecritureOutput(newstring);
     //---------------------FIN TEST OUTPUT PYTHON----------
+
     fonction test(2);
     bestformule_ = test;
     /*
@@ -310,49 +311,33 @@ void construction::SSE(fonction *storage){
             // la premiere valeur de predict (ligne 0, formule0) est à comparer avec dernière colonne ligne 0
             // la deuxieme valeur de predict (ligne 1, formule0) est à comparer avec dernière colonne ligne 1
 
-        int lastYN = storage_[j].getFormule()[nb_coltab2D_*3-3];
-        //std::cout << "lastYN : " << lastYN << std::endl;
-
-        int lastvark = storage_[j].getFormule()[nb_coltab2D_*3-2];
-        //std::cout << "lastvark : " << lastvark << std::endl;
-
         for (int k=0; k < nb_ligtab2D_ ;k++) {
-            // on regarde à quelle valeur correspond lastvark pour cette ligne
-            int valeur = tab2d_[k][lastvark];
-            //std::cout << "valeur dans le tableau pour lastvark : " << valeur << std::endl;
-
-            // on applique lastYN à valeur :
-            int result;
-            result = (lastYN == 1) * (valeur) + (lastYN == 0) * (!valeur);
-            //std::cout << "result de lastYN applique sur valeur : " << result << std::endl;
-
-            // on compare result (dernière colonne pour chaque ligne) à predict
-
-
-            sse += predict_[j*nb_ligtab2D_+k] - result;
-
-
+            // on veut comparer predict à la valeur de la dernière colonne
+            int valeur = tab2d_[k][nb_coltab2D_];
+            //std::cout << "valeur de la dernère colonne du tab2d : " << valeur << std::endl;
+            sse += predict_[j*nb_ligtab2D_+k] - valeur;
 
         } // boucle k
 
-        // pour chaque formule, on a le calcul de sse pour toutes les lignes
-        if (sse <= best_sse) {
-            std::cout << "boucle if" << std::endl;
+        // pour chaque enfant, on a le calcul de sse qui est la somme (des différences entre predit et valeur)
+        if (sse <= best_sse) { // la meilleure sse est la plus basse
             best_sse = sse;
             std::cout << "best sse in if : " << best_sse << std::endl;
             
-            bestformule_ = storage_[j];}
+            bestformule_ = storage_[j];} // on actualise bestformule_ qui correspond à la sse la plus faible
 
     } // boucle j
 
     std::cout << "\n BEST SSE : " << best_sse << std::endl;
-     //doit retourner un objet
     
 } ;
 
 
 // prend tous les paramètres donnés par l'utilisateur et réalise la boucle de calculs nécessaire pour aboutir à la formule_ finale
 void construction::theCycleOfLife(){
+
+    std::cout << "\n DANS CYCLE_OF_LIFE " << best_sse << std::endl;
+
     // on pourrait initialiser ici la formule de départ, l'individu racine plutot que de le faire dans le constructeur
     /*i = 0;
     while (i < numGenerations_){
