@@ -212,12 +212,17 @@ void construction::generation(){
 void construction::prediction(fonction *storage){ 
    
     std::cout << "\n VOUS ETES DANS PREDICTION " << std::endl;
+    std::cout << "nb de lignes de tab   : " << nb_ligtab2D_ << std::endl;
+    std::cout << "nb de colonnes de tab : " << nb_coltab2D_ << std::endl;
+
+
 
     for(int j=0; j < numChildren_ ; j++) {
         //Calcul de la prédiction pour la formule j
         int sse = 0;
-        
-        int taillep = storage[j].getN();
+
+        int nb_genes = storage[j].getN(); // à corriger ICI
+        int taillep = storage[j].getN()*3-1;
         std::cout << "\ntaille p : " << taillep << std::endl;
         
         std::cout << j << "  ième enfant de la génération : " << std::endl;
@@ -231,15 +236,17 @@ void construction::prediction(fonction *storage){
 
         bool res_fonc; // resultat pour chaque ligne que l'on stockera dans le tableau
 
-        /*
+        
 
         for (int k=0; k < nb_ligtab2D_ ;k++) { // pour chaque condition (ici 3) on a 6 gènes
                 //Calcul du resultat de ma formule
-                
-                int node_yn = storage[j].getFormule()[k*3]; // Yes ou Not dans formule
+
+                std::cout << "\n ligne n° : " << k <<std::endl;
+
+                int node_yn = storage[j].getFormule()[0]; // Yes ou Not dans formule
                 std::cout << "\n node_yn : " << node_yn << std::endl;
 
-                int node_vark = tab2d_[0][storage[j].getFormule()[k*3+1]]; // fait appel à valeur dans tableau
+                int node_vark = tab2d_[k][storage[j].getFormule()[1]]; // fait appel à valeur dans tableau
                 std::cout << "node_vark : " << node_vark << std::endl;
 
                 res_fonc = (node_yn == 1) * (node_vark) + (node_yn == 0) * (!node_vark);
@@ -247,17 +254,17 @@ void construction::prediction(fonction *storage){
                 std::cout << "YN " << node_yn << " node_vark " << node_vark << " nous donne : " << res_fonc << std::endl;
                 
                 //std::cout << "itération de la ligne : " << k << std::endl;
-                for (int g=1; g < nb_coltab2D_ ; g++) { //On ne prend que les (n-1) premiers points observés
+                for (int g=1; g < nb_genes; g++) { // il y nb_genes dans formule
                     //YES or NO
                     
                     int node_yn = storage[j].getFormule()[g*3]; 
-                    //std::cout << "itération g= : " << g << std::endl;
+                    std::cout << "itération g= : " << g << std::endl;
 
-                    int node_vark = tab2d_[0][storage[j].getFormule()[g*3+1]];
-                    //std::cout << "YN sur node_vark : " << node_yn << " " << node_vark <<std::endl;
+                    int node_vark = tab2d_[k][storage[j].getFormule()[g*3+1]];
+                    std::cout << "YN sur node_vark : " << node_yn << " " << node_vark <<std::endl;
                     //AND or OR
                     int node_ao = storage[j].getFormule()[g*3-1]; //Si 1 : AND Si 0 : OR
-                    //std::cout << "node_ao : " << node_ao << std::endl;
+                    std::cout << "node_ao : " << node_ao << std::endl;
 
                     //J'assemble le tout YEAH
                     if(node_yn == 1) { // si YES
@@ -277,13 +284,14 @@ void construction::prediction(fonction *storage){
                             res_fonc = res_fonc || !node_vark; // applique NOT et OR
                         }
                     }
-                    //std::cout << "res_fonc entre deux genes : " << res_fonc << std::endl;
-                predict_[j*nb_ligtab2D_ + k]= res_fonc;
+                    std::cout << "res_fonc entre deux genes : " << res_fonc << std::endl;
 
                 } // boucle g
+                predict_[j*nb_ligtab2D_ + k]= res_fonc;
+                std::cout << "predict : " << predict_[j*nb_ligtab2D_ + k] << std::endl;
 
         } // boucle k
-        */
+        
     } // boucle j
 
     
