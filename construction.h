@@ -33,7 +33,6 @@ class construction
     fonction* storage_;
     bool* predict_;
     fonction fonctiongen_; // correspond à un individu
-    int* formulegen_; // Contient la formule d'un individu dans un tableau
     fonction bestformule_; // contient le meilleur enfant à chaque génération
     int best_sse_; // contient le meilleur score
 
