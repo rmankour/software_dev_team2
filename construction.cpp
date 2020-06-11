@@ -16,6 +16,7 @@ construction::construction(const int gen, const int ind, const std::string adres
 
    
     fonction fonctiongen_(nb_coltab2D_);
+    fonctiongen_.affichage();
     formulegen_ = fonctiongen_.getFormule(); // contient la formule d'un individu dans un tableau
 
     storage_ = new fonction[numChildren_];
@@ -29,7 +30,7 @@ construction::construction(const int gen, const int ind, const std::string adres
     ecritureOutput(newstring);
     //---------------------FIN TEST OUTPUT PYTHON----------
 
-    fonction bestformule_(1);
+    fonction bestformule_(2);
     best_sse_ = nb_ligtab2D_*nb_coltab2D_ + 1 ; // pire des cas
     /*
     fonction formule_; // Devrait générer une formule au pif si la classe marche bien
@@ -181,7 +182,7 @@ void construction::generation(){
     {
 
         storage_[i] = fonctiongen_;
-        //storage_[i].affichage();
+        storage_[i].affichage();
     }
 
     // std::cout << "après mutation : " << std::endl;
