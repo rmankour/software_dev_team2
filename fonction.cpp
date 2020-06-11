@@ -241,7 +241,7 @@ fonction& fonction::operator=(fonction& fct)
         i++;
     }*/
 
-	if (sizef_<=SizeLeft)// si la fonction actuelle est plus grande que la nouvelle
+	if (sizef_<SizeLeft)// si la fonction actuelle est plus grande que la nouvelle
 	{
 		
 		//std::cout << "sizef_<=SizeLeft (if)" << std::endl;
@@ -293,6 +293,19 @@ fonction& fonction::operator=(fonction& fct)
 
 
 
+	}else if (sizef_==SizeLeft)
+	{
+		for(int i=0 ; i<(sizef_*3-1) ; i++){// on remplace les valeurs de node jusqu'à la fin de formuleFct
+			//std::cout << "i" << i << std::endl;
+			//std::cout << "tmp " << tmp << std::endl;
+			//std::cout << "tmp val " << tmp->value_ << std::endl;
+			tmp->value_ = formuleFct[i];
+			//std::cout << "new tmp val " << tmp->value_ << std::endl;
+    		tmp->type_ = i%3 +1;
+    		//std::cout << "type " << tmp->type_ << std::endl;
+    		tmp = tmp->next_;
+    		//std::cout << "tmp = next " << tmp << std::endl;
+		}
 	}else{
 		//std::cout << "sizef_>SizeLeft (else)" << std::endl;
 		//std::cout << "on remplace les valeurs de node jusqu'à la fin la fonction actuelle" <<std::endl;

@@ -74,8 +74,8 @@ TEST(GTestTests, fonctionOperatorInfEqSup_test){
 	int size3 = f3.getSizef(); 
 	int n3 = f3.getN();
 	int* formule3 = f3.getFormule();
-	/*std::cout<<"f3.getFormule = ";
-	for (int i = 0; i < size3*3-1; ++i)
+	//std::cout<<"f3.getFormule = ";
+	/*for (int i = 0; i < size3*3-1; ++i)
 	{
 		std::cout << formule3[i] << " ";
 	}
@@ -99,55 +99,63 @@ TEST(GTestTests, fonctionOperatorInfEqSup_test){
 }
 
 TEST(GTestTests, fonctionOperatorSupEqInf_test){
-	//std::cout << "gtestS=I" << std::endl;
-
-	std::cout << "f4 ";
-	fonction f4(5);
-	f4.affichage();
-	int size4 = f4.getSizef();
-	int n4 = f4.getN();
-	int* formule4 = f4.getFormule();
-	/*std::cout<<"f4.getFormule = ";
-	for (int i = 0; i < size4*3-1; ++i)
-	{
-		std::cout << formule4[i] << " ";
-	}
-	std::cout << "\n" << std::endl;*/
-
-	std::cout << "f5 ";
-	fonction f5(20);
-	f5.affichage();	
-
-	std::cout << "f5=f4 " << std::endl;
-	f5 = f4;
-	//std::cout<<"end f5=f4" << std::endl;
-	std::cout << "f5 ";
-	f5.affichage();
-
-	int size5 = f5.getSizef(); 
-	int n5 = f5.getN();
-	int* formule5 = f5.getFormule();
-	/*std::cout<<"f5.getFormule = ";
-	for (int i = 0; i < size5*3-1; ++i)
-	{
-		std::cout << formule5[i] << " ";
-	}
-	std::cout << std::endl;*/
+	//for (int i = 0; i < 1000; ++i)
+	//{
+		
 	
-	EXPECT_EQ(size5, size4);
-	//std::cout << "size5=size4 ";
-	EXPECT_EQ(n5, n4);
-	//std::cout << "n5=n4\n" << std::endl;
 
-	
-	//std::cout<<"for1" << std::endl;
-	for (int i = 0; i < size5*3-1; ++i)
-	{	
-		//std::cout << "i3 = " << i << std::endl;
-		EXPECT_EQ(formule4[i], formule5[i]);
-	}
+		//std::cout << "gtestS=I" << std::endl;
 
-	//std::cout<<"=finished" << std::endl;
+		//std::cout << "f4 ";
+		fonction f4(5);
+		//f4.affichage();
+		int size4 = f4.getSizef();
+		int n4 = f4.getN();
+		int* formule4 = f4.getFormule();
+		/*std::cout<<"f4.getFormule = ";
+		for (int i = 0; i < size4*3-1; ++i)
+		{
+			std::cout << formule4[i] << " ";
+		}
+		std::cout << "\n" << std::endl;*/
+
+		//std::cout << "f5 ";
+		fonction f5(5);
+		//f5.affichage();	
+
+		//std::cout << "f5=f4 " << std::endl;
+		f5 = f4;
+		//std::cout<<"end f5=f4" << std::endl;
+		//std::cout << "f5 ";
+		//f5.affichage();
+
+		int size5 = f5.getSizef(); 
+		int n5 = f5.getN();
+		int* formule5 = f5.getFormule();
+		/*std::cout<<"f5.getFormule = ";
+		for (int i = 0; i < size5*3-1; ++i)
+		{
+			std::cout << formule5[i] << " ";
+		}
+		std::cout << std::endl;*/
+		
+		EXPECT_EQ(size5, size4);
+		//std::cout << "size5=size4 ";
+		EXPECT_EQ(n5, n4);
+		//std::cout << "n5=n4\n" << std::endl;
+
+		
+		//std::cout<<"for1" << std::endl;
+		for (int i = 0; i < size5*3-1; ++i)
+		{	
+			//std::cout << "i3 = " << i << std::endl;
+			EXPECT_EQ(formule4[i], formule5[i]);
+		}
+
+		//std::cout<<"=finished" << std::endl;
+
+
+	//}
 
 }
 
