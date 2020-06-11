@@ -9,9 +9,9 @@
 
 
 construction::construction(const int gen, const int ind, const std::string adress){
-    adresse_ = adress; // Adresse du fichier .CSV fournie par l'utilisateur
-    numChildren_ = ind; // Nombre de d'individus par génération, indiqué par l'utilisateur ou valeur par défaut
-    numGenerations_ = gen; // Nombre de générations à réaliser, indiqué par l'utilisateur ou valeur par défaut
+    adresse_ = adress; // Adresse du fichier .CSV fourni par l'utilisateur
+    numChildren_ = ind; // Nombre d'individus par génération, indiqué par l'utilisateur
+    numGenerations_ = gen; // Nombre de générations à réaliser, indiqué par l'utilisateur
 	dataManage(); // donne une valeur à tableau qui contient dans un tableau en 2D les données fournies par l'utilisateur
 
    
@@ -175,7 +175,7 @@ bool construction::lectureCaseTab(int lig, int col)
 void construction::generation(){
 
     // std::cout << "avant mutation : " << std::endl;
-    for(int i =0; i< numChildren_ ;i++)
+    for(int i =0; i< numChildren_ ;i++) // on met dans storage l'ensemble des enfants clones
     {
 
         storage_[i] = fonctiongen_;
@@ -183,26 +183,20 @@ void construction::generation(){
     }
 
     // std::cout << "après mutation : " << std::endl;
-    for(int i =0; i< numChildren_ ;i++)
+    for(int i =0; i< numChildren_ ;i++) // chaque enfant subit une mutation
     {
         storage_[i].mutation();
         std::cout << "\naffiche l'enfant n° " << i << " après mutation " << std::endl;
         storage_[i].affichage();
-        int taillep = storage_[i].getN();
-        std::cout << "\ntaille p : " << taillep << " pour enfant n° : " << i << std::endl;
+        int nbgenes = storage_[i].getSizef();
+        std::cout << "\nnb de gènes = " << nbgenes << " pour enfant n° : " << i << std::endl;
     }
 
-    prediction(storage_);
+    prediction(storage_); // calcule pour chaque enfant une prédiction (pour chaque ligne du tab2d)
 
-    // check si la valeur de sse n'est pas inférieure à celle de la meilleure fonction de la generation précédente
-    //fonctiongen_ = SSE(storage_); //stocke la nouvelle meilleure formule dans l'attribut de la classe
-
-    /* tab_positions[compteurFormules] = formule_.getPosition(); //stocke la mutation réalisée (position)
-    tab_type[compteurFormules]= formule_.getType(); //stocke la mutation réalisée (type)
-    tab_rang[compteurFormules]= formule_.getRang(); //stocke la mutation réalisée (rang, si interversion)
-    compteurFormules =+ 1;*/
-
-    ;
+    //SSE(storage_); // compare la prédiction de chaque enfant pour chaque ligne, à chaque ligne de la dernière colonne du tab2d
+    // modifie l'attribut bestformule_ qui contient désormais le meilleur enfant
+ 
 };
 
 // reçoit un tableau de formule et retourne la meilleure d'entre elles (en prenant aussi en compte la formule_ actuelle)
@@ -211,25 +205,25 @@ void construction::generation(){
 
 void construction::prediction(fonction *storage){ 
    
-    std::cout << "\n VOUS ETES DANS PREDICTION " << std::endl;
-    std::cout << "nb de lignes de tab   : " << nb_ligtab2D_ << std::endl;
-    std::cout << "nb de colonnes de tab : " << nb_coltab2D_ << std::endl;
+    //std::cout << "\n VOUS ETES DANS PREDICTION " << std::endl;
+    //std::cout << "nb de lignes de tab   : " << nb_ligtab2D_ << std::endl;
+    //std::cout << "nb de colonnes de tab : " << nb_coltab2D_ << std::endl;
 
 
 
     for(int j=0; j < numChildren_ ; j++) {
         //Calcul de la prédiction pour la formule j
-        int sse = 0;
-
-        int nb_genes = storage[j].getN(); // à corriger ICI
-        int taillep = storage[j].getN()*3-1;
-        std::cout << "\ntaille p : " << taillep << std::endl;
         
-        std::cout << j << "  ième enfant de la génération : " << std::endl;
+        int nb_genes = storage[j].getSizef(); 
+        int taillep = storage[j].getSizef()*3-1;
+        //std::cout << "\ntaille p (nb de cases) : " << taillep << std::endl;
+        
+        //std::cout << j << "  ième enfant de la génération : " << std::endl;
         storage[j].affichage();
         
-        std::cout << "\nprint p pour comparer à affichage : " <<std::endl;
+        //std::cout << "\nprint enfant pour comparer à affichage : " <<std::endl;
         
+        // à enlever une fois le code fonctionnel
         for (int i = 0; i < taillep; ++i){
                     std::cout << storage[j].getFormule()[i] << " ";
                 } 
@@ -241,30 +235,30 @@ void construction::prediction(fonction *storage){
         for (int k=0; k < nb_ligtab2D_ ;k++) { // pour chaque condition (ici 3) on a 6 gènes
                 //Calcul du resultat de ma formule
 
-                std::cout << "\n ligne n° : " << k <<std::endl;
+                //std::cout << "\n ligne n° : " << k <<std::endl;
 
                 int node_yn = storage[j].getFormule()[0]; // Yes ou Not dans formule
-                std::cout << "\n node_yn : " << node_yn << std::endl;
+                //std::cout << "\n node_yn : " << node_yn << std::endl;
 
                 int node_vark = tab2d_[k][storage[j].getFormule()[1]]; // fait appel à valeur dans tableau
-                std::cout << "node_vark : " << node_vark << std::endl;
+                //std::cout << "node_vark : " << node_vark << std::endl;
 
                 res_fonc = (node_yn == 1) * (node_vark) + (node_yn == 0) * (!node_vark);
 
-                std::cout << "YN " << node_yn << " node_vark " << node_vark << " nous donne : " << res_fonc << std::endl;
+                //std::cout << "YN " << node_yn << " node_vark " << node_vark << " nous donne : " << res_fonc << std::endl;
                 
                 //std::cout << "itération de la ligne : " << k << std::endl;
                 for (int g=1; g < nb_genes; g++) { // il y nb_genes dans formule
                     //YES or NO
                     
                     int node_yn = storage[j].getFormule()[g*3]; 
-                    std::cout << "itération g= : " << g << std::endl;
+                    //std::cout << "itération g= : " << g << std::endl;
 
                     int node_vark = tab2d_[k][storage[j].getFormule()[g*3+1]];
-                    std::cout << "YN sur node_vark : " << node_yn << " " << node_vark <<std::endl;
+                    //std::cout << "YN sur node_vark : " << node_yn << " " << node_vark <<std::endl;
                     //AND or OR
                     int node_ao = storage[j].getFormule()[g*3-1]; //Si 1 : AND Si 0 : OR
-                    std::cout << "node_ao : " << node_ao << std::endl;
+                    //std::cout << "node_ao : " << node_ao << std::endl;
 
                     //J'assemble le tout YEAH
                     if(node_yn == 1) { // si YES
@@ -284,11 +278,11 @@ void construction::prediction(fonction *storage){
                             res_fonc = res_fonc || !node_vark; // applique NOT et OR
                         }
                     }
-                    std::cout << "res_fonc entre deux genes : " << res_fonc << std::endl;
+                    //std::cout << "res_fonc entre deux genes : " << res_fonc << std::endl;
 
                 } // boucle g
                 predict_[j*nb_ligtab2D_ + k]= res_fonc;
-                std::cout << "predict : " << predict_[j*nb_ligtab2D_ + k] << std::endl;
+                //std::cout << "predict : " << predict_[j*nb_ligtab2D_ + k] << std::endl;
 
         } // boucle k
         
@@ -361,11 +355,16 @@ void construction::SSE(fonction *storage){
 void construction::theCycleOfLife(){
     // on pourrait initialiser ici la formule de départ, l'individu racine plutot que de le faire dans le constructeur
     /*i = 0;
-    while (i < numGenerations){
+    while (i < numGenerations_){
         generation();
     }*/
 
+    // check si la valeur de sse n'est pas inférieure à celle de la meilleure fonction de la generation précédente
+    //fonctiongen_ = SSE(storage_); //stocke la nouvelle meilleure formule dans l'attribut de la classe   
+
 };
+
+
 int construction::get_nblig()
 {
 	if(!nb_ligtab2D_)
@@ -374,6 +373,8 @@ int construction::get_nblig()
 	}
 	return nb_ligtab2D_;
 };
+
+
 int construction::get_nbcol()
 {
 	if(!nb_coltab2D_)
@@ -382,8 +383,6 @@ int construction::get_nbcol()
 	}
 	return nb_coltab2D_;
 };
-
-
 
 
 void construction::ecritureOutput(std::string trucaecrire)
