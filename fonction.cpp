@@ -406,23 +406,30 @@ void fonction::mutation(){
 	    	mutRank = std::rand()%(sizef_)*3+1; // quelle est la variable concernée ?
 	    	node *tmp;
 
-	    	if (mutRank == 0) // délétion en tête de liste
+	    	if (mutRank == 1)// délétion en tête de liste
 	    	{
 	    		del_node_suiv(head_);
 	    		del_node_suiv(head_);
 	    		node* toDel = head_;
 	    		head_ = head_->next_;
 	    		delete toDel;
+	    	}else if (mutRank==sizef_*3-2)
+	    	{
+	    		tmp = access_node(mutRank-3);
+				// supression des 3 noeuds consecutifs (and/or, yes/no, var)
+				del_node_suiv(tmp);
+				del_node_suiv(tmp);
+				del_node_suiv(tmp);
+	    	}else
+	    	{
+	    		tmp = access_node(mutRank-2);
+				// supression des 3 noeuds consecutifs (yes/no, var, and/or)
+				del_node_suiv(tmp);
+				del_node_suiv(tmp);
+				del_node_suiv(tmp);
 	    	}
 
-			tmp = access_node(mutRank-2);
-			// supression des 3 noeuds consecutifs (yes/no, var, and/or)
-			del_node_suiv(tmp);
-			del_node_suiv(tmp);
-			if (mutRank!=sizef_*3-2)
-			{
-				del_node_suiv(tmp);
-			}
+			
 
 			sizef_--;
 	    	delete []formule_;
