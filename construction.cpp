@@ -29,8 +29,7 @@ construction::construction(const int gen, const int ind, const std::string adres
     ecritureOutput(newstring);
     //---------------------FIN TEST OUTPUT PYTHON----------
 
-    fonction test(2);
-    bestformule_ = test;
+    fonction bestformule_(2);
     best_sse_ = nb_ligtab2D_*nb_coltab2D_ + 1 ; // pire des cas
     /*
     fonction formule_; // Devrait générer une formule au pif si la classe marche bien
@@ -302,19 +301,21 @@ void construction::SSE(fonction *storage){
     std::cout << "nb de lignes de tab   : " << nb_ligtab2D_ << std::endl;
     std::cout << "nb de colonnes de tab : " << nb_coltab2D_ << std::endl;
 
-    int sse = 0;
-
     for(int j=0; j < numChildren_ ; j++) {
+
+        int sse = 0;
 
             // predict contient la prediction pour chaque ligne (avec formule appliquée sur n-1 colonnes)
             // la premiere valeur de predict (ligne 0, formule0) est à comparer avec dernière colonne ligne 0
             // la deuxieme valeur de predict (ligne 1, formule0) est à comparer avec dernière colonne ligne 1
 
         for (int k=0; k < nb_ligtab2D_ ;k++) {
+            //std::cout << "predict = "<< predict_[j*nb_ligtab2D_+k] << std::endl;
             // on veut comparer predict à la valeur de la dernière colonne
             int valeur = tab2d_[k][nb_coltab2D_];
+            //std::cout << "valeur = "<< valeur << std::endl;
             //std::cout << "valeur de la dernère colonne du tab2d : " << valeur << std::endl;
-            sse += predict_[j*nb_ligtab2D_+k] - valeur;
+            sse += pow((predict_[j*nb_ligtab2D_+k] - valeur), 2);
 
         } // boucle k
         std::cout << "sse = " << sse << "pour l'enfant n°" << j << std::endl;
