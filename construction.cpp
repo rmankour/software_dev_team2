@@ -336,7 +336,7 @@ void construction::SSE(fonction *storage){
 // prend tous les paramètres donnés par l'utilisateur et réalise la boucle de calculs nécessaire pour aboutir à la formule_ finale
 void construction::theCycleOfLife(){
 
-    std::cout << "\n DANS CYCLE_OF_LIFE " << best_sse << std::endl;
+    std::cout << "\n DANS CYCLE_OF_LIFE " << std::endl;
 
     // on pourrait initialiser ici la formule de départ, l'individu racine plutot que de le faire dans le constructeur
     /*i = 0;
