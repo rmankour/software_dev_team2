@@ -196,7 +196,7 @@ void construction::generation(){
 
     prediction(storage_); // calcule pour chaque enfant une prédiction (pour chaque ligne du tab2d)
 
-    //SSE(storage_); // compare la prédiction de chaque enfant pour chaque ligne, à chaque ligne de la dernière colonne du tab2d
+    SSE(storage_); // compare la prédiction de chaque enfant pour chaque ligne, à chaque ligne de la dernière colonne du tab2d
     // modifie l'attribut bestformule_ qui contient désormais le meilleur enfant
  
 };
@@ -317,6 +317,7 @@ void construction::SSE(fonction *storage){
             sse += predict_[j*nb_ligtab2D_+k] - valeur;
 
         } // boucle k
+        std::cout << "sse = " << sse << "pour l'enfant n°" << j << std::endl;
 
         // pour chaque enfant, on a le calcul de sse qui est la somme (des différences entre predit et valeur)
         if (sse <= best_sse_) { // la meilleure sse est la plus basse
