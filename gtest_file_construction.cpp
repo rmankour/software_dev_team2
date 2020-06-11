@@ -101,9 +101,9 @@ TEST(GTestTests, fonctionOperatorInfEqSup_test){
 TEST(GTestTests, fonctionOperatorSupEqInf_test){
 	//std::cout << "gtestS=I" << std::endl;
 
-	//std::cout << "f4(2) ";
-	fonction f4(2);
-	//f4.affichage();
+	std::cout << "f4 ";
+	fonction f4(5);
+	f4.affichage();
 	int size4 = f4.getSizef();
 	int n4 = f4.getN();
 	int* formule4 = f4.getFormule();
@@ -114,15 +114,15 @@ TEST(GTestTests, fonctionOperatorSupEqInf_test){
 	}
 	std::cout << "\n" << std::endl;*/
 
-	//std::cout << "f5(20) ";
+	std::cout << "f5 ";
 	fonction f5(20);
-	//f5.affichage();	
+	f5.affichage();	
 
-	//std::cout << "f5=f4; ";
+	std::cout << "f5=f4 " << std::endl;
 	f5 = f4;
 	//std::cout<<"end f5=f4" << std::endl;
-	//std::cout << "f5 ";
-	//f5.affichage();
+	std::cout << "f5 ";
+	f5.affichage();
 
 	int size5 = f5.getSizef(); 
 	int n5 = f5.getN();

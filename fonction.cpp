@@ -260,12 +260,13 @@ fonction& fonction::operator=(fonction& fct)
 		}
 		//std::cout << "values remplaced" << std::endl;
 
-		tail_ = tmp;
+		tail_ = access_node(sizef_*3-2);
+		tail_->next_ = NULL;
 		//std::cout << "tail_ = tmp;" << std::endl;
 
 		node* tmpA;
 		tmpA = tmp->next_;
-		tmp->next_ = NULL;
+		
 		node* tmpd;
 		tmpd = tmpA;
 		int i = sizef_*3-1;
