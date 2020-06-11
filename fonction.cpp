@@ -374,7 +374,7 @@ void fonction::mutation(){
 	//mutType = 3; // OK
 	//mutType = 4; // OK
 	//std::cout << "size " << sizef_ << std::endl;
-	//std::cout << "Mutation de type " << mutType << std::endl;
+	std::cout << "Mutation de type " << mutType << std::endl;
 
 	switch (mutType)
 	{

@@ -9,7 +9,7 @@ class construction
     ~construction();
     void dataManage();
     bool lectureCaseTab(int lig, int col);
-    void generation();
+    void generation(fonction& argfonctiongen_);
     void prediction(fonction *storage);
     //fonction SSE(const fonction* &tab_fonctions); // reçoit un tableau de formule et retourne la meilleure d'entre elles (en prenant aussi en compte la myFormule actuelle)
     void SSE(fonction *storage);

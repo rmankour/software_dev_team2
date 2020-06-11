@@ -1,5 +1,5 @@
 import os
-from sympy import simplify
+#from sympy import simplify
 
 # toutes les fonctions utiles
 # par exemple pour l'affichage de differents graphes
@@ -21,6 +21,7 @@ compile()
 # MODIFIER CETTE LIGNE EN METTANT LES ARGUMENTS DE VOTRE CHOIX
 run_cpp_ea(4,3,"gene_inter.csv")
 
+''' A DECOMMENTER SI VOUS VOULEZ L'AFFICHAGE de SIMPLIFY SIMPY
 mon_fichier = open("output_to_python.txt", "r")
 contenu = mon_fichier.read()
 mon_fichier.close()
@@ -28,3 +29,4 @@ print("résultat non simplify : ")
 print(contenu)
 print("résultat de simplify : ")
 print(simplify("~x19 & x0 & x8 | x1 | x1 | x31 | x1 | x1 & x32 & x0 | x0 & x0 | x9 | x1 | x0 & x14 | x0 & x3 & x1 | x2 & x0 & x7 | x1 & x3"))
+'''

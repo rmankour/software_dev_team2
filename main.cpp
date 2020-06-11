@@ -32,8 +32,19 @@ int main(int argc, char *argv[]) {
     // debut des objets
     
     construction obj(nb_generation, nb_children, adresse_tab);
-
-    
+    /*fonction f20(3);
+    fonction f3(3);
+    std::cout << "fonction f20(20);\n";
+    f20.affichage();
+    std::cout << "fonction f3(3);\n";
+    f3.affichage();    
+    std::cout << "ON FE f20 = F3;\n";
+    f20 = f3;
+    std::cout << "fonction f20(20);\n";
+    f20.affichage();
+    std::cout << "fonction f3(3);\n";
+    f3.affichage();   
+    */ 
     //obj.generation(); // à enlever une fois que tout marche, on utilise cycleoflife
     obj.theCycleOfLife();
 	//obj.dataManage();
