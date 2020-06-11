@@ -31,6 +31,7 @@ construction::construction(const int gen, const int ind, const std::string adres
 
     fonction test(2);
     bestformule_ = test;
+    best_sse_ = nb_ligtab2D_*nb_coltab2D_ + 1 ; // pire des cas
     /*
     fonction formule_; // Devrait générer une formule au pif si la classe marche bien
     int compteurFormules = 0; // Permet d'avancer dans l'historique composé des 3 tableaux à suivre
@@ -298,8 +299,6 @@ void construction::prediction(fonction *storage){
 // modifie l'attribut bestformule_
 void construction::SSE(fonction *storage){
 
-    int best_sse = nb_ligtab2D_*nb_coltab2D_ + 1 ; // le pire ce serait que toutes les lignes donnent un mauvais résultat
-    
     std::cout << "nb de lignes de tab   : " << nb_ligtab2D_ << std::endl;
     std::cout << "nb de colonnes de tab : " << nb_coltab2D_ << std::endl;
 
@@ -320,15 +319,15 @@ void construction::SSE(fonction *storage){
         } // boucle k
 
         // pour chaque enfant, on a le calcul de sse qui est la somme (des différences entre predit et valeur)
-        if (sse <= best_sse) { // la meilleure sse est la plus basse
-            best_sse = sse;
-            std::cout << "best sse in if : " << best_sse << std::endl;
+        if (sse <= best_sse_) { // la meilleure sse est la plus basse
+            best_sse_ = sse;
+            std::cout << "best sse in if : " << best_sse_ << std::endl;
             
             bestformule_ = storage_[j];} // on actualise bestformule_ qui correspond à la sse la plus faible
 
     } // boucle j
 
-    std::cout << "\n BEST SSE : " << best_sse << std::endl;
+    std::cout << "\n BEST SSE : " << best_sse_ << std::endl;
     
 } ;
 
