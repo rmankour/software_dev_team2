@@ -20,10 +20,10 @@ construction::construction(const int gen, const int ind, const std::string adres
     std::cout << "coucou après crea storage et predict_\n";
 
     //---------------------TEST OUTPUT PYTHON--------------
-    fonction testOutput(9);
+    /*fonction testOutput(9);
     std::string newstring = testOutput.formuleToString();
     //testOutput.affichage();
-    ecritureOutput(newstring);
+    ecritureOutput(newstring);*/
     //---------------------FIN TEST OUTPUT PYTHON----------
 
     fonction bestformule_(2);
@@ -353,7 +353,10 @@ void construction::theCycleOfLife(){
         generation(fonctiongen_);
         fonctiongen_ = bestformule_;
     }
-
+    //---------ECRITURE FICHIER OUTPUT -> TXT -> PYTHON
+    std::string stringaenvoyer = bestformule_.formuleToString();
+    //testOutput.affichage();
+    ecritureOutput(stringaenvoyer);
     // check si la valeur de sse n'est pas inférieure à celle de la meilleure fonction de la generation précédente
     //fonctiongen_ = SSE(storage_); //stocke la nouvelle meilleure formule dans l'attribut de la classe   
 
