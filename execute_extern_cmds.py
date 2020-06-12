@@ -19,7 +19,7 @@ def run_cpp_ea(nb_children, nb_generations, file_path):
 compile()
 
 # MODIFIER CETTE LIGNE EN METTANT LES ARGUMENTS DE VOTRE CHOIX
-run_cpp_ea(4,3,"gene_inter.csv")
+run_cpp_ea(10,30,"gene.csv")
 
 ''' A DECOMMENTER SI VOUS VOULEZ L'AFFICHAGE de SIMPLIFY SIMPY
 mon_fichier = open("output_to_python.txt", "r")

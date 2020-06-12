@@ -312,10 +312,10 @@ void construction::SSE(fonction *storage){
         for (int k=0; k < nb_ligtab2D_ ;k++) {
             //std::cout << "predict = "<< predict_[j*nb_ligtab2D_+k] << std::endl;
             // on veut comparer predict à la valeur de la dernière colonne
-            int valeur = tab2d_[k][nb_coltab2D_];
+            int valeur = tab2d_[k][nb_coltab2D_-1];
             //std::cout << "valeur = "<< valeur << std::endl;
             //std::cout << "valeur de la dernère colonne du tab2d : " << valeur << std::endl;
-            sse += pow((predict_[j*nb_ligtab2D_+k] - valeur), 2);
+            sse += pow((predict_[j*(nb_ligtab2D_-1)+k] - valeur), 2);
 
         } // boucle k
         std::cout << "sse = " << sse << " pour l'enfant n°" << j << std::endl;
