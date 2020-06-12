@@ -65,6 +65,7 @@ void fonction::add_node(int value, int type)
         tail_->next_ = tmp;
         tail_ = tmp;
     }
+
 }
 
 void fonction::del_node_suiv(node* preced)
@@ -228,8 +229,8 @@ fonction& fonction::operator=(fonction& fct)
 	tmp = head_;
 	int* formuleFct = fct.getFormule();
 
-	/*std::cout << "print this" << std::endl;
-	node* tmpa = head_;
+	//std::cout << "print this" << std::endl;
+	/*node* tmpa = head_;
 	int i = 0;
 	std::cout << tmpa << std::endl;
 	while (tmpa != NULL)
@@ -248,15 +249,15 @@ fonction& fonction::operator=(fonction& fct)
 
 		//std::cout << "sizef_*3-1" << sizef_*3-1 << std::endl;   
 		for(int i=0 ; i<(sizef_*3-1) ; i++){// on remplace les valeurs de node jusqu'à la fin de formuleFct
-			//std::cout << "i" << i << std::endl;
-			//std::cout << "tmp " << tmp << std::endl;
-			//std::cout << "tmp val " << tmp->value_ << std::endl;
+		//	std::cout << "i" << i << std::endl;
+		//	std::cout << "tmp " << tmp << std::endl;
+		//	std::cout << "tmp val " << tmp->value_ << std::endl;
 			tmp->value_ = formuleFct[i];
-			//std::cout << "new tmp val " << tmp->value_ << std::endl;
+		//	std::cout << "new tmp val " << tmp->value_ << std::endl;
     		tmp->type_ = i%3 +1;
-    		//std::cout << "type " << tmp->type_ << std::endl;
+    	//	std::cout << "type " << tmp->type_ << std::endl;
     		tmp = tmp->next_;
-    		//std::cout << "tmp = next " << tmp << std::endl;
+    	//	std::cout << "tmp = next " << tmp << std::endl;
 		}
 		//std::cout << "values remplaced" << std::endl;
 
@@ -273,18 +274,18 @@ fonction& fonction::operator=(fonction& fct)
 		//std::cout << "tmpd init " << tmpd << std::endl;
 		//std::cout << "tmp before deletion " << tmp << std::endl;
 		while(tmpA != NULL){// on supprime les node restant
-			//std::cout << "tmpd boucle " << tmpd << std::endl;
-			//std::cout << "tmp boucle " << tmp << std::endl;
+		//	std::cout << "tmpd boucle " << tmpd << std::endl;
+		//	std::cout << "tmp boucle " << tmp << std::endl;
 			try{
 				tmpd = tmpA;
-				//std::cout << "tmpd = tmp " << tmpd << std::endl;
+			//	std::cout << "tmpd = tmp " << tmpd << std::endl;
 				tmpA = tmpd->next_;
-				//std::cout << "tmp = next " << tmp << std::endl;
-				delete []tmpd;
-				//std::cout << "tmpd delete " << tmpd << std::endl;
+			//	std::cout << "tmp = next " << tmp << std::endl;
+				delete tmpd;
+			//	std::cout << "tmpd delete " << tmpd << std::endl;
 			}
 			catch(...){
-				std::cout << "Exception de délétion pour i = " << i << std::endl;
+			//	std::cout << "Exception de délétion pour i = " << i << std::endl;
 			}
 			i++;
 		}
@@ -295,6 +296,7 @@ fonction& fonction::operator=(fonction& fct)
 
 	}else if (sizef_==SizeLeft)
 	{
+		//std::cout << "sizef_==SizeLeft (if)" << std::endl;
 		for(int i=0 ; i<(sizef_*3-1) ; i++){// on remplace les valeurs de node jusqu'à la fin de formuleFct
 			//std::cout << "i" << i << std::endl;
 			//std::cout << "tmp " << tmp << std::endl;
@@ -320,7 +322,7 @@ fonction& fonction::operator=(fonction& fct)
 
 		int val;
 		int ty;
-		//std::cout << "création de nouveau nodes pour ce qu'il reste" <<std::endl;
+		std::cout << "création de nouveau nodes pour ce qu'il reste" <<std::endl;
 		for (int i = SizeLeft*3-1 ; i < sizef_*3-1 ; ++i) // création de nouveau nodes pour ce qu'il reste
 		{
 			//std::cout << "i " << i << std::endl;
@@ -374,7 +376,7 @@ void fonction::mutation(){
 	//mutType = 3; // OK
 	//mutType = 4; // OK
 	//std::cout << "size " << sizef_ << std::endl;
-	std::cout << "Mutation de type " << mutType << std::endl;
+	//std::cout << "Mutation de type " << mutType << std::endl;
 
 	switch (mutType)
 	{
@@ -392,7 +394,7 @@ void fonction::mutation(){
 	    case 1: {// Mutation sur and/or
 	    	//std::cout << "mutAO" << std::endl;
 	    	//std::cout << "size = " << sizef_ << std::endl;
-	    	mutRank = std::rand()%(sizef_-1)*3+2; // quel rang concerne la mutation ?
+	    	mutRank = std::rand()%(sizef_)*3-2; // quel rang concerne la mutation ?
 	    	//std::cout << "mutRank = " << mutRank << std::endl;
 	    	node *tmp;
 			tmp = access_node(mutRank);
@@ -402,14 +404,14 @@ void fonction::mutation(){
        	}break;
 	    case 2:{ // Inversion sur Var
 	    	//std::cout << "mutRankB" << std::endl;
-	    	mutRank = std::rand()%(sizef_)*3+1; // quels rang sont à échanger ?
+	    	mutRank = std::rand()%(sizef_)*3-1; // quels rang sont à échanger ?
 	    	node *ptrRank;
 			ptrRank = access_node(mutRank);
 	    	//std::cout << mutRank << std::endl;
 	    	node* ptrRankB;
 	    	do 
 	    	{
-	    		mutRankB = std::rand()%(sizef_)*3+1; // quels rang sont à échanger ?
+	    		mutRankB = std::rand()%(sizef_)*3-1; // quels rang sont à échanger ?
 	    		
 				ptrRankB = access_node(mutRankB);
 	    		//std::cout << mutRankB << std::endl;
@@ -433,7 +435,7 @@ void fonction::mutation(){
 
 	    }break;
 	    case 3:{ // délétion sur Var
-	    	mutRank = std::rand()%(sizef_)*3+1; // quelle est la variable concernée ?
+	    	mutRank = std::rand()%(sizef_)*3-1; // quelle est la variable concernée ?
 	    	//mutRank = sizef_*3-2;
 	    	node *tmp;
 

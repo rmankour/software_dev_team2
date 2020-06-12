@@ -171,17 +171,19 @@ bool construction::lectureCaseTab(int lig, int col)
 };
 
 void construction::generation(fonction& argfonctiongen_){
-    std::cout << "argfonctiongen_ au debut de la génération avant mutation : " <<argfonctiongen_.getSizef()<< std::endl;
+   // std::cout << "argfonctiongen_ au debut de la génération avant mutation : " << argfonctiongen_.getSizef()<< std::endl;
     argfonctiongen_.affichage();
-    std::cout << "avant mutation : " << std::endl;
-    for(int i =0; i< numChildren_ ;i++) // on met dans storage l'ensemble des enfants clones
+    //std::cout << "avant mutation : " << std::endl;
+    for(int i = 0; i< numChildren_ ;i++) // on met dans storage l'ensemble des enfants clones
     {
-        //std::cout << "boucle arg: " << std::endl;
-        //argfonctiongen_.affichage();
-        //std::cout << "boucle storage: " << std::endl;
-        //storage_[i].affichage();
+       // std::cout << "numchild = " << i << "----------boucle arg: " << std::endl;
+       // argfonctiongen_.affichage();
+       // std::cout << "----------boucle storage: \n";
+       // std::cout << "    on affiche storage_[i] taille : " << storage_[i].getSizef() << std::endl;
+       // storage_[i].affichage();
+        //std::cout << "    on affiche argfonctiongen_ taille : " << argfonctiongen_.getSizef() << std::endl;
         storage_[i] = argfonctiongen_;
-        storage_[i].affichage();
+        //storage_[i].affichage();
     }
 
     // std::cout << "après mutation : " << std::endl;
@@ -221,7 +223,7 @@ void construction::prediction(fonction *storage){
         int taillep = storage[j].getSizef()*3-1;
         //std::cout << "\ntaille p (nb de cases) : " << taillep << std::endl;
         
-        std::cout << "\n" << j << "  ième enfant de la génération : " << std::endl;
+        std::cout << "\n" << j << "  ième enfant de taille " << storage_[j].getSizef() <<"de la génération : " << std::endl;
         storage[j].affichage();
         
         //std::cout << "\nprint enfant pour comparer à affichage : " <<std::endl;
@@ -329,7 +331,7 @@ void construction::SSE(fonction *storage){
 
     } // boucle j
 
-    std::cout << "\n BEST SSE : " << best_sse_ << std::endl;
+    std::cout << "\n BEST SSE : " << best_sse_ << "\n bestformule :"<< std::endl;
     bestformule_.affichage();
     
 } ;
@@ -342,8 +344,8 @@ void construction::theCycleOfLife(){
     std::cout << "\nnb de lignes de tab   : " << nb_ligtab2D_ << std::endl;
     std::cout << "\nnb de colonnes de tab : " << nb_coltab2D_ << std::endl;
     fonction fonctiongen_(nb_coltab2D_);
-    std::cout << "fonctiongen_affichage()\n";
-    fonctiongen_.affichage();
+    //std::cout << "fonctiongen_affichage()\n";
+    //fonctiongen_.affichage();
     // on pourrait initialiser ici la formule de départ, l'individu racine plutot que de le faire dans le constructeur
     
     for(int i=0; i < numGenerations_;i++) {
