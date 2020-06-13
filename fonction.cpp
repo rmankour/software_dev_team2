@@ -102,7 +102,7 @@ fonction::fonction(int n){ //n nombre de gènes dans le tab2d
 	//std::cout << "ctor"<< std::endl;
 	srand(time(NULL));
 	n_ = n-1; // on veut choisir parmi les n-1 premiers genes dans tab2d
-	sizef_ = 10;// nombre de genes de la formule initiale
+	sizef_ = 4;// nombre de genes de la formule initiale
 	//std::cout << "size " << sizef_ << std::endl;
 
 	head_ = NULL;
@@ -561,6 +561,7 @@ std::string fonction::formuleToString(){
 	while (temp != NULL)
     {
         strtempbrut += std::to_string(temp->value_);
+        //std::cout << "temp->value "  << temp->value_ << "    strtempbrut " << strtempbrut <<std::endl;
         strtempbrut += "_";
         temp = temp->next_;
  
@@ -568,11 +569,13 @@ std::string fonction::formuleToString(){
     //std::cout << strtempbrut << std::endl;
     int compteur = 0;
     int j = 0;
+    bool reini;
     std::string output = "";
     while(j < strtempbrut.length())
     {
     	if(strtempbrut[j] != '_')
     	{
+    		reini = 0;
     		//-----------------------caractères not/yes
     		if (compteur == 0) // on est dans un truc not/yes
     		{
@@ -608,9 +611,13 @@ std::string fonction::formuleToString(){
 		    	else{
 		    		output += " | ";
 		    	}
-		    	compteur = 0;
+		    	reini = 1;
 	    	}
 	    	compteur++;	
+	    	if (reini==1)
+	    	{
+	    		compteur = 0;
+	    	}
     	}
     	j++;
     	//traite les trucs 3 par 3 
