@@ -252,7 +252,7 @@ void construction::prediction(fonction *storage){
 // calcule la sse et stocke la meilleure formule de la génération dans bestformule_
 void construction::SSE(fonction *storage){
 
-    int choix =1; // 0 pour sse, autre chose pour fitness
+    int choix =0; // 0 pour sse, autre chose pour fitness
 
     if (choix==0){
 
@@ -270,10 +270,17 @@ void construction::SSE(fonction *storage){
         } // boucle k
 
         // pour chaque enfant, on a le calcul de sse qui est la somme (des différences entre predit et valeur)
-        if (sse <= best_sse_) { // la meilleure sse est la plus basse
+        if (sse < best_sse_) { // la meilleure sse est la plus basse
             best_sse_ = sse;
-            bestformule_ = storage_[j];} // on actualise bestformule_ qui correspond à la sse la plus faible
-
+            bestformule_ = storage_[j]; // on actualise bestformule_ qui correspond à la sse la plus faible
+        }else{
+            if(sse == best_sse_){ // si meme score que la formule actuelle dans bestformule_
+                    if(bestformule_.getSizef() > storage_[j].getSizef()){ //  conserver l'enfant j seulement s'il est plus court
+                        best_sse_ = sse;
+                        bestformule_ = storage_[j]; 
+                    }
+            }
+        } //fin du else
     } // boucle j
 
     } 
@@ -335,8 +342,10 @@ void construction::theCycleOfLife(){ // réalise le nombre de générations donn
     }
 
     std::cout << "\n BEST SSE : " << best_sse_ << std::endl;
-
-    std::cout << "\n BEST fitness : " << best_fitness_ << "\n bestformule :"<< std::endl;
+    std::cout << "nb de lignes du tab2d : " << nb_ligtab2D_ << std::endl;
+    float percent = (float)best_sse_/nb_ligtab2D_ * 100;
+    std::cout << "nb d'erreurs : " << percent << " %" << std::endl;
+    std::cout << "bestformule_ : " << std::endl;
 
     bestformule_.affichage();
 
