@@ -102,7 +102,7 @@ fonction::fonction(int n){ //n nombre de gènes dans le tab2d
 	//std::cout << "ctor"<< std::endl;
 	srand(time(NULL));
 	n_ = n-1; // on veut choisir parmi les n-1 premiers genes dans tab2d
-	sizef_ = std::rand()%n_ + 1;// nombre de genes de la formule initiale
+	sizef_ = 10;// nombre de genes de la formule initiale
 	//std::cout << "size " << sizef_ << std::endl;
 
 	head_ = NULL;
@@ -322,7 +322,7 @@ fonction& fonction::operator=(fonction& fct)
 
 		int val;
 		int ty;
-		std::cout << "création de nouveau nodes pour ce qu'il reste" <<std::endl;
+		//std::cout << "création de nouveau nodes pour ce qu'il reste" <<std::endl;
 		for (int i = SizeLeft*3-1 ; i < sizef_*3-1 ; ++i) // création de nouveau nodes pour ce qu'il reste
 		{
 			//std::cout << "i " << i << std::endl;
