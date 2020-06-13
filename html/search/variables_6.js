@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['tab2d_5f',['tab2d_',['../classconstruction.html#a17cb2db751b0cb0647d3ba28307d5bf9',1,'construction']]],
-  ['tab_5fpositions',['tab_positions',['../classconstruction.html#a7e7a3e579511f2e1d87b826991dbfc3d',1,'construction']]],
-  ['tab_5frang',['tab_rang',['../classconstruction.html#a4575c717a11a99b7e3b4848e62dfd1f5',1,'construction']]],
-  ['tab_5ftype',['tab_type',['../classconstruction.html#a3728f3d900d4b3e3793ac30e0d450d6a',1,'construction']]],
-  ['type_5f',['type_',['../structnode.html#a366582c4fd5724e0fb7232bf8e13827f',1,'node']]]
+  ['n_5f',['n_',['../classfonction.html#a673e527769c47c1bfb982f206a47fe0d',1,'fonction']]],
+  ['nb_5fcoltab2d_5f',['nb_coltab2D_',['../classconstruction.html#a4f109389ef6f9b4d99ace0574db74676',1,'construction']]],
+  ['nb_5fligtab2d_5f',['nb_ligtab2D_',['../classconstruction.html#aed7378d37452b64b5a2d57a28cbee854',1,'construction']]],
+  ['next_5f',['next_',['../structnode.html#a4519cc8f2d0f4e0ef87ceff77dd7cdf7',1,'node']]],
+  ['numchildren_5f',['numChildren_',['../classconstruction.html#abd9dc131759a6d4533973256b3ba7818',1,'construction']]],
+  ['numgenerations_5f',['numGenerations_',['../classconstruction.html#a489aef4fd05f6ffb1dbaaabab126ff56',1,'construction']]]
 ];
