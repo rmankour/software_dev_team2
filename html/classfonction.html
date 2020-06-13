@@ -159,16 +159,11 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Default constructor. Generates a random function with sizef_ variables picked randomly in the two possible variables. </p>
-<p>&lt;the number of variables is initialized to 2&gt;</p>
-<p>number of variables</p>
-<p>&lt; Initial formula's size is picked randomly between 1 and n_ &gt;</p>
 <p>the linked list is filed with alternatively...</p><ul>
 <li>yes(1) or no(0)</li>
 <li>an index corresponding to a variable</li>
 <li>and(1) or or(0)</li>
 </ul>
-<p>memory is allocated for the table "formule_" containing the full function formula</p>
-<p>formle_ is filed </p>
 
 </div>
 </div>
@@ -193,16 +188,11 @@ Protected Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<p>initialises rand method's seed to the current time</p>
-<p>n-1 variables can be used in the formula</p>
-<p>Initial formula's size is 4</p>
 <p>the linked list is filed with alternatively...</p><ul>
 <li>yes(1) or no(0)</li>
 <li>an index corresponding to a variable</li>
 <li>and(1) or or(0)</li>
 </ul>
-<p>memory is allocated for the table "formule_" containing the full function formula</p>
-<p>formle_ is filed </p>
 
 </div>
 </div>
@@ -222,9 +212,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>destructor </p>
-<p>Destructor. </p>
-<p>All the nodes of the linked list are deleted</p>
-<p>The array formule is deleted </p>
+<p>Destructor of the class. </p>
 
 </div>
 </div>
@@ -253,7 +241,6 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Returns the address of the node at the index given as parameter Each node is traversed until the node at the asked index </p>
-<p>the address of the node is returned </p>
 
 </div>
 </div>
@@ -297,10 +284,6 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Adds a new node is added after the node a The new node contains the 2nd and 3rd parameter as value and type respectivly </p>
-<p>creates a new node p</p>
-<p>value is asigned</p>
-<p>type is asigned</p>
-<p>p in inserted after a </p>
 
 </div>
 </div>
@@ -346,15 +329,6 @@ Protected Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<p>creates a new node</p>
-<p>value is asigned</p>
-<p>type is asigned</p>
-<p>is set as the last node of the list</p>
-<p>if the linked list is empty</p>
-<p>the new node is the first node</p>
-<p>and the last node</p>
-<p>the next node after the current last node is set as our new node</p>
-<p>our new node is set as the tail of the list </p>
 
 </div>
 </div>
@@ -402,9 +376,6 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Deletes the node right after the one given as parameter. </p>
-<p>temp takes the address of the node to delete</p>
-<p>the node before takes as next node the node after the one beeing deleted</p>
-<p>the node is deleted </p>
 
 </div>
 </div>
@@ -424,7 +395,6 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Fills the array formule with the sequence of number representing the current formula. </p>
-<p>each node's value is put in the array </p>
 
 </div>
 </div>
@@ -525,41 +495,6 @@ Protected Attributes</h2></td></tr>
 <li>type 3 : a variable is deleted ;</li>
 <li>type 4 : a variable is inserted. </li>
 </ul>
-<p>The type of mutation is picked randomly and stored in mutType</p>
-<p>Mutaion on yes/no</p>
-<p>The rank of yes/no affected by the mutation is picked randomly</p>
-<p>O and 1 are inverted</p>
-<p>Mutaion on and/or</p>
-<p>The rank of and/or affected by the mutation is picked randomly</p>
-<p>O and 1 are inverted</p>
-<p>Invertion of two variables</p>
-<p>The ranks mutRank and mutRankB of the two variables beeing inverted are picked randomly</p>
-<p>The two variables are swiched</p>
-<p>Variable deletion</p>
-<p>The rank of the variable is picked randomly</p>
-<p>Deletion at the begining of the list</p>
-<p>Deletion at the end of the list</p>
-<p>Deletion of 3 consecutiv nodes (and/or, yes/no, var)</p>
-<p>Deletion of 3 consecutiv nodes (yes/no, var, and/or)</p>
-<p>The size of the function is updated</p>
-<p>Formule_ is updated</p>
-<p>Variable insertion</p>
-<p>The inserted variable is picked randomly</p>
-<p>The rank of the inserted variable is picked randomly</p>
-<p>Insertion at the begining of the list</p>
-<p>A random yes/no is added</p>
-<p>A random and/or is added</p>
-<p>The variable is added</p>
-<p>Insertion at the end of the list</p>
-<p>The variable is added</p>
-<p>A random yes/no is added</p>
-<p>A random and/or is added</p>
-<p>A random and/or is added</p>
-<p>The variable is added</p>
-<p>A random yes/no is added</p>
-<p>The size of the formula is updates</p>
-<p>Formule_ is updated</p>
-<p>Code to be executed if mutType doesn't match any cases </p>
 
 </div>
 </div>
@@ -579,10 +514,6 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Assignment operator Assignment of the content of one object fonction to another one </p>
-<p>&lt; current sizef is stocked in the variable SizeLeft &gt;</p>
-<p>n is updated</p>
-<p>sizef is updated</p>
-<p>formuleFct is filed with the content of the fonction to be put in the other one</p>
 <p>If the current function is biger than the new one,</p><ul>
 <li>the first nodes's values are replaced with the new ones that are in formuleFct</li>
 <li>the remaining nodes are deleted.</li>
@@ -592,9 +523,6 @@ Protected Attributes</h2></td></tr>
 <li>the current nodes's values are replaced with the first ones in formuleFct</li>
 <li>new nodes are created for the remaining values of formuleFct.</li>
 </ul>
-<p>The current forula is deleted</p>
-<p>Memory is allocated accordingly to the new size of the function</p>
-<p>The array is filled </p>
 
 </div>
 </div>

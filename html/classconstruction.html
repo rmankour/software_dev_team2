@@ -81,7 +81,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a6bd5a2aff3cb90bd02b80a4b3bebe2b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructeur de la classe prenant les paramètres fournis par l'utilisateur afin de construire la formule expliquant le mieux les données et les scores correspondants.  <a href="#a6bd5a2aff3cb90bd02b80a4b3bebe2b5">More...</a><br /></td></tr>
 <tr class="separator:a6bd5a2aff3cb90bd02b80a4b3bebe2b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a4c39aaaf4b9f5749ab33b33fbe4771"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classconstruction.html#a7a4c39aaaf4b9f5749ab33b33fbe4771">~construction</a> ()</td></tr>
-<tr class="memdesc:a7a4c39aaaf4b9f5749ab33b33fbe4771"><td class="mdescLeft">&#160;</td><td class="mdescRight">destructeur de la classe  <a href="#a7a4c39aaaf4b9f5749ab33b33fbe4771">More...</a><br /></td></tr>
+<tr class="memdesc:a7a4c39aaaf4b9f5749ab33b33fbe4771"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructeur de la classe.  <a href="#a7a4c39aaaf4b9f5749ab33b33fbe4771">More...</a><br /></td></tr>
 <tr class="separator:a7a4c39aaaf4b9f5749ab33b33fbe4771"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7644eb0f7359665989d3f8f9075c51b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classconstruction.html#ab7644eb0f7359665989d3f8f9075c51b">dataManage</a> ()</td></tr>
 <tr class="memdesc:ab7644eb0f7359665989d3f8f9075c51b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Méthode pour importer les données fournies par l'utilisateur sous la forme d'une tableau en 2D.  <a href="#ab7644eb0f7359665989d3f8f9075c51b">More...</a><br /></td></tr>
@@ -190,11 +190,6 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Constructeur de la classe prenant les paramètres fournis par l'utilisateur afin de construire la formule expliquant le mieux les données et les scores correspondants. </p>
-<p>Adresse du fichier .CSV fourni par l'utilisateur</p>
-<p>Nombre d'individus par génération, indiqué par l'utilisateur</p>
-<p>Nombre de générations à réaliser, indiqué par l'utilisateur</p>
-<p>donne une valeur à tableau qui contient dans un tableau en 2D les données fournies par l'utilisateur</p>
-<p>pire valeur possible de SSE, dans le cas où il n'y a aucune correspondance </p>
 
 </div>
 </div>
@@ -213,7 +208,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>destructeur de la classe </p>
+<p>Destructeur de la classe. </p>
 
 </div>
 </div>
@@ -234,19 +229,6 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Méthode pour importer les données fournies par l'utilisateur sous la forme d'une tableau en 2D. </p>
-<p>ouvre un flux appellé ip avec l'adress du fichier csv</p>
-<p>getline : récupère sous forme de string tout ce qu'il y a dans le flux jusqu'au cara indiqué ici '<br />
-'</p>
-<p>PRETRAITEMENT : CHERCHE NB LIGNES / COLONNES</p>
-<p>On cherche le nombre de colonnes n donne le nombre de colonnes</p>
-<p>On cherche le nombre de lignes du csv m est le nombre de ligne de notre fichier .csv</p>
-<p>ferme le flux</p>
-<p>LECTURE DU CSV</p>
-<p>zappe la première ligne d'entête</p>
-<p>zappe la première</p>
-<p>parcourt les lignes m (de 0 à 577)</p>
-<p>parcourt les colonnes n-2 (de 0 à 119)</p>
-<p>zappe la première occurence de chaque ligne (nom de l'expérience) </p>
 
 </div>
 </div>
@@ -267,8 +249,6 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Méthode pour ouvrir un fichier texte et y écrire le docstring donné en argument. </p>
-<p>On teste si tout est OK</p>
-<p>Tout est OK, on peut utiliser le fichier </p>
 
 </div>
 </div>
@@ -289,10 +269,6 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Méthode pour construire les enfants d'une génération, stockés dans le tableau storage, à partir de l'objet fonction correspondant au parent en input. </p>
-<p>on met dans storage l'ensemble des enfants clones</p>
-<p>chaque enfant subit une mutation de type 1,2,3 ou 4 (random)</p>
-<p>stocke dans predict_ les résultats de chaque enfant appliqué aux données</p>
-<p>compare la prédiction de chaque enfant pour chaque ligne, à chaque ligne de la dernière colonne du tab2d modifie l'attribut bestformule_ qui contient désormais le meilleur enfant </p>
 
 </div>
 </div>
@@ -380,31 +356,6 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Méthode prenant en input : tableau storage avec tous les enfants mutés modifie l'argument predict qui est un tableau avec pour chaque enfant, la prédiction pour chaque ligne (0 ou 1) </p>
-<p>Calcul de la prédiction pour l'enfant j (pour chaque ligne du tab2d on a une prédiction)</p>
-<p>resultat pour chaque ligne que l'on stockera dans le tableau</p>
-<p>pour chaque ligne on calcule la prédiction de l'enfant j</p>
-<p>premier Yes ou Not dans formule</p>
-<p>valeur que prend le premier gene de la formule à la ligne k</p>
-<p>on applique le Yes ou Not sur cette valeur</p>
-<p>calcul la prédiction en prenant en compte toute la formule de l'enfant j</p>
-<p>prochain YN dans la formule</p>
-<p>valeur que prend le prochain gène dans la formule à la ligne k</p>
-<p>opérateur And ou Or entre les gènes g et g-1</p>
-<p>si YES</p>
-<p>si AND</p>
-<p>applique Yes et AND</p>
-<p>si OR</p>
-<p>applique YES et OR</p>
-<p>si NOT</p>
-<p>si AND</p>
-<p>applique NOT et AND</p>
-<p>si OR</p>
-<p>applique NOT et OR</p>
-<p>boucle g </p><pre class="fragment">predict contient pour chaque enfant, la prediction pour chaque ligne
-</pre><p> \ la premiere valeur de predict (ligne 0, formule0) est à comparer avec dernière colonne ligne 0 \ la deuxieme valeur de predict (ligne 1, formule0) est à comparer avec dernière colonne ligne 1 \ pour chaque enfant on stocke la prédiction de chaque ligne</p>
-<p>boucle k</p>
-<p>boucle j</p>
-<p>fin prediction </p>
 
 </div>
 </div>
@@ -425,29 +376,6 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>fonction SSE(const fonction* &amp;tab_fonctions); reçoit un tableau de formule et retourne la meilleure d'entre elles (en prenant aussi en compte la myFormule actuelle)</p>
 <p>Méthode prenant un tableau d'objets fonction correspondant aux enfants d'une génération calcule la sse et stocke la meilleure formule de la génération dans bestformule_ </p>
-<p>0 pour sse, autre chose pour fitness</p>
-<p>on parcourt toutes les lignes du tab2d</p>
-<p>on stocke la valeur de la dernière colonne</p>
-<p>calcul de la sse : pour chaque ligne, chaque valeur prédite est comparée à la dernière colonne du tab2d</p>
-<p>boucle k</p>
-<p>pour chaque enfant, on a le calcul de sse qui est la somme (des différences entre predit et valeur)</p>
-<p>la meilleure sse est la plus basse</p>
-<p>on actualise bestformule_ qui correspond à la sse la plus faible</p>
-<p>si meme score que la formule actuelle dans bestformule_</p>
-<p>conserver l'enfant j seulement s'il est plus court</p>
-<p>fin du else</p>
-<p>boucle j</p>
-<p>pour calcul avec fitness</p>
-<p>calcul de la sse : pour chaque ligne, chaque valeur prédite est comparée à la dernière colonne du tab2d</p>
-<p>autre façon de calculer le score</p>
-<p>on parcourt toutes les lignes du tab2d</p>
-<p>on stocke la valeur de la dernière colonne</p>
-<p>boucle k</p>
-<p>PENALISATION DES OU</p>
-<p>si le node_ao == 0 c'est un OR</p>
-<p>la meilleure fitness_ est la plus basse</p>
-<p>boucle j</p>
-<p>fin else </p>
 
 </div>
 </div>
@@ -468,10 +396,6 @@ Protected Attributes</h2></td></tr>
 
 <p>prend tous les paramètres donnés par l'utilisateur et réalise la boucle de calculs nécessaire pour aboutir à la myFormule finale </p>
 <p>réalise le nombre de générations demandé par l'utilisateur </p>
-<p>pour voir un peu plus d'informations sur la sortie</p>
-<p>si le node_ao == 0 c'est un OR</p>
-<p>si le node_ao == 1 c'est un AND</p>
-<p>------&mdash;ECRITURE FICHIER OUTPUT -&gt; TXT -&gt; PYTHON </p>
 
 </div>
 </div>
