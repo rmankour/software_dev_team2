@@ -3,8 +3,6 @@
 #include <string>
 #include <iostream>
 
-
-
 void fonction::add_node(int value, int type)
 {
 	//! Adds a node containing the 1st parameter as its value and the 2nd parameter as its type

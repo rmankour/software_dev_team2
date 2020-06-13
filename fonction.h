@@ -18,20 +18,18 @@ class fonction{
 		int getSizef();
 		fonction& operator=(fonction& fct);
 		void affichage();
+		std::string formuleToString();
 
+	protected:
 		void add_node(int val, int ty);
 		void del_node_suiv(node* preced);
 		node* access_node(int index);
 		void add_after_node(node *a, int value, int type);
-		std::string formuleToString();
-
-	protected:
 		int n_ = 1; //number of variables existing
 		int sizef_ = 1; //number de termes dans la formule
 		int* formule_;
 		int sizeformule_;
 		node *head_,*tail_;
-		node* gethead();
 
 
 };
