@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 
+//! Main program that executes the necessary commands to construct the formula
 
 int main(int argc, char *argv[]) {
     /*
@@ -24,32 +25,36 @@ int main(int argc, char *argv[]) {
     }
     */
     // on met les arguments dans des variables
-    int nb_children = std::atoi(argv[1]);  // converti notre char en int 
-    int nb_generation = std::atoi(argv[2]) ; // converti notre char en int
-    std::string adresse_tab = argv[3]; // constructeur de string converti directement un char en int sans soucis.
+    //! convertit notre char en int
+    int nb_children = std::atoi(argv[1]);
+    //! convertit notre char en int
+    int nb_generation = std::atoi(argv[2]) ;
+    //! constructeur de string converti directement un char en int
+    std::string adresse_tab = argv[3];
 
-    
-    // debut des objets
-    
+
+    //! construit l'objet construction possédant les méthodes nécessaires au traitement des données
     construction obj(nb_generation, nb_children, adresse_tab);
     /*fonction f20(3);
     fonction f3(3);
     std::cout << "fonction f20(20);\n";
     f20.affichage();
     std::cout << "fonction f3(3);\n";
-    f3.affichage();    
+    f3.affichage();
     std::cout << "ON FE f20 = F3;\n";
     f20 = f3;
     std::cout << "fonction f20(20);\n";
     f20.affichage();
     std::cout << "fonction f3(3);\n";
-    f3.affichage();   
-    */ 
+    f3.affichage();
+    */
     //obj.generation(); // à enlever une fois que tout marche, on utilise cycleoflife
+    //! Application de la méthode permettant de produire les générations successives en gardant à chaque fois l'enfant avec le meilleur score
+    //! Renvoie en sortie la meilleure formule voulue par l'utilisateur et les scores correspondants, exploitée ensuite sur python
     obj.theCycleOfLife();
 	//obj.dataManage();
 
-    
+
     //construction obj(0,0,"gene.csv");
 	 //obj.dataManage(); //A enlever après
 
