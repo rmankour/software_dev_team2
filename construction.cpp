@@ -10,13 +10,13 @@
 //! Constructeur de la classe prenant les paramètres fournis par l'utilisateur afin de construire la formule expliquant le mieux les données et les scores correspondants
 
 construction::construction(const int gen, const int ind, const std::string adress){
-    //! Adresse du fichier .CSV fourni par l'utilisateur
+    // Adresse du fichier .CSV fourni par l'utilisateur
     adresse_ = adress;
-    //! Nombre d'individus par génération, indiqué par l'utilisateur
+    // Nombre d'individus par génération, indiqué par l'utilisateur
     numChildren_ = ind;
-    //! Nombre de générations à réaliser, indiqué par l'utilisateur
+    // Nombre de générations à réaliser, indiqué par l'utilisateur
     numGenerations_ = gen;
-    //! donne une valeur à tableau qui contient dans un tableau en 2D les données fournies par l'utilisateur
+    // donne une valeur à tableau qui contient dans un tableau en 2D les données fournies par l'utilisateur
 	dataManage();
 
 
@@ -32,7 +32,7 @@ construction::construction(const int gen, const int ind, const std::string adres
     //---------------------FIN TEST OUTPUT PYTHON----------
 
     fonction bestformule_(2);
-    //! pire valeur possible de SSE, dans le cas où il n'y a aucune correspondance
+    // pire valeur possible de SSE, dans le cas où il n'y a aucune correspondance
     best_sse_ = nb_ligtab2D_*nb_coltab2D_ + 1 ;
     best_fitness_ = nb_ligtab2D_*nb_coltab2D_ + 1 ;
     /*
@@ -73,7 +73,7 @@ construction::construction(const int gen, const int ind, const std::string adres
 */
 };
 
-//!destructeur de la classe
+//! Destructeur de la classe
 construction::~construction(){
 
     for(int i = 0; i <= nb_ligtab2D_; ++i) {
@@ -105,28 +105,28 @@ construction::~construction(){
 //! Méthode pour importer les données fournies par l'utilisateur sous la forme d'une tableau en 2D
 void construction::dataManage()
 {
-    //!ouvre un flux appellé ip avec l'adress du fichier csv
+    //ouvre un flux appellé ip avec l'adress du fichier csv
 	std::ifstream ip(adresse_);
 
 	if(!ip.is_open()) std::cout << "ERROR: File Open" << '\n';
 
 	std::string charac;
-    //!getline : récupère sous forme de string tout ce qu'il y a dans le flux jusqu'au cara indiqué ici '\n'
+    //getline : récupère sous forme de string tout ce qu'il y a dans le flux jusqu'au cara indiqué ici '\n'
 
 	getline(ip,charac,'\n');
 
 	//---------------------------------
-	//! PRETRAITEMENT : CHERCHE NB LIGNES / COLONNES
+	// PRETRAITEMENT : CHERCHE NB LIGNES / COLONNES
 
-	//! On cherche le nombre de colonnes
-    //! n donne le nombre de colonnes
+	// On cherche le nombre de colonnes
+    // n donne le nombre de colonnes
 	int n = std::count(charac.begin(), charac.end(), ',');
 	n++;
 
 
 
-	//!On cherche le nombre de lignes du csv
-    //!m est le nombre de ligne de notre fichier .csv
+	//On cherche le nombre de lignes du csv
+    //m est le nombre de ligne de notre fichier .csv
 	int m = 0;
 	while (ip.peek()!=EOF)
 	{
@@ -137,14 +137,14 @@ void construction::dataManage()
 	}
 	//std::cout << m << " ; "<< n << std::endl;
 
-    //!ferme le flux
+    //ferme le flux
 	ip.close();
 
 	//---------------------------------------------------------
-	//! LECTURE DU CSV
+	// LECTURE DU CSV
 	//
 	std::ifstream ip2(adresse_);
-    //!zappe la première ligne d'entête
+    //zappe la première ligne d'entête
 	getline(ip2,charac,'\n');
 
 
@@ -154,18 +154,18 @@ void construction::dataManage()
 	}
 	nb_ligtab2D_ = m;
 	nb_coltab2D_ = n-1;
-    //!zappe la première
+    //zappe la première
 	getline(ip2,charac,',');
 	while (ip2.peek()!=EOF)
 	{
-        //! parcourt les lignes m (de 0 à 577)
+        // parcourt les lignes m (de 0 à 577)
 		for (int i=0 ; i<=m-1 ; i++)
 		{
-            //! parcourt les colonnes n-2 (de 0 à 119)
+            // parcourt les colonnes n-2 (de 0 à 119)
 			for (int j=0 ; j<=n-2 ; j++)
 			{
 				//std::cout << "\n i = " << i << "   j = " << j << std::endl;
-                //!zappe la première occurence de chaque ligne (nom de l'expérience)
+                //zappe la première occurence de chaque ligne (nom de l'expérience)
 				getline(ip2,charac,',');
 				tab2d_[i][j] = (charac[0] == '1');
 				//std::cout << tab2d_[i][j];
@@ -189,21 +189,21 @@ bool construction::lectureCaseTab(int lig, int col)
 
 //! Méthode pour construire les enfants d'une génération, stockés dans le tableau storage, à partir de l'objet fonction correspondant au parent en input
 void construction::generation(fonction& argfonctiongen_){
-    //! on met dans storage l'ensemble des enfants clones
+    // on met dans storage l'ensemble des enfants clones
     for(int i = 0; i< numChildren_ ;i++)
     {
        storage_[i] = argfonctiongen_;
     }
-    //! chaque enfant subit une mutation de type 1,2,3 ou 4 (random)
+    // chaque enfant subit une mutation de type 1,2,3 ou 4 (random)
     for(int i =0; i< numChildren_ ;i++)
     {
        storage_[i].mutation();
     }
-    //! stocke dans predict_ les résultats de chaque enfant appliqué aux données
+    // stocke dans predict_ les résultats de chaque enfant appliqué aux données
     prediction(storage_);
 
-    //! compare la prédiction de chaque enfant pour chaque ligne, à chaque ligne de la dernière colonne du tab2d
-    //! modifie l'attribut bestformule_ qui contient désormais le meilleur enfant
+    // compare la prédiction de chaque enfant pour chaque ligne, à chaque ligne de la dernière colonne du tab2d
+    // modifie l'attribut bestformule_ qui contient désormais le meilleur enfant
     SSE(storage_);
 
 };
@@ -212,76 +212,76 @@ void construction::generation(fonction& argfonctiongen_){
 //! modifie l'argument predict qui est un tableau avec pour chaque enfant, la prédiction pour chaque ligne (0 ou 1)
 void construction::prediction(fonction *storage){
 
-    //!Calcul de la prédiction pour l'enfant j (pour chaque ligne du tab2d on a une prédiction)
+    //Calcul de la prédiction pour l'enfant j (pour chaque ligne du tab2d on a une prédiction)
     for(int j=0; j < numChildren_ ; j++) {
 
         int nb_genes = storage[j].getSizef();
         int taillep = storage[j].getSizef()*3-1;
-        //! resultat pour chaque ligne que l'on stockera dans le tableau
+        // resultat pour chaque ligne que l'on stockera dans le tableau
         bool res_fonc;
 
-        //! pour chaque ligne on calcule la prédiction de l'enfant j
+        // pour chaque ligne on calcule la prédiction de l'enfant j
         for (int k=0; k < nb_ligtab2D_ ;k++) {
-                //! premier Yes ou Not dans formule
+                // premier Yes ou Not dans formule
                 int node_yn = storage[j].getFormule()[0];
-                //! valeur que prend le premier gene de la formule à la ligne k
+                // valeur que prend le premier gene de la formule à la ligne k
                 int node_vark = tab2d_[k][storage[j].getFormule()[1]];
-                //! on applique le Yes ou Not sur cette valeur
+                // on applique le Yes ou Not sur cette valeur
                 res_fonc = (node_yn == 1) * (node_vark) + (node_yn == 0) * (!node_vark);
-                //! calcul la prédiction en prenant en compte toute la formule de l'enfant j
+                // calcul la prédiction en prenant en compte toute la formule de l'enfant j
                 for (int g=1; g < nb_genes; g++) {
-                    //! prochain YN dans la formule
+                    // prochain YN dans la formule
                     int node_yn = storage[j].getFormule()[g*3];
-                    //! valeur que prend le prochain gène dans la formule à la ligne k
+                    // valeur que prend le prochain gène dans la formule à la ligne k
                     int node_vark = tab2d_[k][storage[j].getFormule()[g*3+1]];
-                    //! opérateur And ou Or entre les gènes g et g-1
+                    // opérateur And ou Or entre les gènes g et g-1
                     int node_ao = storage[j].getFormule()[g*3-1];
-                    //! si YES
+                    // si YES
                     if(node_yn == 1) {
-                        //! si AND
+                        // si AND
                         if(node_ao == 1) {
-                            //! applique Yes et AND
+                            // applique Yes et AND
                             res_fonc = res_fonc && node_vark;
                         }
-                        //! si OR
+                        // si OR
                         else {
-                            //! applique YES et OR
+                            // applique YES et OR
                             res_fonc = res_fonc || node_vark;
                         }
                     }
-                    //! si NOT
+                    // si NOT
                     else {
-                        //! si AND
+                        // si AND
                         if(node_ao == 1) {
-                            //! applique NOT et AND
+                            // applique NOT et AND
                             res_fonc = res_fonc && !node_vark;
                         }
-                        //! si OR
+                        // si OR
                         else {
-                            //! applique NOT et OR
+                            // applique NOT et OR
                             res_fonc = res_fonc || !node_vark;
                         }
                     }
-                } //! boucle g
+                } // boucle g
 
-                /*! predict contient pour chaque enfant, la prediction pour chaque ligne
+                /* predict contient pour chaque enfant, la prediction pour chaque ligne
                 \ la premiere valeur de predict (ligne 0, formule0) est à comparer avec dernière colonne ligne 0
                 \ la deuxieme valeur de predict (ligne 1, formule0) est à comparer avec dernière colonne ligne 1
                 \ pour chaque enfant on stocke la prédiction de chaque ligne */
                 predict_[j*nb_ligtab2D_ + k]= res_fonc;
 
-        //! boucle k
+        // boucle k
         }
-    //! boucle j
+    // boucle j
     }
-//! fin prediction
+// fin prediction
 }
 
 
 //! Méthode prenant un tableau d'objets fonction correspondant aux enfants d'une génération
 //! calcule la sse et stocke la meilleure formule de la génération dans bestformule_
 void construction::SSE(fonction *storage){
-    //! 0 pour sse, autre chose pour fitness
+    // 0 pour sse, autre chose pour fitness
     int choix =0;
 
     if (choix==0){
@@ -289,61 +289,61 @@ void construction::SSE(fonction *storage){
     for(int j=0; j < numChildren_ ; j++) {
 
         int sse = 0;
-        //! on parcourt toutes les lignes du tab2d
+        // on parcourt toutes les lignes du tab2d
         for (int k=0; k < nb_ligtab2D_ ;k++) {
-            //! on stocke la valeur de la dernière colonne
+            // on stocke la valeur de la dernière colonne
             int valeur = tab2d_[k][nb_coltab2D_-1];
 
-            //! calcul de la sse : pour chaque ligne, chaque valeur prédite est comparée à la dernière colonne du tab2d
+            // calcul de la sse : pour chaque ligne, chaque valeur prédite est comparée à la dernière colonne du tab2d
             sse += pow((predict_[j*(nb_ligtab2D_-1)+k] - valeur), 2);
-        //! boucle k
+        // boucle k
         }
 
-        //! pour chaque enfant, on a le calcul de sse qui est la somme (des différences entre predit et valeur)
+        // pour chaque enfant, on a le calcul de sse qui est la somme (des différences entre predit et valeur)
         if (sse < best_sse_) {
-            //! la meilleure sse est la plus basse
+            // la meilleure sse est la plus basse
             best_sse_ = sse;
-            //! on actualise bestformule_ qui correspond à la sse la plus faible
+            // on actualise bestformule_ qui correspond à la sse la plus faible
             bestformule_ = storage_[j];
         }else{
-            //! si meme score que la formule actuelle dans bestformule_
+            // si meme score que la formule actuelle dans bestformule_
             if(sse == best_sse_){
-                    //!  conserver l'enfant j seulement s'il est plus court
+                    //  conserver l'enfant j seulement s'il est plus court
                     if(bestformule_.getSizef() > storage_[j].getSizef()){
                         best_sse_ = sse;
                         bestformule_ = storage_[j];
                     }
             }
-        //!fin du else
+        //fin du else
         }
-    //! boucle j
+    // boucle j
     }
 
     }
-    //! pour calcul avec fitness
+    // pour calcul avec fitness
     else
     {
 
-    //! calcul de la sse : pour chaque ligne, chaque valeur prédite est comparée à la dernière colonne du tab2d
+    // calcul de la sse : pour chaque ligne, chaque valeur prédite est comparée à la dernière colonne du tab2d
     for(int j=0; j < numChildren_ ; j++) {
-        //! autre façon de calculer le score
+        // autre façon de calculer le score
         float fitness = 0.0;
-        //! on parcourt toutes les lignes du tab2d
+        // on parcourt toutes les lignes du tab2d
         for (int k=0; k < nb_ligtab2D_ ;k++) {
-            //! on stocke la valeur de la dernière colonne
+            // on stocke la valeur de la dernière colonne
             int valeur = tab2d_[k][nb_coltab2D_-1];
 
 
             fitness += pow((predict_[j*(nb_ligtab2D_-1)+k] - valeur), 2);
-        //! boucle k
+        // boucle k
         }
 
-        //! PENALISATION DES OU
+        // PENALISATION DES OU
         int nbgenes = storage_[j].getSizef();
         int tailleform = nbgenes*3-1;
         int nbdeou = 0;
         for (int i=0; i < tailleform ; i++) {
-            //! si le node_ao == 0 c'est un OR
+            // si le node_ao == 0 c'est un OR
             if (storage_[j].getFormule()[i*3+2] == 0){
                 nbdeou++;
             }
@@ -351,13 +351,13 @@ void construction::SSE(fonction *storage){
 
         fitness = fitness * nbdeou/nbgenes;
         std::cout << "best_fitness_ = " << best_fitness_ << std::endl;
-        //! la meilleure fitness_ est la plus basse
+        // la meilleure fitness_ est la plus basse
         if (fitness < best_fitness_) {
             best_fitness_ = fitness;
             bestformule_ = storage_[j];}
-    //! boucle j
+    // boucle j
     }
-    //! fin else
+    // fin else
     }
 };
 
@@ -390,18 +390,18 @@ void construction::theCycleOfLife(){
     bestformule_.affichage();
 
 
-    //! pour voir un peu plus d'informations sur la sortie
+    // pour voir un peu plus d'informations sur la sortie
     int nbgenes = bestformule_.getSizef();
     int tailleform = nbgenes*3-1;
     int nbdeou = 0;
     int nbdeand = 0;
 
     for (int i=0; i < tailleform ; i++) {
-        //! si le node_ao == 0 c'est un OR
+        // si le node_ao == 0 c'est un OR
         if (bestformule_.getFormule()[i*3+2] == 0){
             nbdeou++;
         }
-        //! si le node_ao == 1 c'est un AND
+        // si le node_ao == 1 c'est un AND
         if (bestformule_.getFormule()[i*3+3] == 0){
             nbdeand++;
         }
@@ -412,7 +412,7 @@ void construction::theCycleOfLife(){
     std::cout << "nb de gènes dans bestformule_ = " << bestformule_.getSizef() << std::endl;
 
 
-    //!---------ECRITURE FICHIER OUTPUT -> TXT -> PYTHON
+    //---------ECRITURE FICHIER OUTPUT -> TXT -> PYTHON
     std::string stringaenvoyer = bestformule_.formuleToString();
     //testOutput.affichage();
     ecritureOutput(stringaenvoyer);
@@ -439,14 +439,14 @@ int construction::get_nbcol()
 	return nb_coltab2D_;
 };
 
-//!Méthode pour ouvrir un fichier texte et y écrire le docstring donné en argument
+//! Méthode pour ouvrir un fichier texte et y écrire le docstring donné en argument
 void construction::ecritureOutput(std::string trucaecrire)
 {
     std::ofstream monFlux("output_to_python.txt");
-    //!On teste si tout est OK
+    //On teste si tout est OK
     if(monFlux)
     {
-        //!Tout est OK, on peut utiliser le fichier
+        //Tout est OK, on peut utiliser le fichier
         monFlux << trucaecrire;
     }
     else

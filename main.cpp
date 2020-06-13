@@ -5,6 +5,27 @@
 
 //! Main program that executes the necessary commands to construct the formula
 
+/*! \mainpage FormuGen
+ *
+ * \section intro_sec Introduction
+ *
+ * This program's purpose is to determine the best formula that establishes the relationship between the expression of a set of genes and the expression of a determined gene.
+ *
+ * \section install_sec How to use it ?
+ *
+ * To use this program, you need to run the file execute_extern_cmds.py after modifying it to indicate the parameters you wish to use.
+ * The parameters are to be given in line 24 :
+ *
+ * run_cpp_ea(5,15,"gene.csv")
+ *
+ * They correspond in order to : the number of generations (cycles) the user wishes to apply, the number of children per generation and the adresse of the .CSV file containing the provided data.
+ *
+ * The program will then establish a formula and for each generation make a number of variations corresponding to the number of children per generation, choose the one most fitting to the provided data, then redo a new generation from it.
+ *
+ * Once the desired number of generations is done, the program will then show the resulting formula on the graphical output and a graph showing the evolution of the percentage of errors compared to the data with each new generation until the last.
+ *
+ */
+
 int main(int argc, char *argv[]) {
     /*
    printf("Hello, this is the beginning !");
@@ -25,15 +46,15 @@ int main(int argc, char *argv[]) {
     }
     */
     // on met les arguments dans des variables
-    //! convertit notre char en int
+    // convertit notre char en int
     int nb_children = std::atoi(argv[1]);
-    //! convertit notre char en int
+    // convertit notre char en int
     int nb_generation = std::atoi(argv[2]) ;
-    //! constructeur de string converti directement un char en int
+    // constructeur de string converti directement un char en int
     std::string adresse_tab = argv[3];
 
 
-    //! construit l'objet construction possédant les méthodes nécessaires au traitement des données
+    // construit l'objet construction possédant les méthodes nécessaires au traitement des données
     construction obj(nb_generation, nb_children, adresse_tab);
     /*fonction f20(3);
     fonction f3(3);
@@ -49,8 +70,8 @@ int main(int argc, char *argv[]) {
     f3.affichage();
     */
     //obj.generation(); // à enlever une fois que tout marche, on utilise cycleoflife
-    //! Application de la méthode permettant de produire les générations successives en gardant à chaque fois l'enfant avec le meilleur score
-    //! Renvoie en sortie la meilleure formule voulue par l'utilisateur et les scores correspondants, exploitée ensuite sur python
+    // Application de la méthode permettant de produire les générations successives en gardant à chaque fois l'enfant avec le meilleur score
+    // Renvoie en sortie la meilleure formule voulue par l'utilisateur et les scores correspondants, exploitée ensuite sur python
     obj.theCycleOfLife();
 	//obj.dataManage();
 
