@@ -28,6 +28,7 @@ construction::construction(const int gen, const int ind, const std::string adres
 
     fonction bestformule_(2);
     best_sse_ = nb_ligtab2D_*nb_coltab2D_ + 1 ; // pire des cas
+    best_fitness_ = nb_ligtab2D_*nb_coltab2D_ + 1 ;
     /*
     fonction formule_; // Devrait générer une formule au pif si la classe marche bien
     int compteurFormules = 0; // Permet d'avancer dans l'historique composé des 3 tableaux à suivre
@@ -170,109 +171,60 @@ bool construction::lectureCaseTab(int lig, int col)
 	return tab2d_[lig][col];
 };
 
-void construction::generation(fonction& argfonctiongen_){
-   // std::cout << "argfonctiongen_ au debut de la génération avant mutation : " << argfonctiongen_.getSizef()<< std::endl;
-    argfonctiongen_.affichage();
-    //std::cout << "avant mutation : " << std::endl;
+void construction::generation(fonction& argfonctiongen_){ 
+
     for(int i = 0; i< numChildren_ ;i++) // on met dans storage l'ensemble des enfants clones
     {
-       // std::cout << "numchild = " << i << "----------boucle arg: " << std::endl;
-       // argfonctiongen_.affichage();
-       // std::cout << "----------boucle storage: \n";
-       // std::cout << "    on affiche storage_[i] taille : " << storage_[i].getSizef() << std::endl;
-       // storage_[i].affichage();
-        //std::cout << "    on affiche argfonctiongen_ taille : " << argfonctiongen_.getSizef() << std::endl;
-        storage_[i] = argfonctiongen_;
-        //storage_[i].affichage();
+       storage_[i] = argfonctiongen_;
     }
 
-    // std::cout << "après mutation : " << std::endl;
-    for(int i =0; i< numChildren_ ;i++) // chaque enfant subit une mutation
+    for(int i =0; i< numChildren_ ;i++) // chaque enfant subit une mutation de type 1,2,3 ou 4 (random)
     {
-        //storage_[i].affichage();
-        std::cout << "\naffiche l'enfant n° " << i << " après " << std::endl;
-        storage_[i].mutation();
-        storage_[i].affichage();
-        int nbgenes = storage_[i].getSizef();
-        //std::cout << "\nnb de gènes = " << nbgenes << " pour enfant n° : " << i << std::endl;
+       storage_[i].mutation();
     }
 
-    prediction(storage_); // calcule pour chaque enfant une prédiction (pour chaque ligne du tab2d)
+    prediction(storage_); // stocke dans predict_ les résultats de chaque enfant appliqué aux données
 
     SSE(storage_); // compare la prédiction de chaque enfant pour chaque ligne, à chaque ligne de la dernière colonne du tab2d
     // modifie l'attribut bestformule_ qui contient désormais le meilleur enfant
  
 };
 
-// reçoit un tableau de formule et retourne la meilleure d'entre elles (en prenant aussi en compte la formule_ actuelle)
-
-
 
 void construction::prediction(fonction *storage){ 
-   
-    std::cout << "\n VOUS ETES DANS PREDICTION " << std::endl;
-    //std::cout << "nb de lignes de tab   : " << nb_ligtab2D_ << std::endl;
-    //std::cout << "nb de colonnes de tab : " << nb_coltab2D_ << std::endl;
-
-
 
     for(int j=0; j < numChildren_ ; j++) {
-        //Calcul de la prédiction pour la formule j
+        //Calcul de la prédiction pour l'enfant j (pour chaque ligne du tab2d on a une prédiction)
         
         int nb_genes = storage[j].getSizef(); 
         int taillep = storage[j].getSizef()*3-1;
-        //std::cout << "\ntaille p (nb de cases) : " << taillep << std::endl;
         
-        std::cout << "\n" << j << "  ième enfant de taille " << storage_[j].getSizef() <<"de la génération : " << std::endl;
-        storage[j].affichage();
-        
-        //std::cout << "\nprint enfant pour comparer à affichage : " <<std::endl;
-        
-        // à enlever une fois le code fonctionnel
-    /*    for (int i = 0; i < taillep; ++i){
-                    std::cout << storage[j].getFormule()[i] << " ";
-                } */
-
         bool res_fonc; // resultat pour chaque ligne que l'on stockera dans le tableau
 
-        
 
-        for (int k=0; k < nb_ligtab2D_ ;k++) { // pour chaque condition (ici 3) on a 6 gènes
-                //Calcul du resultat de ma formule
-
-                //std::cout << "\n ligne n° : " << k <<std::endl;
-
-                int node_yn = storage[j].getFormule()[0]; // Yes ou Not dans formule
-                //std::cout << "\n node_yn : " << node_yn << std::endl;
-
-                int node_vark = tab2d_[k][storage[j].getFormule()[1]]; // fait appel à valeur dans tableau
-                //std::cout << "node_vark : " << node_vark << std::endl;
-
-                res_fonc = (node_yn == 1) * (node_vark) + (node_yn == 0) * (!node_vark);
-
-                //std::cout << "YN " << node_yn << " node_vark " << node_vark << " nous donne : " << res_fonc << std::endl;
+        for (int k=0; k < nb_ligtab2D_ ;k++) { // pour chaque ligne on calcule la prédiction de l'enfant j
                 
-                //std::cout << "itération de la ligne : " << k << std::endl;
-                for (int g=1; g < nb_genes; g++) { // il y nb_genes dans formule
-                    //YES or NO
+                int node_yn = storage[j].getFormule()[0]; // premier Yes ou Not dans formule
+                
+                int node_vark = tab2d_[k][storage[j].getFormule()[1]]; // valeur que prend le premier gene de la formule à la ligne k
+                
+                res_fonc = (node_yn == 1) * (node_vark) + (node_yn == 0) * (!node_vark); // on applique le Yes ou Not sur cette valeur
+
+                for (int g=1; g < nb_genes; g++) { // calcul la prédiction en prenant en compte toute la formule de l'enfant j
                     
-                    int node_yn = storage[j].getFormule()[g*3]; 
-                    //std::cout << "itération g= : " << g << std::endl;
+                    int node_yn = storage[j].getFormule()[g*3]; // prochain YN dans la formule
 
-                    int node_vark = tab2d_[k][storage[j].getFormule()[g*3+1]];
-                    //std::cout << "YN sur node_vark : " << node_yn << " " << node_vark <<std::endl;
-                    //AND or OR
-                    int node_ao = storage[j].getFormule()[g*3-1]; //Si 1 : AND Si 0 : OR
-                    //std::cout << "node_ao : " << node_ao << std::endl;
+                    int node_vark = tab2d_[k][storage[j].getFormule()[g*3+1]]; // valeur que prend le prochain gène dans la formule à la ligne k
 
-                    //J'assemble le tout YEAH
+                    int node_ao = storage[j].getFormule()[g*3-1]; // opérateur And ou Or entre les gènes g et g-1
+                    
                     if(node_yn == 1) { // si YES
                         
                         if(node_ao == 1) { // si AND
-                            res_fonc = res_fonc && node_vark;
+                            res_fonc = res_fonc && node_vark; // applique Yes et AND
                         }
                         else { // si OR
-                            res_fonc = res_fonc || node_vark;
+                            res_fonc = res_fonc || node_vark; // applique YES et OR
                         }
                     }
                     else { // si NOT
@@ -283,82 +235,147 @@ void construction::prediction(fonction *storage){
                             res_fonc = res_fonc || !node_vark; // applique NOT et OR
                         }
                     }
-                    //std::cout << "res_fonc entre deux genes : " << res_fonc << std::endl;
-
                 } // boucle g
-                predict_[j*nb_ligtab2D_ + k]= res_fonc;
-                //std::cout << "predict : " << predict_[j*nb_ligtab2D_ + k] << std::endl;
 
-        } // boucle k
+                predict_[j*nb_ligtab2D_ + k]= res_fonc; // pour chaque enfant on stocke la prédiction de chaque ligne
+
+                // predict contient pour chaque enfant, la prediction pour chaque ligne
+                // la premiere valeur de predict (ligne 0, formule0) est à comparer avec dernière colonne ligne 0
+                // la deuxieme valeur de predict (ligne 1, formule0) est à comparer avec dernière colonne ligne 1
         
+        } // boucle k
     } // boucle j
-
-    
-
 } // fin prediction
 
 
 
-// modifie l'attribut bestformule_
+// calcule la sse et stocke la meilleure formule de la génération dans bestformule_
 void construction::SSE(fonction *storage){
 
+    int choix =0; // 0 pour sse, autre chose pour fitness
+
+    if (choix==0){
 
     for(int j=0; j < numChildren_ ; j++) {
 
         int sse = 0;
 
-            // predict contient la prediction pour chaque ligne (avec formule appliquée sur n-1 colonnes)
-            // la premiere valeur de predict (ligne 0, formule0) est à comparer avec dernière colonne ligne 0
-            // la deuxieme valeur de predict (ligne 1, formule0) est à comparer avec dernière colonne ligne 1
-
-        for (int k=0; k < nb_ligtab2D_ ;k++) {
-            //std::cout << "predict = "<< predict_[j*nb_ligtab2D_+k] << std::endl;
-            // on veut comparer predict à la valeur de la dernière colonne
-            int valeur = tab2d_[k][nb_coltab2D_-1];
-            //std::cout << "valeur = "<< valeur << std::endl;
-            //std::cout << "valeur de la dernère colonne du tab2d : " << valeur << std::endl;
+        for (int k=0; k < nb_ligtab2D_ ;k++) { // on parcourt toutes les lignes du tab2d
+            
+            int valeur = tab2d_[k][nb_coltab2D_-1]; // on stocke la valeur de la dernière colonne
+            
+            // calcul de la sse : pour chaque ligne, chaque valeur prédite est comparée à la dernière colonne du tab2d
             sse += pow((predict_[j*(nb_ligtab2D_-1)+k] - valeur), 2);
 
         } // boucle k
-        std::cout << "sse = " << sse << " pour l'enfant n°" << j << std::endl;
 
         // pour chaque enfant, on a le calcul de sse qui est la somme (des différences entre predit et valeur)
-        if (sse <= best_sse_) { // la meilleure sse est la plus basse
+        if (sse < best_sse_) { // la meilleure sse est la plus basse
             best_sse_ = sse;
-            //std::cout << "best sse in if : " << best_sse_ << std::endl;
-            
-            bestformule_ = storage_[j];} // on actualise bestformule_ qui correspond à la sse la plus faible
-
+            bestformule_ = storage_[j]; // on actualise bestformule_ qui correspond à la sse la plus faible
+        }else{
+            if(sse == best_sse_){ // si meme score que la formule actuelle dans bestformule_
+                    if(bestformule_.getSizef() > storage_[j].getSizef()){ //  conserver l'enfant j seulement s'il est plus court
+                        best_sse_ = sse;
+                        bestformule_ = storage_[j]; 
+                    }
+            }
+        } //fin du else
     } // boucle j
 
-    std::cout << "\n BEST SSE : " << best_sse_ << "\n bestformule :"<< std::endl;
-    bestformule_.affichage();
+    } 
+    else
+    { // pour calcul avec fitness
+
+    for(int j=0; j < numChildren_ ; j++) {
+
+        float fitness = 0.0; // autre façon de calculer le score
+
+        for (int k=0; k < nb_ligtab2D_ ;k++) { // on parcourt toutes les lignes du tab2d
+            
+            int valeur = tab2d_[k][nb_coltab2D_-1]; // on stocke la valeur de la dernière colonne
+            
+            // calcul de la sse : pour chaque ligne, chaque valeur prédite est comparée à la dernière colonne du tab2d
+            fitness += pow((predict_[j*(nb_ligtab2D_-1)+k] - valeur), 2);
+
+        } // boucle k
+
+        // PENALISATION DES OU
+        int nbgenes = storage_[j].getSizef();
+        int tailleform = nbgenes*3-1;
+        int nbdeou = 0;
+        for (int i=0; i < tailleform ; i++) {
+
+            if (storage_[j].getFormule()[i*3+2] == 0){ // si le node_ao == 0 c'est un OR
+                nbdeou++;
+            }
+        }
+
+        fitness = fitness * nbdeou/nbgenes;
+        std::cout << "best_fitness_ = " << best_fitness_ << std::endl;
+
+        if (fitness < best_fitness_) { // la meilleure fitness_ est la plus basse
+            best_fitness_ = fitness;
+            bestformule_ = storage_[j];}
+    } // boucle j
+    }// fin else
+};
     
-} ;
-    
-    
-// prend tous les paramètres donnés par l'utilisateur et réalise la boucle de calculs nécessaire pour aboutir à la formule_ finale
-void construction::theCycleOfLife(){
+
+void construction::theCycleOfLife(){ // réalise le nombre de générations donné par l'utilisateur
 
     std::cout << "\n DANS CYCLE_OF_LIFE " << std::endl;
     std::cout << "\nnb de lignes de tab   : " << nb_ligtab2D_ << std::endl;
     std::cout << "\nnb de colonnes de tab : " << nb_coltab2D_ << std::endl;
     fonction fonctiongen_(nb_coltab2D_);
-    //std::cout << "fonctiongen_affichage()\n";
-    //fonctiongen_.affichage();
-    // on pourrait initialiser ici la formule de départ, l'individu racine plutot que de le faire dans le constructeur
     
     for(int i=0; i < numGenerations_;i++) {
-        std::cout << "\npour la génération n°"<< i << std::endl;
+
         generation(fonctiongen_);
         fonctiongen_ = bestformule_;
+        if (i==0) {
+            std::cout << "après la premiere génération on a : " << std::endl;
+            bestformule_.affichage();
+            std::cout << "nb de gènes dans bestformule_ = " << bestformule_.getSizef() << std::endl;
+
+            }
     }
+
+    std::cout << "\n BEST SSE : " << best_sse_ << std::endl;
+    std::cout << "nb de lignes du tab2d : " << nb_ligtab2D_ << std::endl;
+    float percent = (float)best_sse_/nb_ligtab2D_ * 100;
+    std::cout << "nb d'erreurs : " << percent << " %" << std::endl;
+    std::cout << "bestformule_ : " << std::endl;
+
+    bestformule_.affichage();
+
+
+    // pour voir un peu plus d'informations sur la sortie
+    int nbgenes = bestformule_.getSizef();
+    int tailleform = nbgenes*3-1;
+    int nbdeou = 0;
+    int nbdeand = 0;
+
+    for (int i=0; i < tailleform ; i++) {
+
+        if (bestformule_.getFormule()[i*3+2] == 0){ // si le node_ao == 0 c'est un OR
+            nbdeou++;
+        }
+
+        if (bestformule_.getFormule()[i*3+3] == 0){ // si le node_ao == 1 c'est un AND
+            nbdeand++;
+        }
+    }
+
+    std::cout << "nb de ou dans bestformule_ = " << nbdeou << std::endl;
+    std::cout << "nb de and dans bestformule_ = " << nbdeand << std::endl;
+    std::cout << "nb de gènes dans bestformule_ = " << bestformule_.getSizef() << std::endl;
+
+
     //---------ECRITURE FICHIER OUTPUT -> TXT -> PYTHON
     std::string stringaenvoyer = bestformule_.formuleToString();
     //testOutput.affichage();
     ecritureOutput(stringaenvoyer);
-    // check si la valeur de sse n'est pas inférieure à celle de la meilleure fonction de la generation précédente
-    //fonctiongen_ = SSE(storage_); //stocke la nouvelle meilleure formule dans l'attribut de la classe   
 
 };
 

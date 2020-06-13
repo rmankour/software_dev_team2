@@ -1,7 +1,0 @@
-class operators
-{
-    public:
-
-    protected:
-
-};

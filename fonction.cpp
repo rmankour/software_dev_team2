@@ -66,6 +66,7 @@ void fonction::add_after_node(node *a, int value, int type)
 
     }
 
+
 /**
 * Default constructor.
 * Generates a random function with sizef_ variables picked randomly in the two possible variables.
@@ -110,8 +111,9 @@ fonction::fonction(int n){
 	srand(time(NULL)); 
 	//! n-1 variables can be used in the formula
 	n_ = n-1;
-	/*! < Initial formula's size is picked randomly between 1 and n_ >*/
-	sizef_ = std::rand()%n_ + 1;
+	//!  Initial formula's size is 4
+	sizef_ = 4;
+
 
 	head_ = NULL;
     tail_ = NULL;
@@ -284,6 +286,7 @@ fonction& fonction::operator=(fonction& fct)
 
 		int val;
 		int ty;
+
 		for (int i = SizeLeft*3-1 ; i < sizef_*3-1 ; ++i) 
 		{
 
@@ -499,6 +502,7 @@ std::string fonction::formuleToString(){
 	while (temp != NULL)
     {
         strtempbrut += std::to_string(temp->value_);
+        //std::cout << "temp->value "  << temp->value_ << "    strtempbrut " << strtempbrut <<std::endl;
         strtempbrut += "_";
         temp = temp->next_;
  
@@ -506,11 +510,13 @@ std::string fonction::formuleToString(){
     //std::cout << strtempbrut << std::endl;
     int compteur = 0;
     int j = 0;
+    bool reini;
     std::string output = "";
     while(j < strtempbrut.length())
     {
     	if(strtempbrut[j] != '_')
     	{
+    		reini = 0;
     		//-----------------------caractères not/yes
     		if (compteur == 0) // on est dans un truc not/yes
     		{
@@ -546,9 +552,13 @@ std::string fonction::formuleToString(){
 		    	else{
 		    		output += " | ";
 		    	}
-		    	compteur = 0;
+		    	reini = 1;
 	    	}
 	    	compteur++;	
+	    	if (reini==1)
+	    	{
+	    		compteur = 0;
+	    	}
     	}
     	j++;
     	//traite les trucs 3 par 3 
