@@ -22,7 +22,6 @@ construction::construction(const int gen, const int ind, const std::string adres
 
     storage_ = new fonction[numChildren_];
     predict_ = new bool[numChildren_ * nb_ligtab2D_];
-    std::cout << "coucou après crea storage et predict_\n";
 
     //---------------------TEST OUTPUT PYTHON--------------
     /*fonction testOutput(9);
