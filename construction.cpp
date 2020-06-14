@@ -359,6 +359,9 @@ void construction::SSE(fonction *storage){
     }
     // fin else
     }
+    std::string fitnessstring = std::to_string((float)best_sse_/nb_ligtab2D_ * 100);
+    fitnessstring += " ";
+    ecritureFitness(fitnessstring);
 };
 
 //! réalise le nombre de générations demandé par l'utilisateur
@@ -368,7 +371,8 @@ void construction::theCycleOfLife(){
     std::cout << "\nnb de lignes de tab   : " << nb_ligtab2D_ << std::endl;
     std::cout << "\nnb de colonnes de tab : " << nb_coltab2D_ << std::endl;
     fonction fonctiongen_(nb_coltab2D_);
-
+    flushFitnessFile();
+    ecritureFitness("100 ");  
     for(int i=0; i < numGenerations_;i++) {
 
         generation(fonctiongen_);
@@ -439,7 +443,7 @@ int construction::get_nbcol()
 	return nb_coltab2D_;
 };
 
-//! Méthode pour ouvrir un fichier texte et y écrire le docstring donné en argument
+//! Méthode pour ouvrir un fichier texte et y écrire le string donné en argument : ici on exporte la formule au format txt
 void construction::ecritureOutput(std::string trucaecrire)
 {
     std::ofstream monFlux("output_to_python.txt");
@@ -454,4 +458,32 @@ void construction::ecritureOutput(std::string trucaecrire)
        std::cout << "ERREUR: Impossible d'ouvrir le fichier." << std::endl;
     }
 
+}
+//! Méthode pour ouvrir un fichier texte et y écrire le string donné en argument : ici on exporte la fitness au format txt
+void construction::ecritureFitness(std::string trucaecrire)
+{
+    std::ofstream monFlux("fitness_to_python.txt", std::ios_base::app);
+    if(monFlux)  //On teste si tout est OK
+    {
+        //Tout est OK, on peut utiliser le fichier
+        monFlux << trucaecrire;
+    }
+    else
+    {
+       std::cout << "ERREUR: Impossible d'ouvrir le fichier." << std::endl;
+    }
+}
+//! Méthode pour vider le fichier txt contenant la fitness
+void construction::flushFitnessFile()
+{
+    std::ofstream monFlux("fitness_to_python.txt");
+    if(monFlux)  //On teste si tout est OK
+    {
+        //Tout est OK, on peut utiliser le fichier
+        monFlux << "";
+    }
+    else
+    {
+       std::cout << "ERREUR: Impossible d'ouvrir le fichier." << std::endl;
+    }
 }

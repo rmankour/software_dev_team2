@@ -49,7 +49,7 @@ class fonction{
 		fonction& operator=(fonction& fct);
         //! Displays the function as a serie of integers
 		void affichage();
-        //! Displays the function as a string
+        //! Returns the function as a string
         std::string formuleToString();
 
     protected :

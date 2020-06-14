@@ -481,7 +481,7 @@ void fonction::mutation()
 
 	    	}
 
-	    	// The size of the formula is updates
+	    	// The size of the formula is updated
 	    	sizef_++;
 	    	// Formule_ is updated
 	    	delete []formule_;

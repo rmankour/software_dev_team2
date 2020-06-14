@@ -1,5 +1,7 @@
 import os
 from sympy import simplify
+import matplotlib.pyplot as plt
+import numpy as np
 
 ## Fichier à exectuter par l'utilisateur pour lancer l'analyse des données et l'affichage graphique
 ## La ligne 24 est à modifier pour changer les paramètres du traitement tel que précisé à la ligne 23
@@ -21,7 +23,7 @@ def run_cpp_ea(nb_children, nb_generations, file_path):
 compile()
 
 ## MODIFIER CETTE LIGNE EN METTANT LES ARGUMENTS DE VOTRE CHOIX AVEC DANS L'ORDRE : le nombre de générations, le nombre d'enfants par génération et l'adresse du fichier .CSV contenant le tableau de données
-run_cpp_ea(5,15,"gene.csv")
+run_cpp_ea(10,500,"gene.csv")
 
 ## Code permettant de lancer l'affichage graphique : A DECOMMENTER SI VOUS VOULEZ L'AFFICHAGE de SIMPLIFY SIMPY
 mon_fichier = open("output_to_python.txt", "r")
@@ -31,3 +33,10 @@ print("résultat non simplify : ")
 print(contenu)
 print("résultat de simplify : ")
 print(simplify(contenu))
+x = np.genfromtxt('fitness_to_python.txt', delimiter=' ')[:-1]
+plt.plot(x, label='taux d erreur')
+plt.xlabel('Nb de génération')
+plt.ylabel('taux d erreur')
+plt.title('Evolution du taux d erreur en fonction du nombre de génération' )
+plt.legend()
+plt.show()

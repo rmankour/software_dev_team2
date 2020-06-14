@@ -29,8 +29,12 @@ class construction
     //! Méthode pour donner le nombre de colonnes du tableau
     int get_nbcol();
 
+    //! Méthode pour ouvrir un fichier texte et y écrire le string donné en argument : ici on exporte la formule au format txt
     void ecritureOutput(std::string trucaecrire);
-
+    //! Méthode pour ouvrir un fichier texte et y écrire le string donné en argument : ici on exporte la fitness au format txt
+    void ecritureFitness(std::string trucaecrire);
+    //! Méthode pour vider le fichier txt contenant la fitness
+    void flushFitnessFile();
     protected:
     //! Adresse du fichier .CSV fournie par l'utilisateur
     std::string adresse_;
