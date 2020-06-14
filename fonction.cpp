@@ -527,7 +527,7 @@ std::string fonction::formuleToString(){
     }
     //std::cout << strtempbrut << std::endl;
     int compteur = 0;
-    int j = 0;
+    size_t j = 0;
     bool reini;
     std::string output = "";
     while(j < strtempbrut.length())
