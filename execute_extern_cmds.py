@@ -3,7 +3,7 @@ from sympy import simplify
 import matplotlib.pyplot as plt
 import numpy as np
 
-## Fichier à exectuter par l'utilisateur pour lancer l'analyse des données et l'affichage graphique
+## Fichier à executer par l'utilisateur pour lancer l'analyse des données et l'affichage graphique
 ## La ligne 24 est à modifier pour changer les paramètres du traitement tel que précisé à la ligne 23
 
 ## Classe permettant de lancer la compilation des fichiers cpp nécessaires au traitement
@@ -29,14 +29,14 @@ run_cpp_ea(10,500,"gene.csv")
 mon_fichier = open("output_to_python.txt", "r")
 contenu = mon_fichier.read()
 mon_fichier.close()
-print("résultat non simplify : ")
+print("\nRésultat non simplify : ")
 print(contenu)
-print("résultat de simplify : ")
+print("Résultat de simplify : ")
 print(simplify(contenu))
 x = np.genfromtxt('fitness_to_python.txt', delimiter=' ')[:-1]
-plt.plot(x, label='taux d erreur')
-plt.xlabel('Nb de génération')
-plt.ylabel('taux d erreur')
-plt.title('Evolution du taux d erreur en fonction du nombre de génération' )
+plt.plot(x, label='''Taux d'erreurs''')
+plt.xlabel('Nombre de génération')
+plt.ylabel('''Taux d'erreurs''')
+plt.title('''Evolution du taux d'erreurs en fonction du nombre de génération''')
 plt.legend()
 plt.show()

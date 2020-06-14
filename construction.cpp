@@ -85,7 +85,7 @@ construction::~construction(){
        delete []predict_;
     }
 
-    std::cout << "avant storage" << std::endl;
+    //std::cout << "avant storage" << std::endl;
 
     if (storage_)
     {
@@ -93,7 +93,7 @@ construction::~construction(){
     }
 
 
-    std::cout << "dest storage" << std::endl;
+    //std::cout << "dest storage" << std::endl;
 
     //delete []tab_positions;
     //delete []tab_type;
@@ -367,8 +367,8 @@ void construction::SSE(fonction *storage){
 void construction::theCycleOfLife(){
 
     std::cout << "\n DANS CYCLE_OF_LIFE " << std::endl;
-    std::cout << "\nnb de lignes de tab   : " << nb_ligtab2D_ << std::endl;
-    std::cout << "\nnb de colonnes de tab : " << nb_coltab2D_ << std::endl;
+    std::cout << "\nNombre de lignes du tableau à analyser   : " << nb_ligtab2D_ << std::endl;
+    std::cout << "Nombre de colonnes du tableau à analyser : " << nb_coltab2D_ << std::endl;
     fonction fonctiongen_(nb_coltab2D_);
     flushFitnessFile();
     ecritureFitness("100 ");  
@@ -377,18 +377,19 @@ void construction::theCycleOfLife(){
         generation(fonctiongen_);
         fonctiongen_ = bestformule_;
         if (i==0) {
-            std::cout << "après la premiere génération on a : " << std::endl;
+            std::cout << " Après la première génération, le meilleure formule trouvée est : " << std::endl;
             bestformule_.affichage();
-            std::cout << "nb de gènes dans bestformule_ = " << bestformule_.getSizef() << std::endl;
+            std::cout << "Nombre de gènes dans la meilleure formule : " << bestformule_.getSizef() << std::endl;
 
             }
     }
-
-    std::cout << "\n BEST SSE : " << best_sse_ << std::endl;
-    std::cout << "nb de lignes du tab2d : " << nb_ligtab2D_ << std::endl;
+    
+    std::cout << "\n Après la dernière génération de formules, on a : " << std::endl;
+    std::cout << "\nBEST SSE : " << best_sse_ << std::endl;
+    std::cout << "Nombre de lignes du tableau en INPUT : " << nb_ligtab2D_ << std::endl;
     float percent = (float)best_sse_/nb_ligtab2D_ * 100;
-    std::cout << "nb d'erreurs : " << percent << " %" << std::endl;
-    std::cout << "bestformule_ : " << std::endl;
+    std::cout << "Taux d'erreurs : " << percent << " %" << std::endl;
+    std::cout << "Formule la plus adaptée au jeu de données trouvée : " << std::endl;
 
     bestformule_.affichage();
 
@@ -410,9 +411,9 @@ void construction::theCycleOfLife(){
         }
     }
 
-    std::cout << "nb de OU dans bestformule_ = " << nbdeou << std::endl;
-    std::cout << "nb de AND dans bestformule_ = " << nbdeand << std::endl;
-    std::cout << "nb de gènes dans bestformule_ = " << bestformule_.getSizef() << std::endl;
+    std::cout << "Nombre de OU dans la formule = " << nbdeou << std::endl;
+    std::cout << "Nombre de AND dans la formule = " << nbdeand << std::endl;
+    std::cout << "Nombre de gènes dans la formule = " << bestformule_.getSizef() << std::endl;
 
 
     //---------ECRITURE FICHIER OUTPUT -> TXT -> PYTHON
