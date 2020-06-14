@@ -400,16 +400,19 @@ void construction::theCycleOfLife(){
     int nbdeou = 0;
     int nbdeand = 0;
 
-    for (int i=0; i < tailleform ; i++) {
-        // si le node_ao == 0 c'est un OR
-        if (bestformule_.getFormule()[i*3+2] == 0){
+	for (int i=0; i < tailleform ; i++) {
+		//Sur le node ao
+		if(i%3 == 2) {
+        	// si le node_ao == 0 c'est un OR
+			if(bestformule_.getFormule()[i]==0) {
             nbdeou++;
-        }
-        // si le node_ao == 1 c'est un AND
-        if (bestformule_.getFormule()[i*3+3] == 0){
+			}
+        	// si le node_ao == 1 c'est un AND
+			else if(bestformule_.getFormule()[i] == 1){
             nbdeand++;
-        }
-    }
+			}		
+		}
+	}
 
     std::cout << "Nombre de OU dans la formule = " << nbdeou << std::endl;
     std::cout << "Nombre de AND dans la formule = " << nbdeand << std::endl;
