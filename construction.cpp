@@ -294,7 +294,7 @@ void construction::SSE(fonction *storage){
             int valeur = tab2d_[k][nb_coltab2D_-1];
 
             // calcul de la sse : pour chaque ligne, chaque valeur prédite est comparée à la dernière colonne du tab2d
-            sse += pow((predict_[j*(nb_ligtab2D_-1)+k] - valeur), 2);
+            sse += pow((predict_[j*(nb_ligtab2D_)+k] - valeur), 2);
         // boucle k
         }
 
@@ -333,7 +333,7 @@ void construction::SSE(fonction *storage){
             int valeur = tab2d_[k][nb_coltab2D_-1];
 
 
-            fitness += pow((predict_[j*(nb_ligtab2D_-1)+k] - valeur), 2);
+            fitness += pow((predict_[j*(nb_ligtab2D_)+k] - valeur), 2);
         // boucle k
         }
 
@@ -341,12 +341,15 @@ void construction::SSE(fonction *storage){
         int nbgenes = storage_[j].getSizef();
         int tailleform = nbgenes*3-1;
         int nbdeou = 0;
-        for (int i=0; i < tailleform ; i++) {
-            // si le node_ao == 0 c'est un OR
-            if (storage_[j].getFormule()[i*3+2] == 0){
-                nbdeou++;
-            }
-        }
+		for (int i=0; i < tailleform ; i++) {
+			//Sur le node ao
+			if(i%3 == 2) {
+		    	// si le node_ao == 0 c'est un OR
+				if(bestformule_.getFormule()[i]==0) {
+		        	nbdeou++;
+				}		
+			}
+		}
 
         fitness = fitness * nbdeou/nbgenes;
         std::cout << "best_fitness_ = " << best_fitness_ << std::endl;
