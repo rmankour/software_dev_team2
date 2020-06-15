@@ -18,7 +18,7 @@
  *
  * run_cpp_ea(5,15,"gene.csv")
  *
- * They correspond in order to : the number of generations (cycles) the user wishes to apply, the number of children per generation and the adresse of the .CSV file containing the provided data.
+ * They correspond in order to : the number of children per generation, the number of generations (cycles) the user wishes to apply and the adresse of the .CSV file containing the provided data.
  *
  * The program will then establish a formula and for each generation make a number of variations corresponding to the number of children per generation, choose the one most fitting to the provided data, then redo a new generation from it.
  *
